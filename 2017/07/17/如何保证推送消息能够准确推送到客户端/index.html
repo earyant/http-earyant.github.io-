@@ -316,9 +316,20 @@
 </ul>
 <h4 id="推送的缺点"><a href="#推送的缺点" class="headerlink" title="推送的缺点"></a>推送的缺点</h4><ul>
 <li>不能保证一定能推送成功。</li>
-<li>缺乏数据多样性，推送的消息一般都有固定的模板</li>
+<li>缺乏数据多样性，推送的消息一般都有固定的模板<br>####极光推送</li>
+<li>活跃用户的到达率在90%以上。轮询获取99%以上。</li>
+<li>并发情况下第三方服务的实时性不太理想。</li>
 </ul>
-<p>   PUSH系统控制到达率在90%以上。轮询获取99%以上。</p>
+<h4 id="自主研发的推送系统"><a href="#自主研发的推送系统" class="headerlink" title="自主研发的推送系统"></a>自主研发的推送系统</h4><ul>
+<li>对客户端的海量长连接的维护管理消耗太大。</li>
+<li>App端Service稳定性，保活。</li>
+<li>有些厂商不允许有push service存在。</li>
+</ul>
+<p>##自主研发的推送架构</p>
+<h3 id="架构方案类似："><a href="#架构方案类似：" class="headerlink" title="架构方案类似："></a>架构方案类似：</h3><p>   <img src="http://upload-images.jianshu.io/upload_images/1760830-e6fbb7ae6613b8ae?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>            （图片来自架构之美公众号，侵删）</p>
+<ul>
+<li>通过动态组合和扩展方式，结合移动Push推送数据分析，不同的手机使用不同的方案，针对性的优化，android平台中，融合多种不同的第三方推送PUSH平台，提高转化率。</li>
+</ul>
 
 	
 	
