@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-18T06:02:40.922Z</updated>
+  <updated>2017-07-18T06:22:57.117Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>完整写一篇博客</title>
+    <link href="http://yoursite.com/2017/07/18/%E5%AE%8C%E6%95%B4%E5%86%99%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2017/07/18/完整写一篇博客/</id>
+    <published>2017-07-18T06:03:42.000Z</published>
+    <updated>2017-07-18T06:22:57.117Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1命令行创建一个md文件。&quot;&gt;&lt;a href=&quot;#1命令行创建一个md文件。&quot; class=&quot;headerlink&quot; title=&quot;1命令行创建一个md文件。&quot;&gt;&lt;/a&gt;1命令行创建一个md文件。&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;hexo new “title”&lt;/li
+    
+    </summary>
+    
+      <category term="hexo教程" scheme="http://yoursite.com/categories/hexo%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+      <category term="教程" scheme="http://yoursite.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>搭建Material主题的Hexo博客</title>
