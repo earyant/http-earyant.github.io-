@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-18T09:25:04.196Z</updated>
+  <updated>2017-07-18T09:33:09.647Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,14 +20,13 @@
     <link href="http://yoursite.com/2017/07/18/datetimepicker%20bootstrap%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
     <id>http://yoursite.com/2017/07/18/datetimepicker bootstrap日期格式化/</id>
     <published>2017-07-18T09:17:59.000Z</published>
-    <updated>2017-07-18T09:25:04.196Z</updated>
+    <updated>2017-07-18T09:33:09.647Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;##&lt;/p&gt;
-&lt;ul&gt;
+      &lt;ul&gt;
 &lt;li&gt;p : 小写上下午 (‘am’ or ‘pm’)  meridian in lower case (‘am’ or ‘pm’) - according to locale file &lt;/li&gt;
-&lt;li&gt;P : 大写上下午 (‘AM’ or ‘
+&lt;li&gt;P : 大写上下午 (‘AM’ or ‘PM’) merid
     
     </summary>
     
