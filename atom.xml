@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-18T06:22:57.117Z</updated>
+  <updated>2017-07-18T09:12:59.537Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jquery日期格式化</title>
+    <link href="http://yoursite.com/2017/07/18/datetimepicker%20Jquery%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    <id>http://yoursite.com/2017/07/18/datetimepicker Jquery日期格式化/</id>
+    <published>2017-07-18T09:06:37.000Z</published>
+    <updated>2017-07-18T09:12:59.537Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;年&quot;&gt;&lt;a href=&quot;#年&quot; class=&quot;headerlink&quot; title=&quot;年&quot;&gt;&lt;/a&gt;年&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;y 一位数的年份（2001 显示为 “1”）。&lt;/li&gt;
+&lt;li&gt;yy 年份的最后两位数（2001 显示为 “01”）。&lt;/li&gt;
+&lt;l
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>完整写一篇博客</title>
