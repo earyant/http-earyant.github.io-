@@ -12,7 +12,7 @@
     
     <title>
         
-            如何保证推送消息能够准确推送到客户端 | 
+            SpringCloud学习3服务消费者feign | 
         
         Earyant的技术博客
     </title>
@@ -67,18 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://earyant.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="如何保证推送消息能够准确推送到客户端 | Earyant的技术博客">
+    <meta property="og:title" content="SpringCloud学习3服务消费者feign | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
-        <meta property="article:published_time" content="Tue Jul 18 2017 09:52:39 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Jul 18 2017 09:53:27 GMT+0800" />
+        <meta property="article:published_time" content="Fri Jul 21 2017 14:20:56 GMT+0800" />
+        <meta property="article:modified_time" content="Fri Jul 21 2017 14:24:03 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="如何保证推送消息能够准确推送到客户端 | Earyant的技术博客">
+    <meta name="twitter:title" content="SpringCloud学习3服务消费者feign | Earyant的技术博客">
     <meta name="twitter:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +86,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -112,10 +112,10 @@
         },
         "description": "Welcom to Earyant's blog"
     },
-    "headline": "如何保证推送消息能够准确推送到客户端",
-    "url": "http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html",
-    "datePublished": "Tue Jul 18 2017 09:52:39 GMT+0800",
-    "dateModified": "Tue Jul 18 2017 09:53:27 GMT+0800",
+    "headline": "SpringCloud学习3服务消费者feign",
+    "url": "http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html",
+    "datePublished": "Fri Jul 21 2017 14:20:56 GMT+0800",
+    "dateModified": "Fri Jul 21 2017 14:24:03 GMT+0800",
     "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -349,7 +349,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何保证推送消息能够准确推送到客户端。"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何保证推送消息能够准确推送到客户端。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#手机端："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">手机端：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#微服务间如何选择推送和拉取数据"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">微服务间如何选择推送和拉取数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据是动态的，且实时性较强，宜采用生产端推送。"><span class="post-toc-number">1.2.0.1.</span> <span class="post-toc-text">数据是动态的，且实时性较强，宜采用生产端推送。</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#客户端长时间离线状态"><span class="post-toc-number">1.2.0.2.</span> <span class="post-toc-text">客户端长时间离线状态</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#推送的优点"><span class="post-toc-number">1.2.0.3.</span> <span class="post-toc-text">推送的优点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#推送的缺点"><span class="post-toc-number">1.2.0.4.</span> <span class="post-toc-text">推送的缺点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自主研发的推送系统"><span class="post-toc-number">1.2.0.5.</span> <span class="post-toc-text">自主研发的推送系统</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#架构方案类似："><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">架构方案类似：</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用feign"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用feign</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开启feign"><span class="post-toc-number">3.</span> <span class="post-toc-text">开启feign</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#调用服务"><span class="post-toc-number">4.</span> <span class="post-toc-text">调用服务</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -387,7 +387,7 @@
         
     
             <p class="article-headline-p">
-                如何保证推送消息能够准确推送到客户端
+                SpringCloud学习3服务消费者feign
             </p>
         </div>
 
@@ -406,7 +406,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Earyant</strong>
-        <span>7月 18, 2017</span>
+        <span>7月 21, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -428,7 +428,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/">
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/">
     
 </ul>
     
@@ -468,7 +468,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=如何保证推送消息能够准确推送到客户端&url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=SpringCloud学习3服务消费者feign&url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=如何保证推送消息能够准确推送到客户端&url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html&via=Earyant" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=SpringCloud学习3服务消费者feign&url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html&via=Earyant" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -495,7 +495,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -504,7 +504,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html&title=如何保证推送消息能够准确推送到客户端" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html&title=SpringCloud学习3服务消费者feign" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -513,7 +513,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=如何保证推送消息能够准确推送到客户端&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=SpringCloud学习3服务消费者feign&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -522,7 +522,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/07/18/如何保证推送消息能够准确推送到客户端/index.html&text=如何保证推送消息能够准确推送到客户端" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/index.html&text=SpringCloud学习3服务消费者feign" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -537,36 +537,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="如何保证推送消息能够准确推送到客户端。"><a href="#如何保证推送消息能够准确推送到客户端。" class="headerlink" title="如何保证推送消息能够准确推送到客户端。"></a>如何保证推送消息能够准确推送到客户端。</h1><h2 id="手机端："><a href="#手机端：" class="headerlink" title="手机端："></a>手机端：</h2><ul>
-<li>轮询方式获取消息。</li>
-<li>短信拦截模式。  发送短信通知消息，应用中的短信拦截模块拦截短信，并解析成数据。成本高。</li>
-<li><p>持久连接。</p>
-<p>监听电量变化，网络变化，开关屏幕等等时候注册BroadCastReceiver来接收通知，接手后进行消息获取。<br>有些ROM一旦用户kill掉主线程，就不会再投送广播消息给应用，导致应用无法启动，这是可以Fork一个进程,一旦发现主线程被杀，立即调用shell启动该Service（应用保活）</p>
-</li>
-</ul>
-<h2 id="微服务间如何选择推送和拉取数据"><a href="#微服务间如何选择推送和拉取数据" class="headerlink" title="微服务间如何选择推送和拉取数据"></a>微服务间如何选择推送和拉取数据</h2><p>在消息系统中，一般有两种消费模式：生产端推送消息，消费主动拉取消息。</p>
-<h4 id="数据是动态的，且实时性较强，宜采用生产端推送。"><a href="#数据是动态的，且实时性较强，宜采用生产端推送。" class="headerlink" title="数据是动态的，且实时性较强，宜采用生产端推送。"></a>数据是动态的，且实时性较强，宜采用生产端推送。</h4><p>   例如家长手机控制孩子手机使用，希望设置立即生效，家长端设置后由<strong>立即</strong>由中间系统进行通知。如果让消费端轮询查消息，不仅不能保证消息的实时性和准确性，而且系统也会造成一定的损耗，供应链系统也会被迫处理重复订单问题。<br>    如果把消息设置成实时推送也是不合适的，<strong>推送成不成功不应该作为设置成功的条件</strong>。设置功能和推送功能不应该是强关联的，就像发送验证码，服务器收到了发送验证码的功能请求后，异步交给验证码发送功能，返回给客户200成功，随后验证码发送功能进行异步通知，确保通知成功即可。</p>
-<h4 id="客户端长时间离线状态"><a href="#客户端长时间离线状态" class="headerlink" title="客户端长时间离线状态"></a>客户端长时间离线状态</h4><p>   客户端长时间离线状态（断网，没电等等），没办法推送过去，会暂存在一个暂存表中，等待客户端联网等监听广播事件进行主动获取，消息获取成功，就会把离线消息表里的消息转移到已发送的消息表中。（不在本表中将已发送的消息的字段置为已读，会影响查询速度。）</p>
-<h4 id="推送的优点"><a href="#推送的优点" class="headerlink" title="推送的优点"></a>推送的优点</h4><ul>
-<li>时效性高。</li>
-<li>服务器压力小。 相对比轮询拉取模式，每次推送都会有数据，有效避免了空轮询</li>
-<li>交互简单。 只需要提供推送接口就好了，不需要额外开销。</li>
-</ul>
-<h4 id="推送的缺点"><a href="#推送的缺点" class="headerlink" title="推送的缺点"></a>推送的缺点</h4><ul>
-<li>不能保证一定能推送成功。</li>
-<li>缺乏数据多样性，推送的消息一般都有固定的模板<br>####极光推送</li>
-<li>活跃用户的到达率在90%以上。轮询获取99%以上。</li>
-<li>并发情况下第三方服务的实时性不太理想。</li>
-</ul>
-<h4 id="自主研发的推送系统"><a href="#自主研发的推送系统" class="headerlink" title="自主研发的推送系统"></a>自主研发的推送系统</h4><ul>
-<li>对客户端的海量长连接的维护管理消耗太大。</li>
-<li>App端Service稳定性，保活。</li>
-<li>有些厂商不允许有push service存在。</li>
-</ul>
-<p>##自主研发的推送架构</p>
-<h3 id="架构方案类似："><a href="#架构方案类似：" class="headerlink" title="架构方案类似："></a>架构方案类似：</h3><p>   <img src="http://upload-images.jianshu.io/upload_images/1760830-e6fbb7ae6613b8ae?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>            （图片来自架构之美公众号，侵删）</p>
-<ul>
-<li>通过动态组合和扩展方式，结合移动Push推送数据分析，不同的手机使用不同的方案，针对性的优化，android平台中，融合多种不同的第三方推送PUSH平台，提高转化率。</li>
+        <h3 id="使用feign"><a href="#使用feign" class="headerlink" title="使用feign"></a>使用feign</h3><p>spring-cloud-starter-eureka<br>spring-cloud-starter-feign<br>spring-boot-starter-web<br>spring-boot-starter-test</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>eureka:<br>  client:<br>    serviceUrl:<br>      defaultZone: <a href="http://localhost:8761/eureka/" target="_blank" rel="external">http://localhost:8761/eureka/</a><br>server:<br>  port: 8765<br>spring:<br>  application:<br>    name: service-feign</p>
+<h3 id="开启feign"><a href="#开启feign" class="headerlink" title="开启feign"></a>开启feign</h3><ul>
+<li>在程序的入口类，需要通过注解 @EnableFeignClients 来开启 feign:<h3 id="调用服务"><a href="#调用服务" class="headerlink" title="调用服务"></a>调用服务</h3></li>
+<li>定义一个 feign 接口类, 通过 @ FeignClient（“服务名”），来指定调用哪个服务：</li>
 </ul>
 
     
@@ -587,7 +562,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/18/JVM介绍/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/07/21/SpringCloud学习4断路器（Hystrix）/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -600,6 +575,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/07/21/SpringCloud学习2服务消费者/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 

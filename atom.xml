@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2017-07-18T09:33:09.647Z</updated>
+  <updated>2017-07-27T02:12:34.011Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -16,11 +16,169 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mysql索引B+树</title>
+    <link href="http://earyant.github.io/2017/07/27/Mysql%E7%B4%A2%E5%BC%95B-%E6%A0%91/"/>
+    <id>http://earyant.github.io/2017/07/27/Mysql索引B-树/</id>
+    <published>2017-07-27T01:46:50.000Z</published>
+    <updated>2017-07-27T02:12:34.011Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://blog.jobbole.com/111757/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;看这篇文章讲的很好&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;B-树（Balance-Tree）&quot;&gt;&lt;a href=&quot;#B-树（Balan
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>100块钱可以兑换50块、10块、5块、1块的算法</title>
+    <link href="http://earyant.github.io/2017/07/26/100%E5%9D%97%E9%92%B1%E5%8F%AF%E4%BB%A5%E5%85%91%E6%8D%A250%E5%9D%97%E3%80%8110%E5%9D%97%E3%80%815%E5%9D%97%E3%80%811%E5%9D%97%E7%9A%84%E7%AE%97%E6%B3%95/"/>
+    <id>http://earyant.github.io/2017/07/26/100块钱可以兑换50块、10块、5块、1块的算法/</id>
+    <published>2017-07-26T03:10:38.000Z</published>
+    <updated>2017-07-26T03:19:04.597Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;最先想到的当然是for循环了：&quot;&gt;&lt;a href=&quot;#最先想到的当然是for循环了：&quot; class=&quot;headerlink&quot; title=&quot;最先想到的当然是for循环了：&quot;&gt;&lt;/a&gt;最先想到的当然是for循环了：&lt;/h3&gt;&lt;figure class=&quot;highli
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud学习5路由网关(zuul)</title>
+    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A05%E8%B7%AF%E7%94%B1%E7%BD%91%E5%85%B3-zuul/"/>
+    <id>http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/</id>
+    <published>2017-07-21T06:53:52.000Z</published>
+    <updated>2017-07-21T07:01:48.077Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在微服务架构中，需要几个关键的组件，服务注册与发现、服务消费、负载均衡、断路器、智能路由、配置管理等，由这几个组件可以组建一个简单的微服务架构，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;img/路由网关.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;注意：A 服务和 
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud学习4断路器（Hystrix）</title>
+    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A04%E6%96%AD%E8%B7%AF%E5%99%A8%EF%BC%88Hystrix%EF%BC%89/"/>
+    <id>http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/</id>
+    <published>2017-07-21T06:38:04.000Z</published>
+    <updated>2017-07-21T06:53:20.870Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在微服务架构中，我们将业务拆分成一个个的服务，服务与服务之间可以相互调用（RPC）。为了保证其高可用，单个服务又必须集群部署。由于网络原因或者自身的原因，服务并不能保证服务的 100% 可用，如果单个服务出现问题，调用这个服务就会出现网络延迟，此时若有大量的网络涌入，会形成
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud学习3服务消费者feign</title>
+    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A03%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85feign/"/>
+    <id>http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/</id>
+    <published>2017-07-21T06:20:56.000Z</published>
+    <updated>2017-07-21T06:24:03.295Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;使用feign&quot;&gt;&lt;a href=&quot;#使用feign&quot; class=&quot;headerlink&quot; title=&quot;使用feign&quot;&gt;&lt;/a&gt;使用feign&lt;/h3&gt;&lt;p&gt;spring-cloud-starter-eureka&lt;br&gt;spring-cloud-starte
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud学习2服务消费者</title>
+    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A02%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85/"/>
+    <id>http://earyant.github.io/2017/07/21/SpringCloud学习2服务消费者/</id>
+    <published>2017-07-21T03:32:34.000Z</published>
+    <updated>2017-07-21T06:17:37.850Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在上一篇文章，讲了服务的注册和发现。在服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于 http restful 的。spring cloud 有两种调用方式，一种是 ribbon+restTemplate，另一种是 feign。在这一篇文章首先讲解下基于
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud学习1EurekaServer</title>
+    <link href="http://earyant.github.io/2017/07/20/SpringCloud%E5%AD%A6%E4%B9%A01EurekaServer/"/>
+    <id>http://earyant.github.io/2017/07/20/SpringCloud学习1EurekaServer/</id>
+    <published>2017-07-20T10:23:14.000Z</published>
+    <updated>2017-07-21T03:30:27.634Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;创建EurekaServer&quot;&gt;&lt;a href=&quot;#创建EurekaServer&quot; class=&quot;headerlink&quot; title=&quot;创建EurekaServer&quot;&gt;&lt;/a&gt;创建EurekaServer&lt;/h2&gt;&lt;h3 id=&quot;Idea初始化项目&quot;&gt;&lt;a hre
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微信公众平台Dubbo项目结构</title>
+    <link href="http://earyant.github.io/2017/07/20/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0Dubbo%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/"/>
+    <id>http://earyant.github.io/2017/07/20/微信公众平台Dubbo项目结构/</id>
+    <published>2017-07-20T09:07:10.000Z</published>
+    <updated>2017-07-20T09:07:43.547Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="dubbo" scheme="http://earyant.github.io/tags/dubbo/"/>
+    
+      <category term="微信公众平台" scheme="http://earyant.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于微信公众号的微服务架构</title>
+    <link href="http://earyant.github.io/2017/07/20/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
+    <id>http://earyant.github.io/2017/07/20/基于微信公众号的微服务架构/</id>
+    <published>2017-07-20T07:16:46.000Z</published>
+    <updated>2017-07-20T08:46:25.511Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;wechatParent:    &lt;ul&gt;
+&lt;li&gt;wechat-base-parent&lt;/li&gt;
+&lt;li&gt;wechat-business-parent&lt;/li&gt;
+&lt;li&gt;wechat-core-parent&lt;/li&gt;
+&lt;li&gt;wechat-web-parent
+    
+    </summary>
+    
+    
+      <category term="微信" scheme="http://earyant.github.io/tags/%E5%BE%AE%E4%BF%A1/"/>
+    
+      <category term="微服务" scheme="http://earyant.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>bootstrap日期格式化</title>
     <link href="http://earyant.github.io/2017/07/18/datetimepicker%20bootstrap%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
     <id>http://earyant.github.io/2017/07/18/datetimepicker bootstrap日期格式化/</id>
     <published>2017-07-18T09:17:59.000Z</published>
-    <updated>2017-07-18T09:33:09.647Z</updated>
+    <updated>2017-07-18T10:08:40.323Z</updated>
     
     <summary type="html">
     
