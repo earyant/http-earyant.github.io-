@@ -12,7 +12,7 @@
     
     <title>
         
-            SpringCloud学习4断路器（Hystrix） | 
+            七大查找算法 | 
         
         Earyant的技术博客
     </title>
@@ -67,18 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://earyant.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="SpringCloud学习4断路器（Hystrix） | Earyant的技术博客">
+    <meta property="og:title" content="七大查找算法 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
-        <meta property="article:published_time" content="Fri Jul 21 2017 14:38:04 GMT+0800" />
-        <meta property="article:modified_time" content="Fri Jul 21 2017 14:53:20 GMT+0800" />
+        <meta property="article:published_time" content="Thu Jul 27 2017 10:30:07 GMT+0800" />
+        <meta property="article:modified_time" content="Thu Jul 27 2017 11:24:04 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="SpringCloud学习4断路器（Hystrix） | Earyant的技术博客">
+    <meta name="twitter:title" content="七大查找算法 | Earyant的技术博客">
     <meta name="twitter:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +86,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2017/07/27/七大查找算法/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -112,10 +112,10 @@
         },
         "description": "Welcom to Earyant's blog"
     },
-    "headline": "SpringCloud学习4断路器（Hystrix）",
-    "url": "http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html",
-    "datePublished": "Fri Jul 21 2017 14:38:04 GMT+0800",
-    "dateModified": "Fri Jul 21 2017 14:53:20 GMT+0800",
+    "headline": "七大查找算法",
+    "url": "http://earyant.github.io/2017/07/27/七大查找算法/index.html",
+    "datePublished": "Thu Jul 27 2017 10:30:07 GMT+0800",
+    "dateModified": "Thu Jul 27 2017 11:24:04 GMT+0800",
     "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -349,7 +349,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#断路器简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">断路器简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-ribbon-使用断路器"><span class="post-toc-number">2.</span> <span class="post-toc-text">在 ribbon 使用断路器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Feign-中使用断路器"><span class="post-toc-number">3.</span> <span class="post-toc-text">Feign 中使用断路器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Circuit-Breaker-Hystrix-Dashboard-断路器：hystrix-仪表盘"><span class="post-toc-number">4.</span> <span class="post-toc-text">Circuit Breaker: Hystrix Dashboard (断路器：hystrix 仪表盘)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在主程序入口中加入-EnableHystrixDashboard-注解，开启-hystrixDashboard："><span class="post-toc-number">5.</span> <span class="post-toc-text">在主程序入口中加入 @EnableHystrixDashboard 注解，开启 hystrixDashboard：</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查找算法分类："><span class="post-toc-number">1.</span> <span class="post-toc-text">查找算法分类：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-顺序查找"><span class="post-toc-number"></span> <span class="post-toc-text">1. 顺序查找</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-二分查找"><span class="post-toc-number"></span> <span class="post-toc-text">2. 二分查找</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-树表查找"><span class="post-toc-number"></span> <span class="post-toc-text">5. 树表查找</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-2-平衡查找树之2-3查找树（2-3-Tree）"><span class="post-toc-number">1.</span> <span class="post-toc-text">5.2 平衡查找树之2-3查找树（2-3 Tree）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-3-平衡查找树之红黑树（Red-Black-Tree）"><span class="post-toc-number">2.</span> <span class="post-toc-text">5.3 平衡查找树之红黑树（Red-Black Tree）</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -387,7 +387,7 @@
         
     
             <p class="article-headline-p">
-                SpringCloud学习4断路器（Hystrix）
+                七大查找算法
             </p>
         </div>
 
@@ -406,7 +406,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Earyant</strong>
-        <span>7月 21, 2017</span>
+        <span>7月 27, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -428,7 +428,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/">
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/07/27/七大查找算法/">
     
 </ul>
     
@@ -468,7 +468,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=SpringCloud学习4断路器（Hystrix）&url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=七大查找算法&url=http://earyant.github.io/2017/07/27/七大查找算法/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=SpringCloud学习4断路器（Hystrix）&url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html&via=Earyant" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=七大查找算法&url=http://earyant.github.io/2017/07/27/七大查找算法/index.html&via=Earyant" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/07/27/七大查找算法/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -495,7 +495,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/07/27/七大查找算法/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -504,7 +504,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html&title=SpringCloud学习4断路器（Hystrix）" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/07/27/七大查找算法/index.html&title=七大查找算法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -513,7 +513,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=SpringCloud学习4断路器（Hystrix）&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=七大查找算法&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/07/27/七大查找算法/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -522,7 +522,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/index.html&text=SpringCloud学习4断路器（Hystrix）" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/07/27/七大查找算法/index.html&text=七大查找算法" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -537,40 +537,61 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>在微服务架构中，我们将业务拆分成一个个的服务，服务与服务之间可以相互调用（RPC）。为了保证其高可用，单个服务又必须集群部署。由于网络原因或者自身的原因，服务并不能保证服务的 100% 可用，如果单个服务出现问题，调用这个服务就会出现网络延迟，此时若有大量的网络涌入，会形成任务累计，导致服务瘫痪，甚至导致服务 “雪崩”。<br>为了解决这个问题，就出现断路器模型。</p>
-<h3 id="断路器简介"><a href="#断路器简介" class="headerlink" title="断路器简介"></a>断路器简介</h3><ul>
-<li>Netflix 已经创建了一个名为 Hystrix 的库来实现断路器模式。 在微服务架构中，多层服务调用是非常常见的。</li>
-<li>较底层的服务如果出现故障，会导致连锁故障。当对特定的服务的调用达到一个阀值（hystric 是 5 秒 20 次） 断路器将会被打开。</li>
-<li>断路打开后，可用避免连锁故障，fallback 方法可以直接返回一个固定值。</li>
+        <p><a href="http://blog.jobbole.com/111629/" target="_blank" rel="external">原文链接</a></p>
+<h3 id="查找算法分类："><a href="#查找算法分类：" class="headerlink" title="查找算法分类："></a>查找算法分类：</h3><ul>
+<li>1）静态查找和动态查找；<br> 注：静态或者动态都是针对查找表而言的。动态表指查找表中有删除和插入操作的表。</li>
+<li>2）无序查找和有序查找。<ul>
+<li>无序查找：被查找数列有序无序均可；</li>
+<li>有序查找：被查找数列必须为有序数列。</li>
 </ul>
-<h3 id="在-ribbon-使用断路器"><a href="#在-ribbon-使用断路器" class="headerlink" title="在 ribbon 使用断路器"></a>在 ribbon 使用断路器</h3><ul>
-<li><p>改造 serice-ribbon 工程的代码：</p>
-<p>在 pox.xml 文件中加入：</p>
-<dependency><br>     <groupid>org.springframework.cloud</groupid><br>     <artifactid>spring-cloud-starter-hystrix</artifactid><br></dependency> 
-</li>
-<li><p>在程序的入口类加 @EnableHystrix：   </p>
-</li>
-<li><p>改造 HelloService 类，加上 @HystrixCommand，并指定 fallbackMethod 方法。</p>
 </li>
 </ul>
-<h3 id="Feign-中使用断路器"><a href="#Feign-中使用断路器" class="headerlink" title="Feign 中使用断路器"></a>Feign 中使用断路器</h3><ul>
-<li><p>如果你使用了 feign，feign 是自带断路器的，并且是已经打开了。如果使用 feign 不想用断路器的话，可以在配置文件中关闭它，配置如下：</p>
-<p>feign.hystrix.enabled=false</p>
+<h2 id="1-顺序查找"><a href="#1-顺序查找" class="headerlink" title="1. 顺序查找"></a>1. 顺序查找</h2><p>   挨个查找，不用多说，时间复杂度为O(n);</p>
+<h2 id="2-二分查找"><a href="#2-二分查找" class="headerlink" title="2. 二分查找"></a>2. 二分查找</h2><ul>
+<li><p>说明元素必须是有序的，如果是无序的则要先进行排序操作。</p>
+</li>
+<li><p>基本思想：也称为是折半查找，属于有序查找算法。用给定值k先与中间结点的关键字比较，中间结点把线形表分成两个子表，若相等则查找成功；若不相等，再根据k与该中间结点关键字的比较结果确定下一步查找哪个子表，这样递归进行，直到查找到或查找结束发现表中没有这样的结点。     </p>
+</li>
+<li>复杂度分析：最坏情况下，关键词比较次数为log2(n+1)，且期望时间复杂度为O(log2n)；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">    //二分查找（折半查找），版本1</div><div class="line">int BinarySearch1(int a[], int value, int n)</div><div class="line">&#123;</div><div class="line"> int low, high, mid;</div><div class="line"> low = 0;</div><div class="line"> high = n-1;</div><div class="line"> while(low&lt;=high)</div><div class="line"> &#123;</div><div class="line">     mid = (low+high)/2;</div><div class="line">     if(a[mid]==value)</div><div class="line">     return mid;</div><div class="line">     if(a[mid]&gt;value)</div><div class="line">     high = mid-1;</div><div class="line">     if(a[mid]&lt;value)</div><div class="line">     low = mid+1;</div><div class="line"> &#125;</div><div class="line">     return -1;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">//二分查找，递归版本</div><div class="line">int BinarySearch2(int a[], int value, int low, int high)</div><div class="line">&#123;</div><div class="line">   int mid = low+(high-low)/2;</div><div class="line">   if(a[mid]==value)</div><div class="line">   return mid;</div><div class="line">   if(a[mid]&gt;value)</div><div class="line">   return BinarySearch2(a, value, low, mid-1);</div><div class="line">   if(a[mid]&lt;value)</div><div class="line">   return BinarySearch2(a, value, mid+1, high);</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"></div><div class="line"></div><div class="line">## 3. 插值查找</div><div class="line"></div><div class="line">在介绍插值查找之前，首先考虑一个新问题，为什么上述算法一定要是折半，而不是折四分之一或者折更多呢？</div><div class="line"></div><div class="line">打个比方，在英文字典里面查“apple”，你下意识翻开字典是翻前面的书页还是后面的书页呢？如果再让你查“zoo”，你又怎么查？很显然，这里你绝对不会是从中间开始查起，而是有一定目的的往前或往后翻。&lt;</div><div class="line"></div><div class="line">同样的，比如要在取值范围1 ~ 10000 之间 100 个元素从小到大均匀分布的数组中查找5， 我们自然会考虑从数组下标较小的开始查找。</div><div class="line"></div><div class="line">经过以上分析，折半查找这种查找方式，不是自适应的（也就是说是傻瓜式的）。二分查找中查找点计算如下：</div><div class="line"></div><div class="line">mid=(low+high)/2, 即mid=low+1/2*(high-low);</div><div class="line"></div><div class="line">通过类比，我们可以将查找的点改进为如下：</div><div class="line"></div><div class="line">mid=low+(key-a[low])/(a[high]-a[low])*(high-low)，</div><div class="line"></div><div class="line">也就是将上述的比例参数1/2改进为自适应的，根据关键字在整个有序表中所处的位置，让mid值的变化更靠近关键字key，这样也就间接地减少了比较次数。</div><div class="line"></div><div class="line">* 基本思想：基于二分查找算法，将查找点的选择改进为自适应选择，可以提高查找效率。当然，差值查找也属于有序查找。</div><div class="line"></div><div class="line">* 注：对于表长较大，而关键字分布又比较均匀的查找表来说，插值查找算法的平均性能比折半查找要好的多。反之，数组中如果分布非常不均匀，那么插值查找未必是很合适的选择。</div><div class="line">**如果分布比较均匀，插值查找比二分查找快，如果分布不均匀，二分查找比较快**</div><div class="line">* 复杂度分析：查找成功或者失败的时间复杂度均为O(log2(log2n))。</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="Circuit-Breaker-Hystrix-Dashboard-断路器：hystrix-仪表盘"><a href="#Circuit-Breaker-Hystrix-Dashboard-断路器：hystrix-仪表盘" class="headerlink" title="Circuit Breaker: Hystrix Dashboard (断路器：hystrix 仪表盘)"></a>Circuit Breaker: Hystrix Dashboard (断路器：hystrix 仪表盘)</h3><ul>
-<li><p>基于 service-ribbon 改造下：</p>
-<p>pom.xml 加入：</p>
-<dependency><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-starter-actuator</artifactid><br>        </dependency>
+<p>//插值查找<br>int InsertionSearch(int a[], int value, int low, int high)<br>{<br>     int mid = low+(value-a[low])/(a[high]-a[low])*(high-low);<br>     if(a[mid]==value)<br>        return mid;<br>     if(a[mid]&gt;value)<br>        return InsertionSearch(a, value, low, mid-1);<br>     if(a[mid]<value) return="" insertionsearch(a,="" value,="" mid+1,="" high);="" }="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 4. 斐波那契查找</div><div class="line"></div><div class="line">在介绍斐波那契查找算法之前，我们先介绍一下很它紧密相连并且大家都熟知的一个概念——黄金分割。</div><div class="line"></div><div class="line">黄金比例又称黄金分割，是指事物各部分间一定的数学比例关系，即将整体一分为二，较大部分与较小部分之比等于整体与较大部分之比，其比值约为1:0.618或1.618:1。</div><div class="line"></div><div class="line">0.618被公认为最具有审美意义的比例数字，这个数值的作用不仅仅体现在诸如绘画、雕塑、音乐、建筑等艺术领域，而且在管理、工程设计等方面也有着不可忽视的作用。因此被称为黄金分割。</div><div class="line"></div><div class="line">大家记不记得斐波那契数列：1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89…….（从第三个数开始，后边每一个数都是前两个数的和）。然后我们会发现，随着斐波那契数列的递增，前后两个数的比值会越来越接近0.618，利用这个特性，我们就可以将黄金比例运用到查找技术中。</div><div class="line"></div><div class="line"></div><div class="line">* 基本思想：也是二分查找的一种提升算法，通过运用黄金比例的概念在数列中选择查找点进行查找，提高查找效率。同样地，斐波那契查找也属于一种有序查找算法。</div><div class="line"></div><div class="line">相对于折半查找，一般将待比较的key值与第mid=（low+high）/2位置的元素比较，比较结果分三种情况：</div><div class="line">   * 1）相等，mid位置的元素即为所求</div><div class="line"></div><div class="line">   * 2）&gt;，low=mid+1;</div><div class="line"></div><div class="line">   * 3）&lt;，high=mid-1。</div><div class="line"></div><div class="line">斐波那契查找与折半查找很相似，他是根据斐波那契序列的特点对有序表进行分割的。他要求开始表中记录的个数为某个斐波那契数小1，及n=F(k)-1;</div><div class="line"></div><div class="line">开始将k值与第F(k-1)位置的记录进行比较(及mid=low+F(k-1)-1),比较结果也分为三种</div><div class="line"></div><div class="line">   * 1）相等，mid位置的元素即为所求</div><div class="line"></div><div class="line">   * 2）&gt;，low=mid+1,k-=2;</div><div class="line"></div><div class="line">说明：low=mid+1说明待查找的元素在[mid+1,high]范围内，k-=2 说明范围[mid+1,high]内的元素个数为n-(F(k-1))= Fk-1-F(k-1)=Fk-F(k-1)-1=F(k-2)-1个，所以可以递归的应用斐波那契查找。</div><div class="line"></div><div class="line">   * 3）&lt;，high=mid-1,k-=1。</div><div class="line"></div><div class="line">说明：low=mid+1说明待查找的元素在[low,mid-1]范围内，k-=1 说明范围[low,mid-1]内的元素个数为F(k-1)-1个，所以可以递归 的应用斐波那契查找。</div><div class="line"></div><div class="line">复杂度分析：最坏情况下，时间复杂度为O(log2n)，且其期望复杂度也为O(log2n)。</div><div class="line"></div><div class="line">```const int max_size=20;//斐波那契数组的长度</div><div class="line">    </div><div class="line">   /*构造一个斐波那契数组*/</div><div class="line">   void Fibonacci(int * F)</div><div class="line">   &#123;</div><div class="line">      F[0]=0;</div><div class="line">      F[1]=1;</div><div class="line">      for(int i=2;i&lt;max_size;++i)</div><div class="line">      F[i]=F[i-1]+F[i-2];</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">   /*定义斐波那契查找法*/</div><div class="line">   int FibonacciSearch(int *a, int n, int key) //a为要查找的数组,n为要查找的数组长度,key为要查找的关键字</div><div class="line">   &#123;</div><div class="line">      int low=0;</div><div class="line">      int high=n-1;</div><div class="line">    </div><div class="line">      int F[max_size];</div><div class="line">      Fibonacci(F);//构造一个斐波那契数组F</div><div class="line">    </div><div class="line">      int k=0;</div><div class="line">      while(n&gt;F[k]-1)//计算n位于斐波那契数列的位置</div><div class="line">      ++k;</div><div class="line">    </div><div class="line">      int * temp;//将数组a扩展到F[k]-1的长度</div><div class="line">      temp=new int [F[k]-1];</div><div class="line">      memcpy(temp,a,n*sizeof(int));</div><div class="line">    </div><div class="line">      for(int i=n;i&lt;F[k]-1;++i)</div><div class="line">      temp[i]=a[n-1];</div><div class="line">    </div><div class="line">      while(low&lt;=high)</div><div class="line">   &#123;</div><div class="line">      int mid=low+F[k-1]-1;</div><div class="line">      if(key&lt;temp[mid])</div><div class="line">   &#123;</div><div class="line">      high=mid-1;</div><div class="line">      k-=1;</div><div class="line">   &#125;</div><div class="line">      else if(key&gt;temp[mid])</div><div class="line">   &#123;</div><div class="line">      low=mid+1;</div><div class="line">      k-=2;</div><div class="line">   &#125;</div><div class="line">      else</div><div class="line">   &#123;</div><div class="line">      if(mid&lt;n)</div><div class="line">      return mid; //若相等则说明mid即为查找到的位置</div><div class="line">      else</div><div class="line">      return n-1; //若mid&gt;=n则说明是扩展的数值,返回n-1</div><div class="line">   &#125;</div><div class="line">   &#125;</div><div class="line">      delete [] temp;</div><div class="line">      return -1;</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">      int main()</div><div class="line">   &#123;</div><div class="line">      int a[] = &#123;0,16,24,35,47,59,62,73,88,99&#125;;</div><div class="line">      int key=100;</div><div class="line">      int index=FibonacciSearch(a,sizeof(a)/sizeof(int),key);</div><div class="line">      cout&lt;&lt;key&lt;&lt;&quot; is located at:&quot;&lt;&lt;index;</div><div class="line">      return 0;</div><div class="line">   &#125;</div></pre></td></tr></table></value)></p>
+<h2 id="5-树表查找"><a href="#5-树表查找" class="headerlink" title="5. 树表查找"></a>5. 树表查找</h2><p>  ###5.1 最简单的树表查找算法——二叉树查找算法。</p>
+<ul>
+<li><p>基本思想：二叉查找树是先对待查找的数据进行生成树，确保树的左分支的值小于右分支的值，然后在就行和每个节点的父节点比较大小，查找最适合的范围。 这个算法的查找效率很高，但是如果使用这种查找方法要首先创建树。</p>
+<p>二叉查找树（BinarySearch Tree，也叫二叉搜索树，或称二叉排序树Binary Sort Tree）或者是一棵空树，或者是具有下列性质的二叉树：</p>
+<p>1）若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</p>
+<p>2）若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</p>
+<p>3）任意节点的左、右子树也分别为二叉查找树。</p>
+<p>二叉查找树性质：对二叉查找树进行中序遍历，即可得到有序的数列。</p>
+<p>不同形态的二叉查找树如下图所示：</p>
+<ul>
+<li>复杂度分析：它和二分查找一样，插入和查找的时间复杂度均为O(logn)，但是在最坏的情况下仍然会有O(n)的时间复杂度。原因在于插入和删除元素的时候，树没有保持平衡（比如，我们查找上图（b）中的“93”，我们需要进行n次查找操作）。我们追求的是在最坏的情况下仍然有较好的时间复杂度，这就是平衡查找树设计的初衷。</li>
+</ul>
+</li>
+</ul>
+<p>基于二叉查找树进行优化，进而可以得到其他的树表查找算法，如平衡树、红黑树等高效算法。</p>
+<h3 id="5-2-平衡查找树之2-3查找树（2-3-Tree）"><a href="#5-2-平衡查找树之2-3查找树（2-3-Tree）" class="headerlink" title="5.2 平衡查找树之2-3查找树（2-3 Tree）"></a>5.2 平衡查找树之2-3查找树（2-3 Tree）</h3><p>2-3查找树定义：和二叉树不一样，2-3树运行每个节点保存1个或者两个的值。对于普通的2节点(2-node)，他保存1个key和左右两个自己点。对应3节点(3-node)，保存两个Key，2-3查找树的定义如下：</p>
+<ul>
+<li><p>1）要么为空，要么：</p>
+</li>
+<li><p>2）对于2节点，该节点保存一个key及对应value，以及两个指向左右节点的节点，左节点也是一个2-3节点，所有的值都比key要小，右节点也是一个2-3节点，所有的值比key要大。</p>
+</li>
+<li><p>3）对于3节点，该节点保存两个key及对应value，以及三个指向左中右的节点。左节点也是一个2-3节点，所有的值均比两个key中的最小的key还要小；中间节点也是一个2-3节点，中间节点的key值在两个跟节点key值之间；右节点也是一个2-3节点，节点的所有key值比两个key中的最大的key还要大。   </p>
+</li>
+<li><p>2-3查找树的性质：</p>
+<p>1）如果中序遍历2-3查找树，就可以得到排好序的序列；</p>
+<p>2）在一个完全平衡的2-3查找树中，根节点到每一个为空节点的距离都相同。（这也是平衡树中“平衡”一词的概念，根节点到叶节点的最长距离对应于查找算法的最坏情况，而平衡树中根节点到叶节点的距离都一样，最坏情况也具有对数复杂度。）</p>
+<ul>
+<li>复杂度分析：</li>
+</ul>
+<p>2-3树的查找效率与树的高度是息息相关的。</p>
+<p>在最坏的情况下，也就是所有的节点都是2-node节点，查找效率为lgN<br>在最好的情况下，所有的节点都是3-node节点，查找效率为log3N约等于0.631lgN<br>距离来说，对于1百万个节点的2-3树，树的高度为12-20之间，对于10亿个节点的2-3树，树的高度为18-30之间。</p>
+</li>
+</ul>
+<h3 id="5-3-平衡查找树之红黑树（Red-Black-Tree）"><a href="#5-3-平衡查找树之红黑树（Red-Black-Tree）" class="headerlink" title="5.3 平衡查找树之红黑树（Red-Black Tree）"></a>5.3 平衡查找树之红黑树（Red-Black Tree）</h3><p>  2-3查找树能保证在插入元素之后能保持树的平衡状态，最坏情况下即所有的子节点都是2-node，树的高度为lgn，从而保证了最坏情况下的时间复杂度。但是2-3树实现起来比较复杂，于是就有了一种简单实现2-3树的数据结构，即红黑树（Red-Black Tree）。</p>
+<p>  基本思想：红黑树的思想就是对2-3查找树进行编码，尤其是对2-3查找树中的3-nodes节点添加额外的信息。红黑树中将节点之间的链接分为两种不同类型，红色链接，他用来链接两个2-nodes节点来表示一个3-nodes节点。黑色链接用来链接普通的2-3节点。特别的，使用红色链接的两个2-nodes来表示一个3-nodes节点，并且向左倾斜，即一个2-node是另一个2-node的左子节点。这种做法的好处是查找的时候不用做任何修改，和普通的二叉查找树相同。</p>
 
-<pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-starter-hystrix-dashboard&lt;/artifactId&gt;
-&lt;/dependency&gt;        
-</code></pre></li>
-</ul>
-<h3 id="在主程序入口中加入-EnableHystrixDashboard-注解，开启-hystrixDashboard："><a href="#在主程序入口中加入-EnableHystrixDashboard-注解，开启-hystrixDashboard：" class="headerlink" title="在主程序入口中加入 @EnableHystrixDashboard 注解，开启 hystrixDashboard："></a>在主程序入口中加入 @EnableHystrixDashboard 注解，开启 hystrixDashboard：</h3><pre><code>该仪表盘可以查看错误率
-</code></pre>
     
 
     
@@ -589,7 +610,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/21/SpringCloud学习5路由网关-zuul/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/07/28/springBot配置大全（转载）/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -603,7 +624,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2017/07/21/SpringCloud学习3服务消费者feign/" id="post_nav-older" class="next-content">
+        <a href="/2017/07/27/跳跃表/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
