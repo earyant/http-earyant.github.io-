@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2017/7 | 
+            HashMap全解析 | 
         
         Earyant的技术博客
     </title>
@@ -67,15 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://earyant.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2017/7 | Earyant的技术博客">
+    <meta property="og:title" content="HashMap全解析 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
+        <meta property="article:published_time" content="Wed Aug 09 2017 15:20:26 GMT+0800" />
+        <meta property="article:modified_time" content="Wed Aug 09 2017 16:57:13 GMT+0800" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2017/7 | Earyant的技术博客">
+    <meta name="twitter:title" content="HashMap全解析 | Earyant的技术博客">
     <meta name="twitter:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -83,13 +86,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/archives/2017/07/page/3/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2017/08/09/HashMap全解析/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Earyant的技术博客",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Earyant",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Welcom to Earyant's blog"
+    },
+    "headline": "HashMap全解析",
+    "url": "http://earyant.github.io/2017/08/09/HashMap全解析/index.html",
+    "datePublished": "Wed Aug 09 2017 15:20:26 GMT+0800",
+    "dateModified": "Wed Aug 09 2017 16:57:13 GMT+0800",
+    "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://earyant.github.io"
+    }
+}
+</script>
 
 
     
@@ -289,276 +322,300 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-        
-            
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构造函数"><span class="post-toc-number">2.</span> <span class="post-toc-text">构造函数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Node"><span class="post-toc-number">4.</span> <span class="post-toc-text">Node</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
                 
-                    <!-- Paradox Thumbnail -->
-                    <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/08/09/HashMap全解析/"><span>[Top]</span>HashMap全解析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            定义HashMap...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/08/09/HashMap全解析/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>8月 09, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-                
-                
-            
-                
-                    <!-- Paradox Thumbnail -->
-                    <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="https://images.unsplash.com/photo-1421986527537-888d998adb74?dpr=1&amp;auto=format&amp;fit=crop&amp;w=1080&amp;h=720&amp;q=80&amp;cs=tinysrgb&amp;crop=">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/完整写一篇博客/"><span>[Top]</span>完整写一篇博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/完整写一篇博客/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/hexo教程/">hexo教程</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-                
-                
-            
-        
-    
-
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/JVM介绍/">JVM介绍</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            JVM介绍
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/JVM介绍/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/如何保证推送消息能够准确推送到客户端/">如何保证推送消息能够准确推送到客户端</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/如何保证推送消息能够准确推送到客户端/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/archives/2017/07/page/2/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/2017/07/">1</a><a class="page-number" href="/archives/2017/07/page/2/">2</a><span class="page-number current">3</span>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                HashMap全解析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Earyant</strong>
+        <span>8月 09, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/08/09/HashMap全解析/">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=HashMap全解析&url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=HashMap全解析&url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html&via=Earyant" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/08/09/HashMap全解析/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html&title=HashMap全解析" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=HashMap全解析&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/08/09/HashMap全解析/index.html&text=HashMap全解析" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>HashMap实现了Map接口，继承自AbstactMap。其中Map接口定义了键映射到值的规则。<br>    public class HashMap<k,v><br>    extends AbstractMap<k,v><br>    implements Map<k,v>, Cloneable, Serializable<br>    <img src="../img/java.util.map类图.png" alt=""><br><em>注意</em></k,v></k,v></k,v></p>
+<pre><code>* HashMap: 它根据键的hashCode值存储数据，大多数情况下可以直接定位到他的值，因此有很乖的访问速度，但是遍历的顺序是不确定的，HashMap最多只允许一条记录为null，允许多条记录的值为null，HashMap不是线程安全的，即任意时刻有多线程同时写HashMap可能会导致数据不一致问题。
+* HashTable: HashTable是遗留类，很多映射的功能和HashMap类似，但是他是继承自Dictionary类，并且是线程安全的，任何时间只有一个线程能写hashTable。
+* ConcurrentHashMap：
+* LinkedHashMap: 是HashMap的一个自雷，保存了插入顺序，在用iterator遍历LinkedHashMap时，先得到的肯定是新插入的，也可以在构造式带参数，按照访问次数进行排序。
+* TreeMap: TreeMap实现了SortMap接口，能够把保存的记录根据键排序，默认是按照键值升序排序，也可以指定排序的比较器，在使用TreeMap时，key必须实现Comparable接口或者在构造TreeMap传入自定义的Comparator，否则会在运行时抛出ClassCastExeption。
+</code></pre><h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><ul>
+<li>HashMap()：默认构造器，构造一个初始容量为10和默认加载银子为0.75的空HashMap</li>
+<li>HashMap(int initialCapacity):构造一个指定容量的和默认加载银子为0.75的空HashMap</li>
+<li>HashMap(int initialCapacity, float loadFactor)： 构造一个指定初始容量和加载银子的空HashMap；<br><em>其中initialCapacity不能小于0，当它大于1 &lt;&lt; 30的时候，它就等于1 &lt;&lt; 30</em><br>   if (initialCapacity &gt; MAXIMUM_CAPACITY)<pre><code>initialCapacity = MAXIMUM_CAPACITY;
+</code></pre></li>
+</ul>
+<p>初始容量：代表哈希表中通的数量，<br>加载因子： 代表哈希表在自动增加之前可以达到的尺度。</p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>列表散列：<br><img src="http://images.cnitblog.com/blog/381060/201401/152128351581.png" alt=""><br>数组+链表+红黑树(jdk8中增加红黑树)<br><img src="../img/hashMap内存结构.png" alt=""><br>HashMap的底层实现还是数组，只不过数组的每一项都是一条链，其中initialCapacity参数代表了该数组额长度。<br>     /**</p>
+<pre><code> * Returns a power of two size for the given target capacity.
+ */
+static final int tableSizeFor(int cap) {
+    int n = cap - 1;
+    n |= n &gt;&gt;&gt; 1;
+    n |= n &gt;&gt;&gt; 2;
+    n |= n &gt;&gt;&gt; 4;
+    n |= n &gt;&gt;&gt; 8;
+    n |= n &gt;&gt;&gt; 16;
+    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+</code></pre><p>这一段表示将初始容量变成向下靠近2的幂次方的数。</p>
+<h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</div><div class="line">    final int hash;    //用来定位数组索引位置</div><div class="line">    final K key;</div><div class="line">    V value;</div><div class="line">    Node&lt;K,V&gt; next;   //链表的下一个node</div><div class="line">    Node(int hash, K key, V value, Node&lt;K,V&gt; next) &#123; ... &#125;</div><div class="line">    public final K getKey()&#123; ... &#125;</div><div class="line">    public final V getValue() &#123; ... &#125;</div><div class="line">    public final String toString() &#123; ... &#125;</div><div class="line">    public final int hashCode() &#123; ... &#125;</div><div class="line">    public final V setValue(V newValue) &#123; ... &#125;</div><div class="line">    public final boolean equals(Object o) &#123; ... &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>Node是HashMap的一个内部类，实现了Map.Entry接口，本质是一个映射（键值对）。</p>
+<p>HashMap就是使用哈希表来存储的，哈希表为解决冲突，可以采用开放地址法和链地址法等来解决问题，java中HashMap采用了链地址法，简单来说就是数组加链表的结合。在每个数组元素都是一个链表结构，当数据被hash后，得到数组下标，把数据放在对应下标元素的链表上，例如：<br>    <figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">系统将&quot;name&quot;这个key的HashCode()方法得到其hashCode值，然后再通过Hash算法的后两步运算（高位运算和取模运算）来定位该键值对应的存储位置，有时候两个key会定位到相同的位置，表示发生了Hash碰撞，当然hash算法计算结果越分散均匀，Hash碰撞的概率就越小，map存取效率就会更高。</div><div class="line">如果哈希桶数很大，即使较差的hash算法也会比较分散，如果哈希桶数组很小，就很容易发生碰撞。</div><div class="line"></div><div class="line"># 容量</div><div class="line">在理解Hash和扩容流程之前，我们得先了解下HashMap的几个字段。从HashMap的默认构造函数源码可知，构造函数就是对下面几个字段进行初始化，源码如下：</div></pre></td></tr></table></figure></p>
+<pre><code>int threshold;             // 所能容纳的key-value对极限 
+final float loadFactor;    // 负载因子
+int modCount;  
+int size;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">首先，Node[] table的初始化长度length为默认16，loadFactor为负载因子，默认为0.75.threshold是HashMap所能容纳的最大数据量的Node（键值对）个数。threshold=length*loadFactor，也就是说，在数组定义好长度之后，负载因子越大，所能容纳的键值对个数越多。</div><div class="line"></div><div class="line">* size：实际存在的键值对数量</div><div class="line">* threshold：length*loadFactor</div><div class="line">* modCount：记录HashMap内部结构发生裱花的次数，主要用于迭代的快速失败，内部结构变化指的是结构发生变化，比如put，但是某个key对应的value值被覆盖部署于结构变化。</div><div class="line"></div><div class="line">在HashMap中，哈希桶数组table的长度length大小必须为2的n次方(一定是合数)，这是一种非常规的设计，常规的设计是把桶的大小设计为素数。相对来说素数导致冲突的概率要小于合数，具体证明可以参考http://blog.csdn.net/liuqiyao_01/article/details/14475159，Hashtable初始化桶大小为11，就是桶大小设计为素数的应用（Hashtable扩容后不能保证还是素数）。HashMap采用这种非常规设计，主要是为了在取模和扩容时做优化，同时为了减少冲突，HashMap定位哈希桶索引位置时，也加入了高位参与运算的过程。</div><div class="line"></div><div class="line">这里存在一个问题，即使负载因子和Hash算法设计的再合理，也免不了会出现拉链过长的情况，一旦出现拉链过长，则会严重影响HashMap的性能。于是，在JDK1.8版本中，对数据结构做了进一步的优化，引入了红黑树。而当链表长度太长（默认超过8）时，链表就转换为红黑树，利用红黑树快速增删改查的特点提高HashMap的性能，其中会用到红黑树的插入、删除、查找等算法。本文不再对红黑树展开讨论，想了解更多红黑树数据结构的工作原理可以参考。</div><div class="line">[http://blog.csdn.net/v_july_v/article/details/6105630。](http://blog.csdn.net/v_july_v/article/details/6105630。)</div><div class="line"></div><div class="line">#方法</div><div class="line">* 确定哈希桶数组索引位置。</div><div class="line">  不管增加、删除、查找键值对，定位到哈希桶数组的位置都是很关键的第一步，</div></pre></td></tr></table></figure>
+<pre><code>方法一：
+</code></pre><p>static final int hash(Object key) {   //jdk1.8 &amp; jdk1.7<br>     int h;<br>     // h = key.hashCode() 为第一步 取hashCode值<br>     // h ^ (h &gt;&gt;&gt; 16)  为第二步 高位参与运算<br>     return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);<br>}<br>方法二：<br>static int indexFor(int h, int length) {  //jdk1.7的源码，jdk1.8没有这个方法，但是实现原理一样的<br>     return h &amp; (length-1);  //第三步 取模运算<br>}<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  但是，模运算的消耗还是比较大的，在HashMap中是这样做的：调用方法二来计算该对象应该保存在table数组的哪个索引处。</div><div class="line"></div><div class="line">这个方法非常巧妙，它通过h &amp; (table.length -1)来得到该对象的保存位，而HashMap底层数组的长度总是2的n次方，这是HashMap在速度上的优化。当length总是2的n次方时，h&amp; (length-1)运算等价于对length取模，也就是h%length，但是&amp;比%具有更高的效率。</div><div class="line">* put方法</div><div class="line">![](../img/hashMap put方法执行流程图.png)</div></pre></td></tr></table></figure></p>
+<pre><code>public V put(K key, V value) {
+</code></pre><p> 2     // 对key的hashCode()做hash<br> 3     return putVal(hash(key), key, value, false, true);<br> 4 }<br> 5<br> 6 final V putVal(int hash, K key, V value, boolean onlyIfAbsent,<br> 7                boolean evict) {<br> 8     Node<k,v>[] tab; Node<k,v> p; int n, i;<br> 9     // 步骤①：tab为空则创建<br>10     if ((tab = table) == null || (n = tab.length) == 0)<br>11         n = (tab = resize()).length;<br>12     // 步骤②：计算index，并对null做处理<br>13     if ((p = tab[i = (n - 1) &amp; hash]) == null)<br>14         tab[i] = newNode(hash, key, value, null);<br>15     else {<br>16         Node<k,v> e; K k;<br>17         // 步骤③：节点key存在，直接覆盖value<br>18         if (p.hash == hash &amp;&amp;<br>19             ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))<br>20             e = p;<br>21         // 步骤④：判断该链为红黑树<br>22         else if (p instanceof TreeNode)<br>23             e = ((TreeNode<k,v>)p).putTreeVal(this, tab, hash, key, value);<br>24         // 步骤⑤：该链为链表<br>25         else {<br>26             for (int binCount = 0; ; ++binCount) {<br>27                 if ((e = p.next) == null) {<br>28                     p.next = newNode(hash, key,value,null);<br>                        //链表长度大于8转换为红黑树进行处理<br>29                     if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st<br>30                         treeifyBin(tab, hash);<br>31                     break;<br>32                 }<br>                    // key已经存在直接覆盖value<br>33                 if (e.hash == hash &amp;&amp;<br>34                     ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))                                            break;<br>36                 p = e;<br>37             }<br>38         }<br>40         if (e != null) { // existing mapping for key<br>41             V oldValue = e.value;<br>42             if (!onlyIfAbsent || oldValue == null)<br>43                 e.value = value;<br>44             afterNodeAccess(e);<br>45             return oldValue;<br>46         }<br>47     }</k,v></k,v></k,v></k,v></p>
+<p>48     ++modCount;<br>49     // 步骤⑥：超过最大容量 就扩容<br>50     if (++size &gt; threshold)<br>51         resize();<br>52     afterNodeInsertion(evict);<br>53     return null;<br>54 }</p>
+<p>```</p>
+<p>#扩容</p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/08/01/这可能不只是一篇面经-转发/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
