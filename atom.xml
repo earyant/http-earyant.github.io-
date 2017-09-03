@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2017-08-16T01:52:29.945Z</updated>
+  <updated>2017-09-03T07:42:43.521Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信机器人流程</title>
+    <link href="http://earyant.github.io/2017/09/03/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%B5%81%E7%A8%8B/"/>
+    <id>http://earyant.github.io/2017/09/03/微信机器人流程/</id>
+    <published>2017-09-03T07:10:30.000Z</published>
+    <updated>2017-09-03T07:42:43.521Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;获取uuid和二维码：&quot;&gt;&lt;a href=&quot;#获取uuid和二维码：&quot; class=&quot;headerlink&quot; title=&quot;获取uuid和二维码：&quot;&gt;&lt;/a&gt;获取uuid和二维码：&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在公众号输入8，即可返回二维码
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Mysql引擎myisam和innodb的异同</title>
@@ -335,29 +353,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>完整写一篇博客</title>
-    <link href="http://earyant.github.io/2017/07/18/%E5%AE%8C%E6%95%B4%E5%86%99%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://earyant.github.io/2017/07/18/完整写一篇博客/</id>
-    <published>2017-07-18T06:03:42.000Z</published>
-    <updated>2017-07-18T06:22:57.117Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1命令行创建一个md文件。&quot;&gt;&lt;a href=&quot;#1命令行创建一个md文件。&quot; class=&quot;headerlink&quot; title=&quot;1命令行创建一个md文件。&quot;&gt;&lt;/a&gt;1命令行创建一个md文件。&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;hexo new “title”&lt;/li
-    
-    </summary>
-    
-      <category term="hexo教程" scheme="http://earyant.github.io/categories/hexo%E6%95%99%E7%A8%8B/"/>
-    
-    
-      <category term="hexo" scheme="http://earyant.github.io/tags/hexo/"/>
-    
-      <category term="教程" scheme="http://earyant.github.io/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   

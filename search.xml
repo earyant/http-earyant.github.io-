@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[微信机器人流程]]></title>
+      <url>/2017/09/03/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%B5%81%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p>[TOC]</p>
+<h2 id="获取uuid和二维码："><a href="#获取uuid和二维码：" class="headerlink" title="获取uuid和二维码："></a>获取uuid和二维码：</h2><ul>
+<li>在公众号输入8，即可返回二维码图片；<ul>
+<li>生成uuid；</li>
+<li>生成二维码；</li>
+<li>redis中保存要登陆用户的信息；</li>
+<li>返回二维码。</li>
+</ul>
+</li>
+</ul>
+<h2 id="后台守护进程："><a href="#后台守护进程：" class="headerlink" title="后台守护进程："></a>后台守护进程：</h2><ul>
+<li>开启一个守护线程：<ul>
+<li>获取redis中保存的用户信息；</li>
+<li>判断如果未登陆则继续执行以下操作，如果已经登陆了，返回，不做任何操作。</li>
+<li>loginService.login()<ul>
+<li>代码登陆逻辑，如果登陆了，将状态setAlive置为已经登陆，若未登陆，sleep1秒继续。</li>
+</ul>
+</li>
+<li>webWxInit()<ul>
+<li>获取user信息，并保存到数据库。</li>
+<li>获取用户的联系人信息，并保存到数据库；</li>
+<li>获取SyncKeyBean信息，并保存到数据库；</li>
+</ul>
+</li>
+<li>wxStatusNotify()<ul>
+<li>微信通知状态改变，手机端提示网页端登陆成功。</li>
+</ul>
+</li>
+<li>startReceiving()<ul>
+<li>开启消息接收。</li>
+<li>开启新线程：<ul>
+<li>syncCheck() 检查是否有新消息<ul>
+<li>状态为0(收到正常报文)：<ul>
+<li>webWxSync() 联网获取新消息；<ul>
+<li>通过初始化过去的SyncKey参数进行获取，返回成功后，要把新返回的SyncKey保存到数据库中，下次用新SyncKey进行获取新信息。</li>
+<li>对获取到的新信息进行操作。 MsgCenter.produceMsg();</li>
+<li>保存消息到数据库。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>webWxGetContact() 获取好友列表</li>
+<li>WebWxBatchGetContact()</li>
+<li>setUserInfo() 缓存本次好友信息。</li>
+<li>CheckLoginStatusThread开启登陆状态线程。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mysql引擎myisam和innodb的异同]]></title>
+      <url>/2017/08/16/Mysql%E5%BC%95%E6%93%8Emyisam%E5%92%8Cinnodb%E7%9A%84%E5%BC%82%E5%90%8C/</url>
+      <content type="html"><![CDATA[<h2 id="myisam和innodb不同之处"><a href="#myisam和innodb不同之处" class="headerlink" title="myisam和innodb不同之处"></a>myisam和innodb不同之处</h2><ul>
+<li>1事务的支持不同：<ul>
+<li>innodb支持事务；</li>
+<li>myisam不支持事务；</li>
+</ul>
+</li>
+<li>2锁粒度<ul>
+<li>indodb行锁应用</li>
+<li>myisam表锁</li>
+</ul>
+</li>
+<li>3存储空间<ul>
+<li>innodb既缓存索引文件又缓存数据文件；</li>
+<li>myisam只缓存索引文件。</li>
+</ul>
+</li>
+<li>4存储结构<ul>
+<li>myisam数据文件的扩展名为.myd myData，索引文件的扩展名是.myi myIndex</li>
+<li>innodb所有的表都保存在同一个数据文件里面 即为 .ibd</li>
+</ul>
+</li>
+<li>统计记录行数<ul>
+<li>myisam保存表的总行数，select count(*) from table 会直接取出该值</li>
+<li>innodb没有保存表的中行书，select count(*) from table 就会遍历整个表，消耗相当大。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[HashMap全解析]]></title>
+      <url>/2017/08/09/HashMap%E5%85%A8%E8%A7%A3%E6%9E%90/</url>
+      <content type="html"><![CDATA[<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>HashMap实现了Map接口，继承自AbstactMap。其中Map接口定义了键映射到值的规则。<br>    public class HashMap<k,v><br>    extends AbstractMap<k,v><br>    implements Map<k,v>, Cloneable, Serializable<br>    <img src="../img/java.util.map类图.png" alt=""><br><em>注意</em></k,v></k,v></k,v></p>
+<pre><code>* HashMap: 它根据键的hashCode值存储数据，大多数情况下可以直接定位到他的值，因此有很乖的访问速度，但是遍历的顺序是不确定的，HashMap最多只允许一条记录为null，允许多条记录的值为null，HashMap不是线程安全的，即任意时刻有多线程同时写HashMap可能会导致数据不一致问题。
+* HashTable: HashTable是遗留类，很多映射的功能和HashMap类似，但是他是继承自Dictionary类，并且是线程安全的，任何时间只有一个线程能写hashTable。
+* ConcurrentHashMap：
+* LinkedHashMap: 是HashMap的一个自雷，保存了插入顺序，在用iterator遍历LinkedHashMap时，先得到的肯定是新插入的，也可以在构造式带参数，按照访问次数进行排序。
+* TreeMap: TreeMap实现了SortMap接口，能够把保存的记录根据键排序，默认是按照键值升序排序，也可以指定排序的比较器，在使用TreeMap时，key必须实现Comparable接口或者在构造TreeMap传入自定义的Comparator，否则会在运行时抛出ClassCastExeption。
+</code></pre><h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><ul>
+<li>HashMap()：默认构造器，构造一个初始容量为10和默认加载银子为0.75的空HashMap</li>
+<li>HashMap(int initialCapacity):构造一个指定容量的和默认加载银子为0.75的空HashMap</li>
+<li>HashMap(int initialCapacity, float loadFactor)： 构造一个指定初始容量和加载银子的空HashMap；<br><em>其中initialCapacity不能小于0，当它大于1 &lt;&lt; 30的时候，它就等于1 &lt;&lt; 30</em><br>   if (initialCapacity &gt; MAXIMUM_CAPACITY)<pre><code>initialCapacity = MAXIMUM_CAPACITY;
+</code></pre></li>
+</ul>
+<p>初始容量：代表哈希表中通的数量，<br>加载因子： 代表哈希表在自动增加之前可以达到的尺度。</p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>列表散列：<br><img src="http://images.cnitblog.com/blog/381060/201401/152128351581.png" alt=""><br>数组+链表+红黑树(jdk8中增加红黑树)<br><img src="../img/hashMap内存结构.png" alt=""><br>HashMap的底层实现还是数组，只不过数组的每一项都是一条链，其中initialCapacity参数代表了该数组额长度。<br>     /**</p>
+<pre><code> * Returns a power of two size for the given target capacity.
+ */
+static final int tableSizeFor(int cap) {
+    int n = cap - 1;
+    n |= n &gt;&gt;&gt; 1;
+    n |= n &gt;&gt;&gt; 2;
+    n |= n &gt;&gt;&gt; 4;
+    n |= n &gt;&gt;&gt; 8;
+    n |= n &gt;&gt;&gt; 16;
+    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+</code></pre><p>这一段表示将初始容量变成向下靠近2的幂次方的数。</p>
+<h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</div><div class="line">    final int hash;    //用来定位数组索引位置</div><div class="line">    final K key;</div><div class="line">    V value;</div><div class="line">    Node&lt;K,V&gt; next;   //链表的下一个node</div><div class="line">    Node(int hash, K key, V value, Node&lt;K,V&gt; next) &#123; ... &#125;</div><div class="line">    public final K getKey()&#123; ... &#125;</div><div class="line">    public final V getValue() &#123; ... &#125;</div><div class="line">    public final String toString() &#123; ... &#125;</div><div class="line">    public final int hashCode() &#123; ... &#125;</div><div class="line">    public final V setValue(V newValue) &#123; ... &#125;</div><div class="line">    public final boolean equals(Object o) &#123; ... &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>Node是HashMap的一个内部类，实现了Map.Entry接口，本质是一个映射（键值对）。</p>
+<p>HashMap就是使用哈希表来存储的，哈希表为解决冲突，可以采用开放地址法和链地址法等来解决问题，java中HashMap采用了链地址法，简单来说就是数组加链表的结合。在每个数组元素都是一个链表结构，当数据被hash后，得到数组下标，把数据放在对应下标元素的链表上，例如：<br>    <figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">系统将&quot;name&quot;这个key的HashCode()方法得到其hashCode值，然后再通过Hash算法的后两步运算（高位运算和取模运算）来定位该键值对应的存储位置，有时候两个key会定位到相同的位置，表示发生了Hash碰撞，当然hash算法计算结果越分散均匀，Hash碰撞的概率就越小，map存取效率就会更高。</div><div class="line">如果哈希桶数很大，即使较差的hash算法也会比较分散，如果哈希桶数组很小，就很容易发生碰撞。</div><div class="line"></div><div class="line"># 容量</div><div class="line">在理解Hash和扩容流程之前，我们得先了解下HashMap的几个字段。从HashMap的默认构造函数源码可知，构造函数就是对下面几个字段进行初始化，源码如下：</div></pre></td></tr></table></figure></p>
+<pre><code>int threshold;             // 所能容纳的key-value对极限 
+final float loadFactor;    // 负载因子
+int modCount;  
+int size;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">首先，Node[] table的初始化长度length为默认16，loadFactor为负载因子，默认为0.75.threshold是HashMap所能容纳的最大数据量的Node（键值对）个数。threshold=length*loadFactor，也就是说，在数组定义好长度之后，负载因子越大，所能容纳的键值对个数越多。</div><div class="line"></div><div class="line">* size：实际存在的键值对数量</div><div class="line">* threshold：length*loadFactor</div><div class="line">* modCount：记录HashMap内部结构发生裱花的次数，主要用于迭代的快速失败，内部结构变化指的是结构发生变化，比如put，但是某个key对应的value值被覆盖部署于结构变化。</div><div class="line"></div><div class="line">在HashMap中，哈希桶数组table的长度length大小必须为2的n次方(一定是合数)，这是一种非常规的设计，常规的设计是把桶的大小设计为素数。相对来说素数导致冲突的概率要小于合数，具体证明可以参考http://blog.csdn.net/liuqiyao_01/article/details/14475159，Hashtable初始化桶大小为11，就是桶大小设计为素数的应用（Hashtable扩容后不能保证还是素数）。HashMap采用这种非常规设计，主要是为了在取模和扩容时做优化，同时为了减少冲突，HashMap定位哈希桶索引位置时，也加入了高位参与运算的过程。</div><div class="line"></div><div class="line">这里存在一个问题，即使负载因子和Hash算法设计的再合理，也免不了会出现拉链过长的情况，一旦出现拉链过长，则会严重影响HashMap的性能。于是，在JDK1.8版本中，对数据结构做了进一步的优化，引入了红黑树。而当链表长度太长（默认超过8）时，链表就转换为红黑树，利用红黑树快速增删改查的特点提高HashMap的性能，其中会用到红黑树的插入、删除、查找等算法。本文不再对红黑树展开讨论，想了解更多红黑树数据结构的工作原理可以参考。</div><div class="line">[http://blog.csdn.net/v_july_v/article/details/6105630。](http://blog.csdn.net/v_july_v/article/details/6105630。)</div><div class="line"></div><div class="line">#方法</div><div class="line">* 确定哈希桶数组索引位置。</div><div class="line">  不管增加、删除、查找键值对，定位到哈希桶数组的位置都是很关键的第一步，</div></pre></td></tr></table></figure>
+<pre><code>方法一：
+</code></pre><p>static final int hash(Object key) {   //jdk1.8 &amp; jdk1.7<br>     int h;<br>     // h = key.hashCode() 为第一步 取hashCode值<br>     // h ^ (h &gt;&gt;&gt; 16)  为第二步 高位参与运算<br>     return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);<br>}<br>方法二：<br>static int indexFor(int h, int length) {  //jdk1.7的源码，jdk1.8没有这个方法，但是实现原理一样的<br>     return h &amp; (length-1);  //第三步 取模运算<br>}<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  但是，模运算的消耗还是比较大的，在HashMap中是这样做的：调用方法二来计算该对象应该保存在table数组的哪个索引处。</div><div class="line"></div><div class="line">这个方法非常巧妙，它通过h &amp; (table.length -1)来得到该对象的保存位，而HashMap底层数组的长度总是2的n次方，这是HashMap在速度上的优化。当length总是2的n次方时，h&amp; (length-1)运算等价于对length取模，也就是h%length，但是&amp;比%具有更高的效率。</div><div class="line">* put方法</div><div class="line">![](../img/hashMap put方法执行流程图.png)</div></pre></td></tr></table></figure></p>
+<pre><code>public V put(K key, V value) {
+</code></pre><p> 2     // 对key的hashCode()做hash<br> 3     return putVal(hash(key), key, value, false, true);<br> 4 }<br> 5<br> 6 final V putVal(int hash, K key, V value, boolean onlyIfAbsent,<br> 7                boolean evict) {<br> 8     Node<k,v>[] tab; Node<k,v> p; int n, i;<br> 9     // 步骤①：tab为空则创建<br>10     if ((tab = table) == null || (n = tab.length) == 0)<br>11         n = (tab = resize()).length;<br>12     // 步骤②：计算index，并对null做处理<br>13     if ((p = tab[i = (n - 1) &amp; hash]) == null)<br>14         tab[i] = newNode(hash, key, value, null);<br>15     else {<br>16         Node<k,v> e; K k;<br>17         // 步骤③：节点key存在，直接覆盖value<br>18         if (p.hash == hash &amp;&amp;<br>19             ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))<br>20             e = p;<br>21         // 步骤④：判断该链为红黑树<br>22         else if (p instanceof TreeNode)<br>23             e = ((TreeNode<k,v>)p).putTreeVal(this, tab, hash, key, value);<br>24         // 步骤⑤：该链为链表<br>25         else {<br>26             for (int binCount = 0; ; ++binCount) {<br>27                 if ((e = p.next) == null) {<br>28                     p.next = newNode(hash, key,value,null);<br>                        //链表长度大于8转换为红黑树进行处理<br>29                     if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st<br>30                         treeifyBin(tab, hash);<br>31                     break;<br>32                 }<br>                    // key已经存在直接覆盖value<br>33                 if (e.hash == hash &amp;&amp;<br>34                     ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))                                            break;<br>36                 p = e;<br>37             }<br>38         }<br>40         if (e != null) { // existing mapping for key<br>41             V oldValue = e.value;<br>42             if (!onlyIfAbsent || oldValue == null)<br>43                 e.value = value;<br>44             afterNodeAccess(e);<br>45             return oldValue;<br>46         }<br>47     }</k,v></k,v></k,v></k,v></p>
+<p>48     ++modCount;<br>49     // 步骤⑥：超过最大容量 就扩容<br>50     if (++size &gt; threshold)<br>51         resize();<br>52     afterNodeInsertion(evict);<br>53     return null;<br>54 }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#扩容（resize）</div></pre></td></tr></table></figure>
+<pre><code>1 void resize(int newCapacity) {   //传入新的容量
+2     Entry[] oldTable = table;    //引用扩容前的Entry数组
+</code></pre><p> 3     int oldCapacity = oldTable.length;<br> 4     if (oldCapacity == MAXIMUM_CAPACITY) {  //扩容前的数组大小如果已经达到最大(2^30)了<br> 5         threshold = Integer.MAX_VALUE; //修改阈值为int的最大值(2^31-1)，这样以后就不会扩容了<br> 6         return;<br> 7     }<br> 8<br> 9     Entry[] newTable = new Entry[newCapacity];  //初始化一个新的Entry数组<br>10     transfer(newTable);                         //！！将数据转移到新的Entry数组里<br>11     table = newTable;                           //HashMap的table属性引用新的Entry数组<br>12     threshold = (int)(newCapacity * loadFactor);//修改阈值<br>13 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这里就是使用一个容量更大的数组来代替已有的容量小的数组，transfer()方法将原有Entry数组的元素拷贝到新的Entry数组里。</div></pre></td></tr></table></figure></p>
+<p>1 void transfer(Entry[] newTable) {<br> 2     Entry[] src = table;                   //src引用了旧的Entry数组<br> 3     int newCapacity = newTable.length;<br> 4     for (int j = 0; j &lt; src.length; j++) { //遍历旧的Entry数组<br> 5         Entry<k,v> e = src[j];             //取得旧Entry数组的每个元素<br> 6         if (e != null) {<br> 7             src[j] = null;//释放旧Entry数组的对象引用（for循环后，旧的Entry数组不再引用任何对象）<br> 8             do {<br> 9                 Entry<k,v> next = e.next;<br>10                 int i = indexFor(e.hash, newCapacity); //！！重新计算每个元素在数组中的位置<br>11                 e.next = newTable[i]; //标记[1]<br>12                 newTable[i] = e;      //将元素放在数组上<br>13                 e = next;             //访问下一个Entry链上的元素<br>14             } while (e != null);<br>15         }<br>16     }<br>17 }<br>```</k,v></k,v></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[这可能不只是一篇面经(转发)]]></title>
+      <url>/2017/08/01/%E8%BF%99%E5%8F%AF%E8%83%BD%E4%B8%8D%E5%8F%AA%E6%98%AF%E4%B8%80%E7%AF%87%E9%9D%A2%E7%BB%8F-%E8%BD%AC%E5%8F%91/</url>
+      <content type="html"><![CDATA[<p><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">原文链接在此</a></p>
+<p>mark，有很多地方还是需要学习的。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud使用docker部署注册eureka找不到地址]]></title>
+      <url>/2017/07/31/SpringCloud%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2%E6%B3%A8%E5%86%8Ceureka%E6%89%BE%E4%B8%8D%E5%88%B0%E5%9C%B0%E5%9D%80/</url>
+      <content type="html"><![CDATA[<p>跟随大神学习SpringCloud的时候，在使用docker部署时，遇到了提供者注册不到eureka上去，<a href="http://blog.csdn.net/forezp/article/details/70198649#reply" target="_blank" rel="external">教程地址在此</a></p>
+<p>之后我搜了下docker进程间通信找到了一个<strong>解决办法</strong>：</p>
+<p>我弄了一整天也是一直注册不进去，后来又搜了搜docker进程间通信，发现一个方法，<br>eureka-server部署的时候给一个名字： docker run –name eureka-server -p 8761:8761<br>server-hi中部署使用link参数 docker run –link eureka-server（server部署时赋予的名字）:eureka-server(配置中写的地址) ……<br>注册不进去的可以试试。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据库的count的区别]]></title>
+      <url>/2017/07/28/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84count%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[springBot配置大全（转载）]]></title>
+      <url>/2017/07/28/springBot%E9%85%8D%E7%BD%AE%E5%A4%A7%E5%85%A8%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[七大查找算法]]></title>
+      <url>/2017/07/27/%E4%B8%83%E5%A4%A7%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p><a href="http://blog.jobbole.com/111629/" target="_blank" rel="external">原文链接</a></p>
+<h3 id="查找算法分类："><a href="#查找算法分类：" class="headerlink" title="查找算法分类："></a>查找算法分类：</h3><ul>
+<li>1）静态查找和动态查找；<br> 注：静态或者动态都是针对查找表而言的。动态表指查找表中有删除和插入操作的表。</li>
+<li>2）无序查找和有序查找。<ul>
+<li>无序查找：被查找数列有序无序均可；</li>
+<li>有序查找：被查找数列必须为有序数列。</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-顺序查找"><a href="#1-顺序查找" class="headerlink" title="1. 顺序查找"></a>1. 顺序查找</h2><p>   挨个查找，不用多说，时间复杂度为O(n);</p>
+<h2 id="2-二分查找"><a href="#2-二分查找" class="headerlink" title="2. 二分查找"></a>2. 二分查找</h2><ul>
+<li><p>说明元素必须是有序的，如果是无序的则要先进行排序操作。</p>
+</li>
+<li><p>基本思想：也称为是折半查找，属于有序查找算法。用给定值k先与中间结点的关键字比较，中间结点把线形表分成两个子表，若相等则查找成功；若不相等，再根据k与该中间结点关键字的比较结果确定下一步查找哪个子表，这样递归进行，直到查找到或查找结束发现表中没有这样的结点。     </p>
+</li>
+<li>复杂度分析：最坏情况下，关键词比较次数为log2(n+1)，且期望时间复杂度为O(log2n)；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">    //二分查找（折半查找），版本1</div><div class="line">int BinarySearch1(int a[], int value, int n)</div><div class="line">&#123;</div><div class="line"> int low, high, mid;</div><div class="line"> low = 0;</div><div class="line"> high = n-1;</div><div class="line"> while(low&lt;=high)</div><div class="line"> &#123;</div><div class="line">     mid = (low+high)/2;</div><div class="line">     if(a[mid]==value)</div><div class="line">     return mid;</div><div class="line">     if(a[mid]&gt;value)</div><div class="line">     high = mid-1;</div><div class="line">     if(a[mid]&lt;value)</div><div class="line">     low = mid+1;</div><div class="line"> &#125;</div><div class="line">     return -1;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">//二分查找，递归版本</div><div class="line">int BinarySearch2(int a[], int value, int low, int high)</div><div class="line">&#123;</div><div class="line">   int mid = low+(high-low)/2;</div><div class="line">   if(a[mid]==value)</div><div class="line">   return mid;</div><div class="line">   if(a[mid]&gt;value)</div><div class="line">   return BinarySearch2(a, value, low, mid-1);</div><div class="line">   if(a[mid]&lt;value)</div><div class="line">   return BinarySearch2(a, value, mid+1, high);</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"></div><div class="line"></div><div class="line">## 3. 插值查找</div><div class="line"></div><div class="line">在介绍插值查找之前，首先考虑一个新问题，为什么上述算法一定要是折半，而不是折四分之一或者折更多呢？</div><div class="line"></div><div class="line">打个比方，在英文字典里面查“apple”，你下意识翻开字典是翻前面的书页还是后面的书页呢？如果再让你查“zoo”，你又怎么查？很显然，这里你绝对不会是从中间开始查起，而是有一定目的的往前或往后翻。&lt;</div><div class="line"></div><div class="line">同样的，比如要在取值范围1 ~ 10000 之间 100 个元素从小到大均匀分布的数组中查找5， 我们自然会考虑从数组下标较小的开始查找。</div><div class="line"></div><div class="line">经过以上分析，折半查找这种查找方式，不是自适应的（也就是说是傻瓜式的）。二分查找中查找点计算如下：</div><div class="line"></div><div class="line">mid=(low+high)/2, 即mid=low+1/2*(high-low);</div><div class="line"></div><div class="line">通过类比，我们可以将查找的点改进为如下：</div><div class="line"></div><div class="line">mid=low+(key-a[low])/(a[high]-a[low])*(high-low)，</div><div class="line"></div><div class="line">也就是将上述的比例参数1/2改进为自适应的，根据关键字在整个有序表中所处的位置，让mid值的变化更靠近关键字key，这样也就间接地减少了比较次数。</div><div class="line"></div><div class="line">* 基本思想：基于二分查找算法，将查找点的选择改进为自适应选择，可以提高查找效率。当然，差值查找也属于有序查找。</div><div class="line"></div><div class="line">* 注：对于表长较大，而关键字分布又比较均匀的查找表来说，插值查找算法的平均性能比折半查找要好的多。反之，数组中如果分布非常不均匀，那么插值查找未必是很合适的选择。</div><div class="line">**如果分布比较均匀，插值查找比二分查找快，如果分布不均匀，二分查找比较快**</div><div class="line">* 复杂度分析：查找成功或者失败的时间复杂度均为O(log2(log2n))。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>//插值查找<br>int InsertionSearch(int a[], int value, int low, int high)<br>{<br>     int mid = low+(value-a[low])/(a[high]-a[low])*(high-low);<br>     if(a[mid]==value)<br>        return mid;<br>     if(a[mid]&gt;value)<br>        return InsertionSearch(a, value, low, mid-1);<br>     if(a[mid]<value) return="" insertionsearch(a,="" value,="" mid+1,="" high);="" }="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 4. 斐波那契查找</div><div class="line"></div><div class="line">在介绍斐波那契查找算法之前，我们先介绍一下很它紧密相连并且大家都熟知的一个概念——黄金分割。</div><div class="line"></div><div class="line">黄金比例又称黄金分割，是指事物各部分间一定的数学比例关系，即将整体一分为二，较大部分与较小部分之比等于整体与较大部分之比，其比值约为1:0.618或1.618:1。</div><div class="line"></div><div class="line">0.618被公认为最具有审美意义的比例数字，这个数值的作用不仅仅体现在诸如绘画、雕塑、音乐、建筑等艺术领域，而且在管理、工程设计等方面也有着不可忽视的作用。因此被称为黄金分割。</div><div class="line"></div><div class="line">大家记不记得斐波那契数列：1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89…….（从第三个数开始，后边每一个数都是前两个数的和）。然后我们会发现，随着斐波那契数列的递增，前后两个数的比值会越来越接近0.618，利用这个特性，我们就可以将黄金比例运用到查找技术中。</div><div class="line"></div><div class="line"></div><div class="line">* 基本思想：也是二分查找的一种提升算法，通过运用黄金比例的概念在数列中选择查找点进行查找，提高查找效率。同样地，斐波那契查找也属于一种有序查找算法。</div><div class="line"></div><div class="line">相对于折半查找，一般将待比较的key值与第mid=（low+high）/2位置的元素比较，比较结果分三种情况：</div><div class="line">   * 1）相等，mid位置的元素即为所求</div><div class="line"></div><div class="line">   * 2）&gt;，low=mid+1;</div><div class="line"></div><div class="line">   * 3）&lt;，high=mid-1。</div><div class="line"></div><div class="line">斐波那契查找与折半查找很相似，他是根据斐波那契序列的特点对有序表进行分割的。他要求开始表中记录的个数为某个斐波那契数小1，及n=F(k)-1;</div><div class="line"></div><div class="line">开始将k值与第F(k-1)位置的记录进行比较(及mid=low+F(k-1)-1),比较结果也分为三种</div><div class="line"></div><div class="line">   * 1）相等，mid位置的元素即为所求</div><div class="line"></div><div class="line">   * 2）&gt;，low=mid+1,k-=2;</div><div class="line"></div><div class="line">说明：low=mid+1说明待查找的元素在[mid+1,high]范围内，k-=2 说明范围[mid+1,high]内的元素个数为n-(F(k-1))= Fk-1-F(k-1)=Fk-F(k-1)-1=F(k-2)-1个，所以可以递归的应用斐波那契查找。</div><div class="line"></div><div class="line">   * 3）&lt;，high=mid-1,k-=1。</div><div class="line"></div><div class="line">说明：low=mid+1说明待查找的元素在[low,mid-1]范围内，k-=1 说明范围[low,mid-1]内的元素个数为F(k-1)-1个，所以可以递归 的应用斐波那契查找。</div><div class="line"></div><div class="line">复杂度分析：最坏情况下，时间复杂度为O(log2n)，且其期望复杂度也为O(log2n)。</div><div class="line"></div><div class="line">```const int max_size=20;//斐波那契数组的长度</div><div class="line">    </div><div class="line">   /*构造一个斐波那契数组*/</div><div class="line">   void Fibonacci(int * F)</div><div class="line">   &#123;</div><div class="line">      F[0]=0;</div><div class="line">      F[1]=1;</div><div class="line">      for(int i=2;i&lt;max_size;++i)</div><div class="line">      F[i]=F[i-1]+F[i-2];</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">   /*定义斐波那契查找法*/</div><div class="line">   int FibonacciSearch(int *a, int n, int key) //a为要查找的数组,n为要查找的数组长度,key为要查找的关键字</div><div class="line">   &#123;</div><div class="line">      int low=0;</div><div class="line">      int high=n-1;</div><div class="line">    </div><div class="line">      int F[max_size];</div><div class="line">      Fibonacci(F);//构造一个斐波那契数组F</div><div class="line">    </div><div class="line">      int k=0;</div><div class="line">      while(n&gt;F[k]-1)//计算n位于斐波那契数列的位置</div><div class="line">      ++k;</div><div class="line">    </div><div class="line">      int * temp;//将数组a扩展到F[k]-1的长度</div><div class="line">      temp=new int [F[k]-1];</div><div class="line">      memcpy(temp,a,n*sizeof(int));</div><div class="line">    </div><div class="line">      for(int i=n;i&lt;F[k]-1;++i)</div><div class="line">      temp[i]=a[n-1];</div><div class="line">    </div><div class="line">      while(low&lt;=high)</div><div class="line">   &#123;</div><div class="line">      int mid=low+F[k-1]-1;</div><div class="line">      if(key&lt;temp[mid])</div><div class="line">   &#123;</div><div class="line">      high=mid-1;</div><div class="line">      k-=1;</div><div class="line">   &#125;</div><div class="line">      else if(key&gt;temp[mid])</div><div class="line">   &#123;</div><div class="line">      low=mid+1;</div><div class="line">      k-=2;</div><div class="line">   &#125;</div><div class="line">      else</div><div class="line">   &#123;</div><div class="line">      if(mid&lt;n)</div><div class="line">      return mid; //若相等则说明mid即为查找到的位置</div><div class="line">      else</div><div class="line">      return n-1; //若mid&gt;=n则说明是扩展的数值,返回n-1</div><div class="line">   &#125;</div><div class="line">   &#125;</div><div class="line">      delete [] temp;</div><div class="line">      return -1;</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">      int main()</div><div class="line">   &#123;</div><div class="line">      int a[] = &#123;0,16,24,35,47,59,62,73,88,99&#125;;</div><div class="line">      int key=100;</div><div class="line">      int index=FibonacciSearch(a,sizeof(a)/sizeof(int),key);</div><div class="line">      cout&lt;&lt;key&lt;&lt;&quot; is located at:&quot;&lt;&lt;index;</div><div class="line">      return 0;</div><div class="line">   &#125;</div></pre></td></tr></table></value)></p>
+<h2 id="5-树表查找"><a href="#5-树表查找" class="headerlink" title="5. 树表查找"></a>5. 树表查找</h2><p>  ###5.1 最简单的树表查找算法——二叉树查找算法。</p>
+<ul>
+<li><p>基本思想：二叉查找树是先对待查找的数据进行生成树，确保树的左分支的值小于右分支的值，然后在就行和每个节点的父节点比较大小，查找最适合的范围。 这个算法的查找效率很高，但是如果使用这种查找方法要首先创建树。</p>
+<p>二叉查找树（BinarySearch Tree，也叫二叉搜索树，或称二叉排序树Binary Sort Tree）或者是一棵空树，或者是具有下列性质的二叉树：</p>
+<p>1）若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</p>
+<p>2）若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</p>
+<p>3）任意节点的左、右子树也分别为二叉查找树。</p>
+<p>二叉查找树性质：对二叉查找树进行中序遍历，即可得到有序的数列。</p>
+<p>不同形态的二叉查找树如下图所示：</p>
+<ul>
+<li>复杂度分析：它和二分查找一样，插入和查找的时间复杂度均为O(logn)，但是在最坏的情况下仍然会有O(n)的时间复杂度。原因在于插入和删除元素的时候，树没有保持平衡（比如，我们查找上图（b）中的“93”，我们需要进行n次查找操作）。我们追求的是在最坏的情况下仍然有较好的时间复杂度，这就是平衡查找树设计的初衷。</li>
+</ul>
+</li>
+</ul>
+<p>基于二叉查找树进行优化，进而可以得到其他的树表查找算法，如平衡树、红黑树等高效算法。</p>
+<h3 id="5-2-平衡查找树之2-3查找树（2-3-Tree）"><a href="#5-2-平衡查找树之2-3查找树（2-3-Tree）" class="headerlink" title="5.2 平衡查找树之2-3查找树（2-3 Tree）"></a>5.2 平衡查找树之2-3查找树（2-3 Tree）</h3><p>2-3查找树定义：和二叉树不一样，2-3树运行每个节点保存1个或者两个的值。对于普通的2节点(2-node)，他保存1个key和左右两个自己点。对应3节点(3-node)，保存两个Key，2-3查找树的定义如下：</p>
+<ul>
+<li><p>1）要么为空，要么：</p>
+</li>
+<li><p>2）对于2节点，该节点保存一个key及对应value，以及两个指向左右节点的节点，左节点也是一个2-3节点，所有的值都比key要小，右节点也是一个2-3节点，所有的值比key要大。</p>
+</li>
+<li><p>3）对于3节点，该节点保存两个key及对应value，以及三个指向左中右的节点。左节点也是一个2-3节点，所有的值均比两个key中的最小的key还要小；中间节点也是一个2-3节点，中间节点的key值在两个跟节点key值之间；右节点也是一个2-3节点，节点的所有key值比两个key中的最大的key还要大。   </p>
+</li>
+<li><p>2-3查找树的性质：</p>
+<p>1）如果中序遍历2-3查找树，就可以得到排好序的序列；</p>
+<p>2）在一个完全平衡的2-3查找树中，根节点到每一个为空节点的距离都相同。（这也是平衡树中“平衡”一词的概念，根节点到叶节点的最长距离对应于查找算法的最坏情况，而平衡树中根节点到叶节点的距离都一样，最坏情况也具有对数复杂度。）</p>
+<ul>
+<li>复杂度分析：</li>
+</ul>
+<p>2-3树的查找效率与树的高度是息息相关的。</p>
+<p>在最坏的情况下，也就是所有的节点都是2-node节点，查找效率为lgN<br>在最好的情况下，所有的节点都是3-node节点，查找效率为log3N约等于0.631lgN<br>距离来说，对于1百万个节点的2-3树，树的高度为12-20之间，对于10亿个节点的2-3树，树的高度为18-30之间。</p>
+</li>
+</ul>
+<h3 id="5-3-平衡查找树之红黑树（Red-Black-Tree）"><a href="#5-3-平衡查找树之红黑树（Red-Black-Tree）" class="headerlink" title="5.3 平衡查找树之红黑树（Red-Black Tree）"></a>5.3 平衡查找树之红黑树（Red-Black Tree）</h3><p>  2-3查找树能保证在插入元素之后能保持树的平衡状态，最坏情况下即所有的子节点都是2-node，树的高度为lgn，从而保证了最坏情况下的时间复杂度。但是2-3树实现起来比较复杂，于是就有了一种简单实现2-3树的数据结构，即红黑树（Red-Black Tree）。</p>
+<p>  基本思想：红黑树的思想就是对2-3查找树进行编码，尤其是对2-3查找树中的3-nodes节点添加额外的信息。红黑树中将节点之间的链接分为两种不同类型，红色链接，他用来链接两个2-nodes节点来表示一个3-nodes节点。黑色链接用来链接普通的2-3节点。特别的，使用红色链接的两个2-nodes来表示一个3-nodes节点，并且向左倾斜，即一个2-node是另一个2-node的左子节点。这种做法的好处是查找的时候不用做任何修改，和普通的二叉查找树相同。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[跳跃表]]></title>
+      <url>/2017/07/27/%E8%B7%B3%E8%B7%83%E8%A1%A8/</url>
+      <content type="html"><![CDATA[<p><a href="http://blog.jobbole.com/111731/" target="_blank" rel="external">看这篇文章</a></p>
+<p>和B+树很像，不过B+树插入需要Rebalance进行树重调整。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mysql索引B+树]]></title>
+      <url>/2017/07/27/Mysql%E7%B4%A2%E5%BC%95B-%E6%A0%91/</url>
+      <content type="html"><![CDATA[<p><a href="http://blog.jobbole.com/111757/" target="_blank" rel="external">看这篇文章讲的很好</a></p>
+<h2 id="B-树（Balance-Tree）"><a href="#B-树（Balance-Tree）" class="headerlink" title="B - 树（Balance Tree）"></a>B - 树（Balance Tree）</h2><pre><code>二叉查找树的时间复杂度是O(log(n)) 已经够快了，但是二叉查找树的查找速度取决于树的高度。
+B - 树，每个节点包含最多k个孩子，k被称为阶，k的大小取决于磁盘页的大小。
+</code></pre><h3 id="一个-m-阶的-B-树具有如下几个特征"><a href="#一个-m-阶的-B-树具有如下几个特征" class="headerlink" title="一个 m 阶的 B 树具有如下几个特征"></a>一个 m 阶的 B 树具有如下几个特征</h3><ul>
+<li>根节点至少有两个子女。 </li>
+<li>每个中间节点包含k-1个元素和k个孩子，其中m/2 &lt;= k &lt;= m</li>
+<li>每个叶子节点都包含k-1个元素，其中 m/2 &lt;= k &lt;=m</li>
+<li>所有叶子节点都位于同一层</li>
+<li>每个节点中的元素从小到大排列，节点当中 k-1 个元素正好是 k 个孩子包含的元素的值域分划。</li>
+</ul>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><p>   在b-树基础上进行改造，将索引全部建在叶子节点上，非叶子节点指向叶子节点的大小。</p>
+<p>   <a href="http://blog.jobbole.com/105644/" target="_blank" rel="external">看这篇文章</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[100块钱可以兑换50块、10块、5块、1块的算法]]></title>
+      <url>/2017/07/26/100%E5%9D%97%E9%92%B1%E5%8F%AF%E4%BB%A5%E5%85%91%E6%8D%A250%E5%9D%97%E3%80%8110%E5%9D%97%E3%80%815%E5%9D%97%E3%80%811%E5%9D%97%E7%9A%84%E7%AE%97%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h3 id="最先想到的当然是for循环了："><a href="#最先想到的当然是for循环了：" class="headerlink" title="最先想到的当然是for循环了："></a>最先想到的当然是for循环了：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public static void main(String[] args) &#123;</div><div class="line">   long time1 = System.currentTimeMillis();</div><div class="line">           System.out.println(&quot;当前时间为&quot;+time1);</div><div class="line">           int n = 0;</div><div class="line">           int n1, n5, n10, n50;</div><div class="line">           for (n1 = 0; n1 &lt; 100; n1++) &#123;</div><div class="line">               for (n5 = 0; n5 &lt; 20; n5++) &#123;</div><div class="line">                   for (n10 = 0; n10 &lt; 10; n10++) &#123;</div><div class="line">                       for (n50 = 0; n50 &lt; 2; n50++) &#123;</div><div class="line">                           if (n1 * 1 + n5 * 5 + n10 * 10 + n50 * 50 == 100) &#123;</div><div class="line">                               n++;</div><div class="line">                               System.out.println(&quot;1块的：&quot; + n1 + &quot;张 5块的： &quot; + n5 + &quot;张 10块的 ：&quot; + n10 + &quot;张 50块的：&quot; + n50 + &quot;张&quot;);</div><div class="line">                           &#125;</div><div class="line">                       &#125;</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">           long time2 = System.currentTimeMillis();</div><div class="line">           System.out.println(&quot;结束时间为&quot;+time2);</div><div class="line">           long time = time2 - time1;</div><div class="line">           System.out.println(n + &quot; 耗费时间为 &quot; + time);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>很容易得出结果154.但是耗费时间为 1501038954420 - 1501038954413 =7;
+虽然时间耗费不是很多，但是通过打印信息可以看出来，50为2的时候只有一种情况，却空跑了很多空循环。
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud学习5路由网关(zuul)]]></title>
+      <url>/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A05%E8%B7%AF%E7%94%B1%E7%BD%91%E5%85%B3-zuul/</url>
+      <content type="html"><![CDATA[<p>在微服务架构中，需要几个关键的组件，服务注册与发现、服务消费、负载均衡、断路器、智能路由、配置管理等，由这几个组件可以组建一个简单的微服务架构，如下图：</p>
+<p><img src="img/路由网关.png" alt="image"></p>
+<p>注意：A 服务和 B 服务是可以相互调用的，作图的时候忘记了。并且配置服务也是注册到服务注册中心的。</p>
+<p>客户端的请求首先经过负载均衡（zuul、Ngnix），再到达服务网关（zuul 集群），然后再到具体的服务，服务统一注册到高可用的服务注册中心集群，服务的所有的配置文件由配置服务管理（下一篇文章讲述），配置服务的配置文件放在 Git 仓库，方便开发人员随时改配置。</p>
+<p>一、Zuul 简介</p>
+<p>Zuul 的主要功能是路由和过滤器。路由功能是微服务的一部分，比如／api/user 映射到 user 服务，/api/shop 映射到 shop 服务。zuul 实现了负载均衡。</p>
+<p>zuul 有以下功能：</p>
+<p>Authentication<br>Insights<br>Stress Testing<br>Canary Testing<br>Dynamic Routing<br>Service Migration<br>Load Shedding<br>Security<br>Static Response handling<br>Active/Active traffic management</p>
+<p>二、准备工作</p>
+<p>继续使用上一节的工程。在原有的工程上，创建一个新的工程。</p>
+<p>三、创建 service-zuul 工程</p>
+<pre><code>&lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+   &lt;/dependency&gt;
+   &lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;
+   &lt;/dependency&gt;
+   &lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+   &lt;/dependency&gt;
+
+   &lt;dependency&gt;
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+       &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+       &lt;scope&gt;test&lt;/scope&gt;
+   &lt;/dependency&gt;
+</code></pre><p>在其入口 applicaton 类加上注解 @EnableZuulProxy，开启 zuul：</p>
+<p>filterType：返回一个字符串代表过滤器的类型，在 zuul 中定义了四种不同生命周期的过滤器类型，具体如下：<br>pre：路由之前<br>routing：路由之时<br>post： 路由之后<br>error：发送错误调用<br>filterOrder：过滤的顺序<br>shouldFilter：这里可以写逻辑判断，是否要过滤，本文 true, 永远过滤。<br>run：过滤器的具体逻辑。可用很复杂，包括查 sql，nosql 去判断该请求到底有没有权限访问。        </p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud学习4断路器（Hystrix）]]></title>
+      <url>/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A04%E6%96%AD%E8%B7%AF%E5%99%A8%EF%BC%88Hystrix%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>在微服务架构中，我们将业务拆分成一个个的服务，服务与服务之间可以相互调用（RPC）。为了保证其高可用，单个服务又必须集群部署。由于网络原因或者自身的原因，服务并不能保证服务的 100% 可用，如果单个服务出现问题，调用这个服务就会出现网络延迟，此时若有大量的网络涌入，会形成任务累计，导致服务瘫痪，甚至导致服务 “雪崩”。<br>为了解决这个问题，就出现断路器模型。</p>
+<h3 id="断路器简介"><a href="#断路器简介" class="headerlink" title="断路器简介"></a>断路器简介</h3><ul>
+<li>Netflix 已经创建了一个名为 Hystrix 的库来实现断路器模式。 在微服务架构中，多层服务调用是非常常见的。</li>
+<li>较底层的服务如果出现故障，会导致连锁故障。当对特定的服务的调用达到一个阀值（hystric 是 5 秒 20 次） 断路器将会被打开。</li>
+<li>断路打开后，可用避免连锁故障，fallback 方法可以直接返回一个固定值。</li>
+</ul>
+<h3 id="在-ribbon-使用断路器"><a href="#在-ribbon-使用断路器" class="headerlink" title="在 ribbon 使用断路器"></a>在 ribbon 使用断路器</h3><ul>
+<li><p>改造 serice-ribbon 工程的代码：</p>
+<p>在 pox.xml 文件中加入：</p>
+<dependency><br>     <groupid>org.springframework.cloud</groupid><br>     <artifactid>spring-cloud-starter-hystrix</artifactid><br></dependency> 
+</li>
+<li><p>在程序的入口类加 @EnableHystrix：   </p>
+</li>
+<li><p>改造 HelloService 类，加上 @HystrixCommand，并指定 fallbackMethod 方法。</p>
+</li>
+</ul>
+<h3 id="Feign-中使用断路器"><a href="#Feign-中使用断路器" class="headerlink" title="Feign 中使用断路器"></a>Feign 中使用断路器</h3><ul>
+<li><p>如果你使用了 feign，feign 是自带断路器的，并且是已经打开了。如果使用 feign 不想用断路器的话，可以在配置文件中关闭它，配置如下：</p>
+<p>feign.hystrix.enabled=false</p>
+</li>
+</ul>
+<h3 id="Circuit-Breaker-Hystrix-Dashboard-断路器：hystrix-仪表盘"><a href="#Circuit-Breaker-Hystrix-Dashboard-断路器：hystrix-仪表盘" class="headerlink" title="Circuit Breaker: Hystrix Dashboard (断路器：hystrix 仪表盘)"></a>Circuit Breaker: Hystrix Dashboard (断路器：hystrix 仪表盘)</h3><ul>
+<li><p>基于 service-ribbon 改造下：</p>
+<p>pom.xml 加入：</p>
+<dependency><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-starter-actuator</artifactid><br>        </dependency>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-hystrix-dashboard&lt;/artifactId&gt;
+&lt;/dependency&gt;        
+</code></pre></li>
+</ul>
+<h3 id="在主程序入口中加入-EnableHystrixDashboard-注解，开启-hystrixDashboard："><a href="#在主程序入口中加入-EnableHystrixDashboard-注解，开启-hystrixDashboard：" class="headerlink" title="在主程序入口中加入 @EnableHystrixDashboard 注解，开启 hystrixDashboard："></a>在主程序入口中加入 @EnableHystrixDashboard 注解，开启 hystrixDashboard：</h3><pre><code>该仪表盘可以查看错误率
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud学习3服务消费者feign]]></title>
+      <url>/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A03%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85feign/</url>
+      <content type="html"><![CDATA[<h3 id="使用feign"><a href="#使用feign" class="headerlink" title="使用feign"></a>使用feign</h3><p>spring-cloud-starter-eureka<br>spring-cloud-starter-feign<br>spring-boot-starter-web<br>spring-boot-starter-test</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>eureka:<br>  client:<br>    serviceUrl:<br>      defaultZone: <a href="http://localhost:8761/eureka/" target="_blank" rel="external">http://localhost:8761/eureka/</a><br>server:<br>  port: 8765<br>spring:<br>  application:<br>    name: service-feign</p>
+<h3 id="开启feign"><a href="#开启feign" class="headerlink" title="开启feign"></a>开启feign</h3><ul>
+<li>在程序的入口类，需要通过注解 @EnableFeignClients 来开启 feign:<h3 id="调用服务"><a href="#调用服务" class="headerlink" title="调用服务"></a>调用服务</h3></li>
+<li>定义一个 feign 接口类, 通过 @ FeignClient（“服务名”），来指定调用哪个服务：</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud学习2服务消费者]]></title>
+      <url>/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A02%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85/</url>
+      <content type="html"><![CDATA[<p>在上一篇文章，讲了服务的注册和发现。在服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于 http restful 的。spring cloud 有两种调用方式，一种是 ribbon+restTemplate，另一种是 feign。在这一篇文章首先讲解下基于 ribbon+rest。</p>
+<h2 id="ribbon"><a href="#ribbon" class="headerlink" title="ribbon"></a>ribbon</h2><ul>
+<li><p>是一个负载均衡客户端，可以很好的控制 http 和 tcp 的一些行为。Feign 也用到 ribbon，当你使用 @ FeignClient，ribbon 自动被应用。</p>
+</li>
+<li><p>ribbon 已经默认实现了这些配置 bean：</p>
+<ul>
+<li><p>IClientConfig ribbonClientConfig: DefaultClientConfigImpl</p>
+</li>
+<li><p>IRule ribbonRule: ZoneAvoidanceRule</p>
+</li>
+<li><p>IPing ribbonPing: NoOpPing</p>
+</li>
+<li><p>ServerList ribbonServerList: ConfigurationBasedServerList</p>
+</li>
+<li><p>ServerListFilter ribbonServerListFilter: ZonePreferenceServerListFilter</p>
+</li>
+<li><p>ILoadBalancer ribbonLoadBalancer: ZoneAwareLoadBalancer</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>基于上一节的工程，启动 eureka-server 工程；启动 service-hi 工程，它的端口为 8762；将 service-hi 的配置文件的端口改为 8763, 并启动它，这时你会发现：service-hi 在 eureka-server 注册了 2 个，这就相当于一个小的集群。访问 localhost:8761 如图所示：</li>
+</ul>
+<h2 id="新建一个service-ribbon"><a href="#新建一个service-ribbon" class="headerlink" title="新建一个service-ribbon"></a>新建一个service-ribbon</h2><ul>
+<li>spring-cloud-starter-eureka</li>
+<li>spring-cloud-starter-ribbon</li>
+<li>spring-boot-starter-web</li>
+<li>spring-boot-starter-test</li>
+</ul>
+<h3 id="想eureka注册一个客户端"><a href="#想eureka注册一个客户端" class="headerlink" title="想eureka注册一个客户端"></a>想eureka注册一个客户端</h3><pre><code>eureka:
+   client:
+     serviceUrl:
+       defaultZone: http://localhost:8761/eureka/
+ server:
+   port: 8764
+ spring:
+   application:
+     name: service-ribbon  
+</code></pre><h3 id="启动类"><a href="#启动类" class="headerlink" title="启动类"></a>启动类</h3><ul>
+<li>在工程的启动类中, 通过 @EnableDiscoveryClient 向服务中心注册；   </li>
+</ul>
+<h3 id="架构如下"><a href="#架构如下" class="headerlink" title="架构如下"></a>架构如下</h3><p>   <img src="img/ribbon后的架构.png" alt="image">      </p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud学习1EurekaServer]]></title>
+      <url>/2017/07/20/SpringCloud%E5%AD%A6%E4%B9%A01EurekaServer/</url>
+      <content type="html"><![CDATA[<h2 id="创建EurekaServer"><a href="#创建EurekaServer" class="headerlink" title="创建EurekaServer"></a>创建EurekaServer</h2><h3 id="Idea初始化项目"><a href="#Idea初始化项目" class="headerlink" title="Idea初始化项目"></a>Idea初始化项目</h3><ul>
+<li>选择cloud discovery-&gt;eureka server 。</li>
+</ul>
+<h3 id="创建启动类"><a href="#创建启动类" class="headerlink" title="创建启动类"></a>创建启动类</h3><ul>
+<li>@EnableEurekaServer</li>
+</ul>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><pre><code>server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+</code></pre><h2 id="创建EurekaClient"><a href="#创建EurekaClient" class="headerlink" title="创建EurekaClient"></a>创建EurekaClient</h2><h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><ul>
+<li>通server</li>
+</ul>
+<h3 id="创阿金启动类"><a href="#创阿金启动类" class="headerlink" title="创阿金启动类"></a>创阿金启动类</h3><ul>
+<li>@EnableEurekaClient</li>
+</ul>
+<h3 id="配置参数-1"><a href="#配置参数-1" class="headerlink" title="配置参数"></a>配置参数</h3><pre><code>eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8762
+spring:
+  application:
+    name: service-hi    
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信公众平台Dubbo项目结构]]></title>
+      <url>/2017/07/20/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0Dubbo%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/</url>
+      <content type="html"></content>
+      
+        
+        <tags>
+            
+            <tag> dubbo </tag>
+            
+            <tag> 微信公众平台 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[基于微信公众号的微服务架构]]></title>
+      <url>/2017/07/20/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</url>
+      <content type="html"><![CDATA[<ul>
+<li>wechatParent:    <ul>
+<li>wechat-base-parent</li>
+<li>wechat-business-parent</li>
+<li>wechat-core-parent</li>
+<li>wechat-web-parent</li>
+</ul>
+</li>
+</ul>
+<h3 id="wechatParent"><a href="#wechatParent" class="headerlink" title="wechatParent"></a>wechatParent</h3><ul>
+<li>职责： 一键构建所有需要发布的项目。</li>
+<li>特性<ul>
+<li>所有项目初始时就带有这些 jar 包的依赖，例如：testng(单元测试相关),h2(单元测试相关),easymock(单元测试相关),lombok（根据注释自动生成 setter 和 getter）</li>
+<li>所有项目的额外特性，例如：单元测试插件</li>
+<li>项目发布管理，例如：私一的 maven 私服配置</li>
+</ul>
+</li>
+</ul>
+<h3 id="wechat-core-parent"><a href="#wechat-core-parent" class="headerlink" title="wechat-core-parent"></a>wechat-core-parent</h3><ul>
+<li>职责：<ul>
+<li>该部分与业务没有关联，只提供基础能力。例如：数据库持久能力，缓存能力，http封装能力，通用工具能力。</li>
+</ul>
+</li>
+<li>通用特性：<ul>
+<li>javadoc插件，用于生成javadoc</li>
+</ul>
+</li>
+</ul>
+<h3 id="wechat-base-parent"><a href="#wechat-base-parent" class="headerlink" title="wechat-base-parent"></a>wechat-base-parent</h3><ul>
+<li>只代表一个真实存在而且能独立存在的业务实体，简称base项目。</li>
+</ul>
+<h3 id="we-business-parent"><a href="#we-business-parent" class="headerlink" title="we-business-parent"></a>we-business-parent</h3><ul>
+<li>职责：<ul>
+<li>它所聚合的的项目必须是一个提供 “共享” 业务流程，简称：business 项目。在这个流程过程中有可能需要引用 base 服务。它本身没有一个真实存在而且能独立存在的核心实体       </li>
+</ul>
+</li>
+</ul>
+<h3 id="wechat-web-parent"><a href="#wechat-web-parent" class="headerlink" title="wechat-web-parent"></a>wechat-web-parent</h3><ul>
+<li>职责：<ul>
+<li>它所聚合的的项目可以通过互联网向用户提供服务，在产品规划上它自己独有的不被共享的业务，简称：web 项目。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总体架构图如下"><a href="#总体架构图如下" class="headerlink" title="总体架构图如下"></a>总体架构图如下</h3><p>   <img src="img/项目架构图.jpg" alt="image">  </p>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li>提到阿里云的这个 Redis，不得不吐槽一句，它竟然是不支持主从的，只能单实例，不过，用它做数据缓存，还真是蛮不错的选择，响应速度非常快。而且，因为是放置在内网的且只能内网访问，所以安全性也很高。<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3></li>
+<li>结构型数据，主要存储档案式的数据，比如每个用户的操作行为，以档案式记录并进行统计分析，方便下一阶段的项目做个性化服务。另外一些关联复杂的数据，也可以用 MongoDb 存储，可以提高访问速度。还有，一些对软件应用版本比较敏感的数据也可以存在 MongoDB 中，比如 a 版本拿到 A 数据，b 版本拿到 B 数据，而这个 AB 数据都是由很多关联关系复杂的数据所组成，如果把这些数据根据版本号存储在不同的 MongoDB 档案中，需要时，直接根据版本号拿就可以了，这样就避免了很多的 mysql 查询。</li>
+</ul>
+<h3 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h3><ul>
+<li>OSS + CDN<br>OSS 存储静态资源，CDN(内容分发网络) 可以加速静态资源的下载速度。至于资源链接地址，客户端可以通过接口访问从后端业务数据库中拿到。   </li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 微信 </tag>
+            
+            <tag> 微服务 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[bootstrap日期格式化]]></title>
+      <url>/2017/07/18/datetimepicker%20bootstrap%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
+      <content type="html"><![CDATA[<ul>
+<li>p : 小写上下午 (‘am’ or ‘pm’)  meridian in lower case (‘am’ or ‘pm’) - according to locale file </li>
+<li>P : 大写上下午 (‘AM’ or ‘PM’) meridian in upper case (‘AM’ or ‘PM’) - according to locale file</li>
+<li>s : 一位的秒  seconds without leading zeros</li>
+<li>ss : 两位的秒  seconds, 2 digits with leading zeros</li>
+<li>i : 一位的分钟  minutes without leading zeros</li>
+<li>ii : 两位的分钟  minutes, 2 digits with leading zeros</li>
+<li>h : 一位的24进制小时  hour without leading zeros - 24-hour format</li>
+<li>hh : 两位的24进制小时  hour, 2 digits with leading zeros - 24-hour format</li>
+<li>H : 一位的12进制小时 hour without leading zeros - 12-hour format</li>
+<li>HH : 两位的24进制小时  hour, 2 digits with leading zeros - 12-hour format</li>
+<li>d : 一位的天  day of the month without leading zeros</li>
+<li>dd : 两位的天 day of the month, 2 digits with leading zeros</li>
+<li>m : 一位的分钟  numeric representation of month without leading zeros</li>
+<li>mm : 两位的分钟 numeric representation of the month, 2 digits with leading zeros</li>
+<li>M : 缩写月份单词，三位数  short textual representation of a month, three letters</li>
+<li>MM : 全拼月份单词 full textual representation of a month, such as January or March</li>
+<li>yy : 两位的年  two digit representation of a year</li>
+<li>yyyy : 四位的年  full numeric representation of a year, 4 digits</li>
+</ul>
+<h3 id="详情请看官网解释"><a href="#详情请看官网解释" class="headerlink" title="详情请看官网解释"></a>详情请看官网解释</h3><p><a href="http://www.bootcss.com/p/bootstrap-datetimepicker/" target="_blank" rel="external">http://www.bootcss.com/p/bootstrap-datetimepicker/</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[datetimepicker Jquery日期格式化]]></title>
+      <url>/2017/07/18/datetimepicker%20Jquery%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h3 id="年"><a href="#年" class="headerlink" title="年"></a>年</h3><ul>
+<li>y 一位数的年份（2001 显示为 “1”）。</li>
+<li>yy 年份的最后两位数（2001 显示为 “01”）。</li>
+<li>yyyy 完整的年份（2001 显示为 “2001”）。</li>
+</ul>
+<h3 id="月"><a href="#月" class="headerlink" title="月"></a>月</h3><ul>
+<li>M 一位数或两位数月份值。</li>
+<li>MM 两位数月份值。一位数数值前面加一个零。</li>
+<li>MMM 三个字符的月份缩写。</li>
+<li>MMMM 完整的月份名。</li>
+</ul>
+<h3 id="天"><a href="#天" class="headerlink" title="天"></a>天</h3><ul>
+<li>d 一位数或两位数的天数。</li>
+<li>dd 两位数的天数。一位数天数的前面加一个零。</li>
+<li>ddd 三个字符的星期几缩写。</li>
+<li>dddd 完整的星期几名称。</li>
+</ul>
+<h3 id="小时"><a href="#小时" class="headerlink" title="小时"></a>小时</h3><ul>
+<li>h12 小时格式的一位数或两位数小时数。<br> hh12 小时格式的两位数小时数。一位数数值前面加一个零。</li>
+<li>H24 小时格式的一位数或两位数小时数。</li>
+<li>HH24 小时格式的两位数小时数。一位数数值前面加一个零。</li>
+</ul>
+<h3 id="分钟"><a href="#分钟" class="headerlink" title="分钟"></a>分钟</h3><ul>
+<li>m 一位数或两位数分钟值。</li>
+<li>mm 两位数分钟值。一位数数值前面加一个零。</li>
+</ul>
+<h3 id="秒"><a href="#秒" class="headerlink" title="秒"></a>秒</h3><ul>
+<li>s 一位数或两位数秒数。</li>
+<li>ss 两位数秒数。一位数数值前面加一个零。</li>
+</ul>
+<h3 id="上下午"><a href="#上下午" class="headerlink" title="上下午"></a>上下午</h3><ul>
+<li>t 一个字母的 AM/PM 缩写（”AM” 显示为 “A”）。</li>
+<li>tt 两个字母的 AM/PM 缩写（”AM” 显示为 “AM”）。</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[完整写一篇博客]]></title>
+      <url>/2017/07/18/%E5%AE%8C%E6%95%B4%E5%86%99%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      <content type="html"><![CDATA[<h3 id="1命令行创建一个md文件。"><a href="#1命令行创建一个md文件。" class="headerlink" title="1命令行创建一个md文件。"></a>1命令行创建一个md文件。</h3><ul>
+<li>hexo new “title”</li>
+<li><p>在 hexo 主目录下 source -&gt; _posts 新建以 .md 为后缀的文件。</p>
+<p>这两种方式都可以创建一个，不过命令行形式会在md中创建描述文件：</p>
+<pre><code>---
+title: 完整写一篇博客
+date: 2017-07-18 14:03:42
+tags:
+--- 
+</code></pre></li>
+</ul>
+<h3 id="创建Front-matter"><a href="#创建Front-matter" class="headerlink" title="创建Front-matter"></a>创建Front-matter</h3><pre><code>参数    描述    默认值
+layout    布局    post
+title    标题    文件名
+date    建立日期    文件建立日期
+updated    更新日期    文件更新日期
+tags    标签（不适用于分页）    
+categories    分类（不适用于分页）    
+permalink    覆盖文章网址    
+thumbnail    缩略图地址    
+toc    显示 TOC 按钮    true
+comment    显示评论    true
+notag    不生成标签按钮    false
+top    置顶    false
+mathJax    启用 Mathjax    false
+</code></pre><h3 id="友情url链接"><a href="#友情url链接" class="headerlink" title="友情url链接"></a>友情url链接</h3><pre><code>pages:
+     About:
+         link: &quot;#about&quot;
+         icon: person
+         divider: false
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> hexo教程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 教程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[搭建Material主题的Hexo博客]]></title>
+      <url>/2017/07/18/%E6%90%AD%E5%BB%BAMaterial%E4%B8%BB%E9%A2%98%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2/</url>
+      <content type="html"><![CDATA[<p>全篇可以在这搜到：</p>
+<p><a href="https://material.viosey.com/services/" target="_blank" rel="external">戳这里</a></p>
+<h2 id="本地搜索插件"><a href="#本地搜索插件" class="headerlink" title="本地搜索插件"></a>本地搜索插件</h2><p>npm install hexo-generator-search –save<br>在主配置文件中添加：<br>search:<br>    path: search.xml<br>    field: all</p>
+<h2 id="rss订阅插件"><a href="#rss订阅插件" class="headerlink" title="rss订阅插件"></a>rss订阅插件</h2><p>npm install hexo-generator-feed –save</p>
+<p>feed:<br>  type: atom<br>  path: atom.xml<br>  limit: 20<br>  hub:<br>  content:</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[node8.0方法弃用解决办法]]></title>
+      <url>/2017/07/18/node8-0%E6%96%B9%E6%B3%95%E5%BC%83%E7%94%A8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h3 id="刚升级node后发现报如下的错："><a href="#刚升级node后发现报如下的错：" class="headerlink" title="刚升级node后发现报如下的错："></a>刚升级node后发现报如下的错：</h3><ul>
+<li><p>(node:34880) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</p>
+<p>  node.js从8.0开始已经弃用了fs.SyncWriteStream方法，hexo中有一个hexo-fs插件，调用了这个方法，所以就会报错。</p>
+</li>
+</ul>
+<h3 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h3><ul>
+<li>npm install hexo-fs –save</li>
+</ul>
+<p>插件就更新了，问题就解决了。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> nodejs </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[RPC通俗解释]]></title>
+      <url>/2017/07/18/RPC%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A/</url>
+      <content type="html"><![CDATA[<h1 id="RPC通俗解释"><a href="#RPC通俗解释" class="headerlink" title="RPC通俗解释"></a>RPC通俗解释</h1><h2 id="IPC和RPC"><a href="#IPC和RPC" class="headerlink" title="IPC和RPC"></a>IPC和RPC</h2><p>早些时间，一个电脑中多个线程互相独立，A线程和B线程都想用发送邮件功能，就需要开发两份代码，所以就有了一个协议是：IPC（Inter-process-communication）进行进程间通信，这样就可以在A中开发一个发送邮件的代码，B进程调用A进程代码就行了。<br>同比，现在的程序员们，为了方便调用其他电脑中的代码，研究出来RPC（Remote Procedure Call Protocol）；</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JVM介绍]]></title>
+      <url>/2017/07/18/JVM%E4%BB%8B%E7%BB%8D/</url>
+      <content type="html"><![CDATA[<h1 id="JVM介绍"><a href="#JVM介绍" class="headerlink" title="JVM介绍"></a>JVM介绍</h1><h2 id="JVM包括："><a href="#JVM包括：" class="headerlink" title="JVM包括："></a>JVM包括：</h2><pre><code>* 1、 字节码指令集
+* 2、 一组寄存器
+* 3、 一个栈
+* 4、 一个垃圾回收堆
+* 5、 存储方法区
+</code></pre><h2 id="JVM-的生命周期"><a href="#JVM-的生命周期" class="headerlink" title="JVM 的生命周期"></a>JVM 的生命周期</h2><p>1) JVM 实例对应了一个独立运行的 java 程序它是进程级别<br>    1) 启动。启动一个 Java 程序时，一个 JVM 实例就产生了，任何一个拥有 public static void main(String[] args) 函数的 class 都可以作为 JVM 实例运行的起点<br>    2) 运行。main() 作为该程序初始线程的起点，任何其他线程均由该线程启动。JVM 内部有两种线程：守护线程和非守护线程，main() 属于非守护线程，守护线程通常由 JVM 自己使用，<b> java 程序也可以表明自己创建的线程是守护线程 <b><br>    3) 消亡。当程序中的所有非守护线程都终止时，JVM才退出；若安全管理器允许，程序也可以使用 Runtime 类或者 System.exit() 来退出</b></b></p>
+<p>2) JVM 执行引擎实例则对应了属于用户运行程序的线程它是线程级别的</p>
+<h2 id="JVM模型"><a href="#JVM模型" class="headerlink" title="JVM模型"></a>JVM模型</h2><p><img src="http://images.cnitblog.com/i/437053/201403/030952082544688.png" alt="image"></p>
+<h2 id="内存空间："><a href="#内存空间：" class="headerlink" title="内存空间："></a>内存空间：</h2><pre><code>1) 方法区： 指令计数器以及其他隐含寄存器
+2) Java堆： 
+3) Java栈：
+4) 本地方法栈：
+</code></pre><h2 id="共享不共享："><a href="#共享不共享：" class="headerlink" title="共享不共享："></a>共享不共享：</h2><pre><code>共享：
+    1) 方法区
+    2) 栈（Heap）
+不共享：
+    1)程序计数器
+    2)VM stack 虚拟机栈
+    3)本地方法栈
+
+
+1) 程序计数器： 
+2) 栈： 线程私有的，每个线程创建的同时都会创建 JVM 栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、double）、部分的返回结果以及 Stack Frame，非基本类型的对象在 JVM 栈上仅存放一个指向堆上的地址。
+3) 堆：1）存储 *对象实例以及数组值*
+       2）**！Sun Hospot JVM为了提高对象内存分配的效率，对于所创建的线程都会分配一个独立的空间TLAB（Thread Local Allocation Buffer） ，其大小由JVM根据运行的情况计算而得，在TLAB中分配的对象不需要加锁，因此JVM在给线程的对象分配内存时会尽量在TLAB中分配，性能和C性能差不多高效，如果对象过大，仍然直接在堆中分配。 **
+       3）TLAB仅作用于新生代的Eden Space，因此多个小对象比一个大对象高效。
+       4）新创建的对象总是被放在新生代中，如果在一次或者多次GC后活下来，就会被转移到老年代。
+4）方法区：1）在Sun JDK中对应着为永久带、持久带 ！！！
+           2）方法区存放了所加载类的信息（名称，修饰符等），类中的静态变量，类中定义为final类型的常量，类中的Field信息，类中的方法信息，当开发人员用Class对象的getname,isInterface等获取信息时，数据都来源于方法区，方法区也是**共享的**，在一定条件下，也会被GC，当方法区使用的内存超过其允许的大小，也会抛OutMemory异常。
+</code></pre><h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><pre><code>JVM每遇到一个线程，都会为其分配一个程序计数器，VM stack 和本地方法栈，当线程终止时三者所使用的空间也被回收掉。
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[如何保证推送消息能够准确推送到客户端]]></title>
+      <url>/2017/07/18/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%8E%A8%E9%80%81%E6%B6%88%E6%81%AF%E8%83%BD%E5%A4%9F%E5%87%86%E7%A1%AE%E6%8E%A8%E9%80%81%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
+      <content type="html"><![CDATA[<h1 id="如何保证推送消息能够准确推送到客户端。"><a href="#如何保证推送消息能够准确推送到客户端。" class="headerlink" title="如何保证推送消息能够准确推送到客户端。"></a>如何保证推送消息能够准确推送到客户端。</h1><h2 id="手机端："><a href="#手机端：" class="headerlink" title="手机端："></a>手机端：</h2><ul>
+<li>轮询方式获取消息。</li>
+<li>短信拦截模式。  发送短信通知消息，应用中的短信拦截模块拦截短信，并解析成数据。成本高。</li>
+<li><p>持久连接。</p>
+<p>监听电量变化，网络变化，开关屏幕等等时候注册BroadCastReceiver来接收通知，接手后进行消息获取。<br>有些ROM一旦用户kill掉主线程，就不会再投送广播消息给应用，导致应用无法启动，这是可以Fork一个进程,一旦发现主线程被杀，立即调用shell启动该Service（应用保活）</p>
+</li>
+</ul>
+<h2 id="微服务间如何选择推送和拉取数据"><a href="#微服务间如何选择推送和拉取数据" class="headerlink" title="微服务间如何选择推送和拉取数据"></a>微服务间如何选择推送和拉取数据</h2><p>在消息系统中，一般有两种消费模式：生产端推送消息，消费主动拉取消息。</p>
+<h4 id="数据是动态的，且实时性较强，宜采用生产端推送。"><a href="#数据是动态的，且实时性较强，宜采用生产端推送。" class="headerlink" title="数据是动态的，且实时性较强，宜采用生产端推送。"></a>数据是动态的，且实时性较强，宜采用生产端推送。</h4><p>   例如家长手机控制孩子手机使用，希望设置立即生效，家长端设置后由<strong>立即</strong>由中间系统进行通知。如果让消费端轮询查消息，不仅不能保证消息的实时性和准确性，而且系统也会造成一定的损耗，供应链系统也会被迫处理重复订单问题。<br>    如果把消息设置成实时推送也是不合适的，<strong>推送成不成功不应该作为设置成功的条件</strong>。设置功能和推送功能不应该是强关联的，就像发送验证码，服务器收到了发送验证码的功能请求后，异步交给验证码发送功能，返回给客户200成功，随后验证码发送功能进行异步通知，确保通知成功即可。</p>
+<h4 id="客户端长时间离线状态"><a href="#客户端长时间离线状态" class="headerlink" title="客户端长时间离线状态"></a>客户端长时间离线状态</h4><p>   客户端长时间离线状态（断网，没电等等），没办法推送过去，会暂存在一个暂存表中，等待客户端联网等监听广播事件进行主动获取，消息获取成功，就会把离线消息表里的消息转移到已发送的消息表中。（不在本表中将已发送的消息的字段置为已读，会影响查询速度。）</p>
+<h4 id="推送的优点"><a href="#推送的优点" class="headerlink" title="推送的优点"></a>推送的优点</h4><ul>
+<li>时效性高。</li>
+<li>服务器压力小。 相对比轮询拉取模式，每次推送都会有数据，有效避免了空轮询</li>
+<li>交互简单。 只需要提供推送接口就好了，不需要额外开销。</li>
+</ul>
+<h4 id="推送的缺点"><a href="#推送的缺点" class="headerlink" title="推送的缺点"></a>推送的缺点</h4><ul>
+<li>不能保证一定能推送成功。</li>
+<li>缺乏数据多样性，推送的消息一般都有固定的模板<br>####极光推送</li>
+<li>活跃用户的到达率在90%以上。轮询获取99%以上。</li>
+<li>并发情况下第三方服务的实时性不太理想。</li>
+</ul>
+<h4 id="自主研发的推送系统"><a href="#自主研发的推送系统" class="headerlink" title="自主研发的推送系统"></a>自主研发的推送系统</h4><ul>
+<li>对客户端的海量长连接的维护管理消耗太大。</li>
+<li>App端Service稳定性，保活。</li>
+<li>有些厂商不允许有push service存在。</li>
+</ul>
+<p>##自主研发的推送架构</p>
+<h3 id="架构方案类似："><a href="#架构方案类似：" class="headerlink" title="架构方案类似："></a>架构方案类似：</h3><p>   <img src="http://upload-images.jianshu.io/upload_images/1760830-e6fbb7ae6613b8ae?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>            （图片来自架构之美公众号，侵删）</p>
+<ul>
+<li>通过动态组合和扩展方式，结合移动Push推送数据分析，不同的手机使用不同的方案，针对性的优化，android平台中，融合多种不同的第三方推送PUSH平台，提高转化率。</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+    
+    <entry>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[timeline]]></title>
+      <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+  
+</search>
