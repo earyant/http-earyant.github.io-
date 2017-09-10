@@ -3,6 +3,538 @@
   
     
     <entry>
+      <title><![CDATA[ArrayList和LinkedList对比]]></title>
+      <url>/2017/09/10/ArrayList%E5%92%8CLinkedList%E5%AF%B9%E6%AF%94/</url>
+      <content type="html"><![CDATA[<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><ul>
+<li>ArrayList ： 继承自List接口</li>
+<li>LinkedList ： 继承自List和Deque接口</li>
+</ul>
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><ul>
+<li>ArrayList ：底层用数组进行存储</li>
+<li>LinkedList ： 底层用双链表进行存储 </li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>ArrayList ： 访问速度快，插入和删除比较慢 ，需要移动元素</li>
+<li>LinkedList ： 访问比较慢，插入和删除比较快 ， 需要链式查询</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java集合框架]]></title>
+      <url>/2017/09/10/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/</url>
+      <content type="html"><![CDATA[<h2 id="顶级接口："><a href="#顶级接口：" class="headerlink" title="顶级接口："></a>顶级接口：</h2><ul>
+<li>Collection<br>  <img src="img/Collection接口继承关系.jpg" alt=""></li>
+<li>Map<br>  <img src="img/Map接口继承关系.jpg" alt=""></li>
+</ul>
+<h2 id="顶级类："><a href="#顶级类：" class="headerlink" title="顶级类："></a>顶级类：</h2><ul>
+<li>Collections</li>
+</ul>
+<h3 id="接口描述"><a href="#接口描述" class="headerlink" title="接口描述"></a>接口描述</h3><ul>
+<li>Collection ：  不提供直接子类继承，只提供继承的子接口（List和Set）<ul>
+<li>List : 有序的Collection，控制元素的插入位置，和通过索引访问List数据，允许相同的Key。<ul>
+<li>ArrayList</li>
+<li>Verctor<ul>
+<li>Stack</li>
+</ul>
+</li>
+<li>LinkedList( 也继承自 Deque)</li>
+</ul>
+</li>
+<li>Set ： 不保存重复数据<ul>
+<li>HashSet<ul>
+<li>LinkedHashSet</li>
+</ul>
+</li>
+<li>SortedSet<ul>
+<li>TreeSet</li>
+</ul>
+</li>
+<li>EnumSet</li>
+</ul>
+</li>
+<li>Queue<ul>
+<li>DeQue<ul>
+<li>LinkedList</li>
+</ul>
+</li>
+<li>PriorityQueue</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Map<ul>
+<li>EnumMap</li>
+<li>HashMap<ul>
+<li>LinkedHashMap</li>
+</ul>
+</li>
+<li>IdentityMap</li>
+<li>HashTable<ul>
+<li>Properties</li>
+</ul>
+</li>
+<li>SortedMap<ul>
+<li>TreeMap</li>
+</ul>
+</li>
+<li>WeakHashMap</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java整理]]></title>
+      <url>/2017/09/09/java%E6%95%B4%E7%90%86/</url>
+      <content type="html"><![CDATA[<h2 id="算法和数据结构（性能，场景）："><a href="#算法和数据结构（性能，场景）：" class="headerlink" title="算法和数据结构（性能，场景）："></a>算法和数据结构（性能，场景）：</h2><h3 id="数据结构："><a href="#数据结构：" class="headerlink" title="数据结构："></a>数据结构：</h3><ul>
+<li>数组</li>
+<li>链表</li>
+<li>树<ul>
+<li>红黑树</li>
+<li>AVL树</li>
+<li>Hash树</li>
+<li>tire树</li>
+<li>b-树<br>*b+树</li>
+</ul>
+</li>
+<li>队列</li>
+<li>栈<h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h3></li>
+<li>查找：<ul>
+<li>二分查找，以及变种二分查找。</li>
+</ul>
+</li>
+<li>排序：<ul>
+<li>7种排序</li>
+<li>时间、空间复杂度（理解并分析）</li>
+<li>动态规划、贪心算法</li>
+<li>图<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3></li>
+</ul>
+</li>
+<li>OSI7层协议（TCP四层）<ul>
+<li>URL到页面的过程</li>
+</ul>
+</li>
+<li>http:<ul>
+<li>http/https 1.0、1.1、2.0</li>
+<li>get/post 以及幂等性</li>
+<li>http相关头协议</li>
+</ul>
+</li>
+<li>网络攻击（CSRF、XSS）</li>
+<li>TCP/IP<ul>
+<li>三次握手、四次握手</li>
+<li>拥塞控制（过程、阙值）</li>
+<li>TCP与UDP比较</li>
+<li>子网掩码</li>
+<li>DDos攻击</li>
+</ul>
+</li>
+<li>BIO、IO、NIO、AIO<ul>
+<li>原理</li>
+<li>Netty</li>
+<li>linux内核的select poll epoll<h3 id="数据库-mysql"><a href="#数据库-mysql" class="headerlink" title="数据库(mysql)"></a>数据库(mysql)</h3></li>
+</ul>
+</li>
+<li>索引<ul>
+<li>分类<ul>
+<li>全文索引</li>
+<li>HASH索引</li>
+<li>BTree索引</li>
+<li>RTree索引</li>
+<li>普通索引</li>
+<li>唯一索引</li>
+<li>主索引</li>
+<li>外键索引</li>
+<li>复合索引</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化方式<ul>
+<li>失效条件</li>
+<li>底层结构</li>
+</ul>
+</li>
+<li>sql语法<ul>
+<li>join、union、子查询、having、group by</li>
+</ul>
+</li>
+<li>引擎对比<ul>
+<li>InnoDB</li>
+<li>MyISAM</li>
+</ul>
+</li>
+<li>锁<ul>
+<li>行锁、表锁、页级锁、意向锁、读锁、写锁、悲观锁、乐观锁、以及枷锁的select sql方式</li>
+</ul>
+</li>
+<li>隔离级别<ul>
+<li>脏读</li>
+<li>不可重复读</li>
+<li>幻读</li>
+</ul>
+</li>
+<li>事务的ACID</li>
+<li>B树</li>
+<li>B+树</li>
+<li>优化<ul>
+<li>explain</li>
+<li>慢查询</li>
+<li>show profile</li>
+<li>数据库的范式</li>
+<li>分库分表</li>
+<li>主从复制</li>
+<li>读写分离<h3 id="NoSql"><a href="#NoSql" class="headerlink" title="NoSql"></a>NoSql</h3></li>
+</ul>
+</li>
+<li>redis</li>
+<li>memcached</li>
+<li>mongdb</li>
+</ul>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><ul>
+<li>进程通信IPC，与线程区别</li>
+<li>OS集中策略、进程调度</li>
+<li>互斥与死锁</li>
+<li>linux相关命令<ul>
+<li>cpu命令</li>
+<li>内存</li>
+<li>部署</li>
+<li>vim<h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3></li>
+</ul>
+</li>
+<li>面向对象</li>
+<li><p>集合</p>
+<ul>
+<li><p>Arrays </p>
+<ul>
+<li>Arrays.asList(): 可以将Array转换成List。</li>
+<li>Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找</li>
+<li>Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法</li>
+<li>Arrays.copyOfRange :  可以复制整个数组或者其中一个部分</li>
+<li>Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。</li>
+<li>Arrays.equals : 比较两个数组是否想相等。</li>
+<li>Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分</li>
+<li>Arrays.hashCode : 根据数组内容计算器hash值。</li>
+<li>Arrays.sort : 对整个数组或者数组一部分进行排序。</li>
+<li>Arrays.toString : 打印数组的内容</li>
+<li>所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：<br>  return coll.toArray(new T[coll.size()]);</li>
+</ul>
+</li>
+<li><p>map</p>
+<ul>
+<li>HashMap</li>
+<li>EnumMap: 枚举类型座位键值的Map，效率要高于HashMap</li>
+<li>HashTable： </li>
+<li>ConcurrentHashMap：<ul>
+<li>get操作全并发访问，put操作可配置并发操作的哈希表，并发级别可以通过构造参数中的concurrentLevel参数设置(默认级别为16).该参数会在Map内部划分一些分区，在put的时候，只有更新的分区是锁住的。</li>
+</ul>
+</li>
+<li>ConcurrentSkipListMap： 基于跳跃表的ConcurrentNavigableMap实现。本质上这种集合可以当做TreeMap的线程安全版本来使用。</li>
+<li>IdentityHashMap</li>
+<li>LinkedHashMap </li>
+<li>TreeMap</li>
+<li>WeakHashMap</li>
+</ul>
+</li>
+<li>list<ul>
+<li>ArrayList<ul>
+<li>内部用一个整形数字或者数组存储了集合的大小。</li>
+<li>访问速度稳定；</li>
+<li>在尾部添加成本低，在头部添加成本高(线性复杂度)。</li>
+</ul>
+</li>
+<li>LinkedList<ul>
+<li>Deque实现，每一个节点都保存着上一个节点和下一个节点的指针。所以数据的存取和更新都具有线性复杂度。</li>
+</ul>
+</li>
+<li>Vector</li>
+</ul>
+</li>
+<li><p>set </p>
+<ul>
+<li>HashSet</li>
+<li>EnumSet</li>
+<li>BitSet</li>
+<li>LinkedHashMap</li>
+<li>TreeSet</li>
+<li>ConcurrentSkipListSet ： 使用ConcurrentSkipListMap来存储线程安全的Set。</li>
+<li>CopyOnWriteArraySet： 使用CopyOnWriteArrayList存储的线程安全的Set</li>
+</ul>
+</li>
+<li><p>Queues/Deques</p>
+<ul>
+<li>ArrayDeQue ： Deque是基于有首尾指针的数组（环形缓冲区）实现的。和LinkedList不同，这个类没有实现List接口，因此，如果没有收尾元素的话，就不能去除任何元素。比LinkedList好一点，产生的垃圾数量较少。</li>
+<li>Stack ：后进先出的队列<br>– 并发 – </li>
+<li>ArrayBlockingQueue： 基于书实现的一个有界阻塞对，大小不能重新定义，试图向一个满的队列添加元素的时候，就会受到阻塞，知道另一个方法从队列中取出元素。</li>
+<li>ConcurrentLinkedDeque、ConcurrentLinkedQueue：基于链表实现的无解队列，添加元素不阻塞。要求消费者的速度至少要比生产一样快，不然内存就会耗尽，严重依赖于CAS操作。</li>
+<li>DelayQueue ： 无界的保存Delayed元素的集合，元素只有在延时已经过期的时候才能被取出。队列的第一个元素延期最小(包含负值，延时已经过期)，要实现一个延期任务的队列的时候使用(不要自己手动实现–使用ScheduledThreadPoolExecutor)</li>
+<li>LinkedBlockingDeque/LinkedBlockingQueue： 可选择有界或者无界基于链表的实现。在队列为空或者满的情况下使用ReentrantLock</li>
+<li>LinkedTransferQueue: 基于链表的无界队列，除了通常的队列操作，还有一系列的transfer方法，可以让生产者直接给等待的消费者传递信息，这样就不用将元素存储到队列中了，这是一个基于CAS的无锁集合</li>
+<li>PriorityBlockingQueue：PriorityQueue的无界的版本。</li>
+<li>SynchronousQueue：一个有界队列，其中没有任何内存容量。这就意味着任何插入操作必须等到响应的取出操作才能执行，反之亦反。如果不需要Queue接口的话，通过Exchanger类也能完成响应的功能。</li>
+</ul>
+</li>
+<li>Lists类<ul>
+<li>CopyOnWriteArrayList ： list的实现每一次都会产生一个新的隐含数组副本，所以这个操作成本很高，适合遍历操作比更新操作多的集合，例如listeners/observers集合</li>
+</ul>
+</li>
+<li>Collections 工具类<ul>
+<li>checked* : 检查要添加的元素的类型并返回结果，尝试添加非法类型的变量都会抛出一个ClassCastException<ul>
+<li>checkedCollection</li>
+<li>checkedList</li>
+<li>checkedMap</li>
+<li>checkSet</li>
+<li>checkedSortedMap</li>
+<li>checkedSortedSet</li>
+</ul>
+</li>
+<li>empty* : 返回一个固定的空集合。<ul>
+<li>emptyList</li>
+<li>emptyMap</li>
+<li>emptySet</li>
+</ul>
+</li>
+<li>singleton* : 返回一个只有一个入口的set、list、map集合<ul>
+<li>singletonList</li>
+<li>singletonMap</li>
+</ul>
+</li>
+<li>synchronized* ： 获得集合的线程安全版本<ul>
+<li>synchronizedCollection</li>
+<li>synchronizedList</li>
+<li>synchronizedMap</li>
+<li>synchronizedSet</li>
+<li>synchronizedSortedMap</li>
+<li>synchronizedSortedSet</li>
+</ul>
+</li>
+<li>unmodifiable* : 返回一个不可变的集合<ul>
+<li>unmodifiableCollection</li>
+<li>unmodifiableList</li>
+<li>unmodifiableMap</li>
+<li>unmodifiableSet</li>
+<li>unmodifiableSortedMap</li>
+<li>unmodifiableSortedSet</li>
+</ul>
+</li>
+<li>addAll : 添加一些元素或者一个数组的内容到集合中</li>
+<li>binarySearch ： 和数组的Arrays.binarySearch功能相同</li>
+<li>disjoint : 检查两个集合是不是没有相同元素</li>
+<li>fill ： 用一个指定的值代替集合中的所有元素</li>
+<li>frequency: 集合中有多少元素是和给定元素相同的。</li>
+<li>indexOfSubList、lastIndexOfSubList\indexOf\lashIndexOf 找出给定list中第一个出现和最后一个出现的子表</li>
+<li>max、min 找出基于自然顺序或者比较器排序的集合、最大或者最小的元素</li>
+<li>replaceAll： 替换所有</li>
+<li>reverse: 掉到排序元素和集合中的顺序</li>
+<li>rotate ： 根据给定的距离旋转元素</li>
+<li>shuffle： 随机排放List集合中的节点，而已给定自己的生成器</li>
+<li>sort ： 自然排序或者指定的排序器排序</li>
+<li>swap 交换集合中的两个元素的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>并发和多线程<ul>
+<li>线程池</li>
+<li>SYNC</li>
+<li>Lock机制</li>
+<li>线程通信</li>
+<li>volatile</li>
+<li>ThreadLocal</li>
+<li>CyclicBarrier</li>
+<li>Atomic包</li>
+<li>concurrent包</li>
+<li>CountDownlatch</li>
+<li>AQS</li>
+<li>CAS</li>
+</ul>
+</li>
+<li>JVM<ul>
+<li>内存模型</li>
+<li>GC垃圾回收机制</li>
+<li>分代算法，GC算法</li>
+<li>收集器</li>
+<li>类加载、双亲委派</li>
+<li>JVM调优<ul>
+<li>jvm参数</li>
+</ul>
+</li>
+<li>内存泄露和内存溢出</li>
+</ul>
+</li>
+<li>IO和NIO</li>
+<li>反射和代理、异常、java8、序列化</li>
+<li>设计模式：<ul>
+<li>24中常用的设计模式</li>
+<li>java源码中或者spring中用到哪些</li>
+</ul>
+</li>
+<li>web<ul>
+<li>servlet</li>
+<li>cookie、session</li>
+<li>spring<ul>
+<li>aop</li>
+<li>ioc</li>
+<li>mvc</li>
+<li>事务</li>
+<li>动态代理</li>
+</ul>
+</li>
+<li>mybatis</li>
+<li>tomcat<ul>
+<li>类加载机制</li>
+</ul>
+</li>
+<li>hibernate</li>
+</ul>
+</li>
+<li>源码</li>
+<li>Guava<h3 id="脚本语言"><a href="#脚本语言" class="headerlink" title="脚本语言"></a>脚本语言</h3></li>
+<li>python</li>
+<li>shell</li>
+</ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><ul>
+<li>CAP原理和BASE理论</li>
+<li>NoSql和KV存储(redis,hbase,mongodb,etcd,springcloud)</li>
+<li>负载均衡(原理，cdn，一致性hash)</li>
+<li>RPC框架<ul>
+<li>通信 netty</li>
+<li>序列化协议 thrift，protobuff</li>
+</ul>
+</li>
+<li>消息队列<ul>
+<li>原理</li>
+<li>kafka</li>
+<li>activeMQ</li>
+<li>rocketMQ</li>
+</ul>
+</li>
+<li>分布式存储系统<ul>
+<li>GFS</li>
+<li>HDFS</li>
+<li>fastDFS</li>
+<li>存储模型<ul>
+<li>skipList</li>
+<li>LSM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分布式事务<ul>
+<li>redis分布锁</li>
+</ul>
+</li>
+<li><p>分布式锁</p>
+<h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h3></li>
+<li>hadoop生态圈<ul>
+<li>hive</li>
+<li>hbase</li>
+<li>hdfs</li>
+<li>zoopkeeper</li>
+<li>storm</li>
+<li>kafka</li>
+</ul>
+</li>
+<li>spark</li>
+<li>搜索引擎与技术</li>
+<li>机器学习与技术</li>
+<li>人工智能</li>
+</ul>
+<h2 id="书单"><a href="#书单" class="headerlink" title="书单"></a>书单</h2><ul>
+<li>算法与数据结构<ul>
+<li>数据结构（严蔚敏）/大话数据结构              * 剑指Offer/程序员面试金典/编程珠玑/编程之美/牛客网+leetcode</li>
+<li>程序员笔试面试最优解（左程云）/不如直接看左神的笔试面试指南视频</li>
+<li>数据结构与算法经典问题解析（Java语言描述）</li>
+<li>图解数据结构（使用Java）</li>
+</ul>
+</li>
+<li>计算机网络：<ul>
+<li>计算机网络（谢希仁）</li>
+<li>TCP/IP 详解</li>
+<li>HTTP权威指南</li>
+<li>图解TCP/IP</li>
+<li>图解HTTP</li>
+</ul>
+</li>
+<li>数据库：//数据库主要是多用，书上主要看索引和性能的部分<ul>
+<li>高性能MySQL/深入浅出MySQL</li>
+</ul>
+</li>
+<li>操作系统：<ul>
+<li>OS原理：操作系统（课本，黑色的那个）</li>
+<li>Linux：<ul>
+<li>Linux私房菜 //鸟哥写的，很全，包括bash部分</li>
+<li>跟阿铭学Linux //主要偏重于命令和操作，比较浅显</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>java：<ul>
+<li>Java疯狂讲义/Java编程思想/Java核心技术 卷1</li>
+<li>深入理解Java虚拟机</li>
+<li>并发编程的艺术/多线程编程核心技术</li>
+<li>Effective Java</li>
+<li>Java程序员面试笔试宝典 //何昊的那本，个人感觉是突击知识点的神器</li>
+<li>Java程序性能优化</li>
+<li>实战Java高并发程序设计</li>
+</ul>
+</li>
+<li>Java Web：<ul>
+<li>Spring实战/轻量级JavaEE 企业应用（红皮，讲SSH的） //主要看最后一部分Spring的就可以</li>
+<li>深入JavaWeb技术内幕（阿里 许令波）//这个讲的还是比较深的</li>
+<li>SpringBoot实战/深入实践SpringBoot</li>
+</ul>
+</li>
+<li>设计模式：<ul>
+<li>大话设计模式 //通俗易懂</li>
+<li>各类博客的总结</li>
+</ul>
+</li>
+<li>分布式与大数据：<ul>
+<li>分布式服务框架原理与实践</li>
+<li>大型网站技术架构</li>
+<li>Hadoop实战（hadoop体系包括得很全）</li>
+</ul>
+</li>
+<li>其他：<ul>
+<li>Git：<ul>
+<li>Git权威指南</li>
+<li>Git官方讲解视频（牛客网有带字幕的）</li>
+</ul>
+</li>
+<li>Redis：<ul>
+<li>Redis实战</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>docker</li>
+<li>springcloud</li>
+</ul>
+<p>感谢：<br><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">这可能不只是一篇面经</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[高可用+高并发+负载均衡架构设计(转发)]]></title>
+      <url>/2017/09/08/%E9%AB%98%E5%8F%AF%E7%94%A8-%E9%AB%98%E5%B9%B6%E5%8F%91-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-%E8%BD%AC%E5%8F%91/</url>
+      <content type="html"><![CDATA[<p><img src="https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&amp;mid=2651960393&amp;idx=1&amp;sn=23cf8438b436c531c81b3f09a3d5e8fb&amp;chksm=bd2d01958a5a88838e6ef493ccb1fe0854f7216f3863fbe9798eec5019dc58d73d4e95b3132f&amp;mpshare=1&amp;scene=1&amp;srcid=09082gOCvZ5mjeN9YZ8HSg0o#rd" alt="原地址"></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[微信机器人流程]]></title>
       <url>/2017/09/03/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%B5%81%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>[TOC]</p>
@@ -59,7 +591,36 @@
 </ul>
 </li>
 </ul>
-]]></content>
+<h2 id="2017-09-04"><a href="#2017-09-04" class="headerlink" title="2017.09.04"></a>2017.09.04</h2><p>  做好微信机器人，在微信公众平台界面发送8将返回一个二维码，扫码登陆后即可开启机器人。<br>  机器人功能： //TODO</p>
+<pre><code>* 集成聊天机器人功能。
+* 备份聊天记录。
+* 爬取所有用户，并分析用户联系人的男女比例，整合头像。
+* 爬取公众号文章。
+* 撤回消息备份
+* 关键词监听
+* 消息搜索
+* 信息分析
+* 查看/删除文件[文件名] e.g. 查看文件[123345234.mp3]
+* 撤回附件列表 (查看都有哪些保存在电脑中的已撤回附件)
+* 清空附件列表 (清空已经保存在电脑中的附件)
+* 添加关键词[关键词] e.g. 设置关键词[在不在]
+* 删除关键词[关键词] e.g. 删除关键词[在不在]
+* 清空关键词 清空已经设置的所有关键词
+* 查看关键词 查看目前设置的关键词
+* 添加签到口令#公众号:签到口令# e.g. 添加签到口令#招商银行信用卡:签到#
+* 删除签到口令#公众号# e.g. 删除签到口令#招商银行信用卡#
+* 查看签到口令 查看已经存在的公众和和对应的签到口令
+* 清空签到口令 清空所有签到口令
+* 截图 截取当前屏幕发送到文件助手
+* 添加自动回复#针对的关键词:回复内容# e.g.添加自动回复#在不在:我现在有事情，待会儿回复你#
+* 删除自动回复#针对的关键词# e.g.删除自动回复#在不在#
+* 清空自动回复 清空所有的自定义回复规则
+* 关闭自动回复
+* 打开自动回复
+* 退出程序
+</code></pre><h2 id="备份聊天功能："><a href="#备份聊天功能：" class="headerlink" title="备份聊天功能："></a>备份聊天功能：</h2><pre><code>* 发送 “开启**回复” 即可回复 ** 信息
+  后台将配置记录到sql中，并缓存到redis中。
+</code></pre>]]></content>
       
         
     </entry>
@@ -641,7 +1202,7 @@ spring:
 title: 完整写一篇博客
 date: 2017-07-18 14:03:42
 tags:
---- 
+---
 </code></pre></li>
 </ul>
 <h3 id="创建Front-matter"><a href="#创建Front-matter" class="headerlink" title="创建Front-matter"></a>创建Front-matter</h3><pre><code>参数    描述    默认值
@@ -649,10 +1210,10 @@ layout    布局    post
 title    标题    文件名
 date    建立日期    文件建立日期
 updated    更新日期    文件更新日期
-tags    标签（不适用于分页）    
-categories    分类（不适用于分页）    
-permalink    覆盖文章网址    
-thumbnail    缩略图地址    
+tags    标签（不适用于分页）
+categories    分类（不适用于分页）
+permalink    覆盖文章网址
+thumbnail    缩略图地址
 toc    显示 TOC 按钮    true
 comment    显示评论    true
 notag    不生成标签按钮    false
@@ -820,14 +1381,14 @@ mathJax    启用 Mathjax    false
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[timeline]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[timeline]]></title>
-      <url>/timeline/index.html</url>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
