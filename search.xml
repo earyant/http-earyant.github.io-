@@ -3,6 +3,14 @@
   
     
     <entry>
+      <title><![CDATA[取余和取模的区别]]></title>
+      <url>/2017/09/10/%E5%8F%96%E4%BD%99%E5%92%8C%E5%8F%96%E6%A8%A1%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ArrayList和LinkedList对比]]></title>
       <url>/2017/09/10/ArrayList%E5%92%8CLinkedList%E5%AF%B9%E6%AF%94/</url>
       <content type="html"><![CDATA[<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><ul>
@@ -33,17 +41,23 @@
 <li>Collections</li>
 </ul>
 <h3 id="接口描述"><a href="#接口描述" class="headerlink" title="接口描述"></a>接口描述</h3><ul>
-<li>Collection ：  不提供直接子类继承，只提供继承的子接口（List和Set）<ul>
-<li>List : 有序的Collection，控制元素的插入位置，和通过索引访问List数据，允许相同的Key。<ul>
-<li>ArrayList</li>
+<li><p>Collection ：  不提供直接子类继承，只提供继承的子接口（List和Set）</p>
+<ul>
+<li><p>List : 有序的Collection，控制元素的插入位置，和通过索引访问List数据，允许相同的Key。</p>
+<ul>
 <li>Verctor<ul>
 <li>Stack</li>
 </ul>
 </li>
-<li>LinkedList( 也继承自 Deque)</li>
+<li>ArrayList</li>
+<li><p>LinkedList( 也继承自 Deque)</p>
+</li>
+<li><p><a href="https://earyant.github.io/2017/09/10/ArrayList%E5%92%8CLinkedList%E5%AF%B9%E6%AF%94/">ArrayList和LinkedList对比</a></p>
+</li>
 </ul>
 </li>
-<li>Set ： 不保存重复数据<ul>
+<li><p>Set ： 不保存重复数据</p>
+<ul>
 <li>HashSet<ul>
 <li>LinkedHashSet</li>
 </ul>
@@ -212,22 +226,20 @@
 <li><p>集合</p>
 <ul>
 <li><p>Arrays </p>
-<ul>
-<li>Arrays.asList(): 可以将Array转换成List。</li>
-<li>Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找</li>
-<li>Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法</li>
-<li>Arrays.copyOfRange :  可以复制整个数组或者其中一个部分</li>
-<li>Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。</li>
-<li>Arrays.equals : 比较两个数组是否想相等。</li>
-<li>Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分</li>
-<li>Arrays.hashCode : 根据数组内容计算器hash值。</li>
-<li>Arrays.sort : 对整个数组或者数组一部分进行排序。</li>
-<li>Arrays.toString : 打印数组的内容</li>
-<li>所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：<br>  return coll.toArray(new T[coll.size()]);</li>
-</ul>
-</li>
-<li><p>map</p>
-<ul>
+<pre><code>* Arrays.asList(): 可以将Array转换成List。
+* Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找
+* Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法
+* Arrays.copyOfRange :  可以复制整个数组或者其中一个部分
+* Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。
+* Arrays.equals : 比较两个数组是否想相等。
+* Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分
+* Arrays.hashCode : 根据数组内容计算器hash值。
+* Arrays.sort : 对整个数组或者数组一部分进行排序。
+* Arrays.toString : 打印数组的内容
+* 所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：
+    return coll.toArray(new T[coll.size()]);
+</code></pre><ul>
+<li>map<ul>
 <li>HashMap</li>
 <li>EnumMap: 枚举类型座位键值的Map，效率要高于HashMap</li>
 <li>HashTable： </li>
@@ -336,6 +348,8 @@
 <li>shuffle： 随机排放List集合中的节点，而已给定自己的生成器</li>
 <li>sort ： 自然排序或者指定的排序器排序</li>
 <li>swap 交换集合中的两个元素的位置</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -706,7 +720,9 @@ int size;
 <pre><code>1 void resize(int newCapacity) {   //传入新的容量
 2     Entry[] oldTable = table;    //引用扩容前的Entry数组
 </code></pre><p> 3     int oldCapacity = oldTable.length;<br> 4     if (oldCapacity == MAXIMUM_CAPACITY) {  //扩容前的数组大小如果已经达到最大(2^30)了<br> 5         threshold = Integer.MAX_VALUE; //修改阈值为int的最大值(2^31-1)，这样以后就不会扩容了<br> 6         return;<br> 7     }<br> 8<br> 9     Entry[] newTable = new Entry[newCapacity];  //初始化一个新的Entry数组<br>10     transfer(newTable);                         //！！将数据转移到新的Entry数组里<br>11     table = newTable;                           //HashMap的table属性引用新的Entry数组<br>12     threshold = (int)(newCapacity * loadFactor);//修改阈值<br>13 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这里就是使用一个容量更大的数组来代替已有的容量小的数组，transfer()方法将原有Entry数组的元素拷贝到新的Entry数组里。</div></pre></td></tr></table></figure></p>
-<p>1 void transfer(Entry[] newTable) {<br> 2     Entry[] src = table;                   //src引用了旧的Entry数组<br> 3     int newCapacity = newTable.length;<br> 4     for (int j = 0; j &lt; src.length; j++) { //遍历旧的Entry数组<br> 5         Entry<k,v> e = src[j];             //取得旧Entry数组的每个元素<br> 6         if (e != null) {<br> 7             src[j] = null;//释放旧Entry数组的对象引用（for循环后，旧的Entry数组不再引用任何对象）<br> 8             do {<br> 9                 Entry<k,v> next = e.next;<br>10                 int i = indexFor(e.hash, newCapacity); //！！重新计算每个元素在数组中的位置<br>11                 e.next = newTable[i]; //标记[1]<br>12                 newTable[i] = e;      //将元素放在数组上<br>13                 e = next;             //访问下一个Entry链上的元素<br>14             } while (e != null);<br>15         }<br>16     }<br>17 }<br>```</k,v></k,v></p>
+<p>1 void transfer(Entry[] newTable) {<br> 2     Entry[] src = table;                   //src引用了旧的Entry数组<br> 3     int newCapacity = newTable.length;<br> 4     for (int j = 0; j &lt; src.length; j++) { //遍历旧的Entry数组<br> 5         Entry<k,v> e = src[j];             //取得旧Entry数组的每个元素<br> 6         if (e != null) {<br> 7             src[j] = null;//释放旧Entry数组的对象引用（for循环后，旧的Entry数组不再引用任何对象）<br> 8             do {<br> 9                 Entry<k,v> next = e.next;<br>10                 int i = indexFor(e.hash, newCapacity); //！！重新计算每个元素在数组中的位置<br>11                 e.next = newTable[i]; //标记[1]<br>12                 newTable[i] = e;      //将元素放在数组上<br>13                 e = next;             //访问下一个Entry链上的元素<br>14             } while (e != null);<br>15         }<br>16     }<br>17 }</k,v></k,v></p>
+<p>```</p>
+<h2 id="感谢参考"><a href="#感谢参考" class="headerlink" title="感谢参考"></a>感谢参考</h2><p><a href="http://www.importnew.com/20386.html" target="_blank" rel="external">参考</a></p>
 ]]></content>
       
         
@@ -1369,14 +1385,14 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     

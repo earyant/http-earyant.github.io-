@@ -74,7 +74,7 @@
 
     
         <meta property="article:published_time" content="Wed Aug 09 2017 15:20:26 GMT+0800" />
-        <meta property="article:modified_time" content="Thu Aug 10 2017 10:34:43 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Sep 10 2017 18:40:21 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -115,7 +115,7 @@
     "headline": "HashMap全解析",
     "url": "http://earyant.github.io/2017/08/09/HashMap全解析/index.html",
     "datePublished": "Wed Aug 09 2017 15:20:26 GMT+0800",
-    "dateModified": "Thu Aug 10 2017 10:34:43 GMT+0800",
+    "dateModified": "Sun Sep 10 2017 18:40:21 GMT+0800",
     "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -349,7 +349,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构造函数"><span class="post-toc-number">2.</span> <span class="post-toc-text">构造函数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Node"><span class="post-toc-number">4.</span> <span class="post-toc-text">Node</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义"><span class="post-toc-number">1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构造函数"><span class="post-toc-number">2.</span> <span class="post-toc-text">构造函数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Node"><span class="post-toc-number">4.</span> <span class="post-toc-text">Node</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#感谢参考"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">感谢参考</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -580,7 +580,9 @@ int size;
 <pre><code>1 void resize(int newCapacity) {   //传入新的容量
 2     Entry[] oldTable = table;    //引用扩容前的Entry数组
 </code></pre><p> 3     int oldCapacity = oldTable.length;<br> 4     if (oldCapacity == MAXIMUM_CAPACITY) {  //扩容前的数组大小如果已经达到最大(2^30)了<br> 5         threshold = Integer.MAX_VALUE; //修改阈值为int的最大值(2^31-1)，这样以后就不会扩容了<br> 6         return;<br> 7     }<br> 8<br> 9     Entry[] newTable = new Entry[newCapacity];  //初始化一个新的Entry数组<br>10     transfer(newTable);                         //！！将数据转移到新的Entry数组里<br>11     table = newTable;                           //HashMap的table属性引用新的Entry数组<br>12     threshold = (int)(newCapacity * loadFactor);//修改阈值<br>13 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这里就是使用一个容量更大的数组来代替已有的容量小的数组，transfer()方法将原有Entry数组的元素拷贝到新的Entry数组里。</div></pre></td></tr></table></figure></p>
-<p>1 void transfer(Entry[] newTable) {<br> 2     Entry[] src = table;                   //src引用了旧的Entry数组<br> 3     int newCapacity = newTable.length;<br> 4     for (int j = 0; j &lt; src.length; j++) { //遍历旧的Entry数组<br> 5         Entry<k,v> e = src[j];             //取得旧Entry数组的每个元素<br> 6         if (e != null) {<br> 7             src[j] = null;//释放旧Entry数组的对象引用（for循环后，旧的Entry数组不再引用任何对象）<br> 8             do {<br> 9                 Entry<k,v> next = e.next;<br>10                 int i = indexFor(e.hash, newCapacity); //！！重新计算每个元素在数组中的位置<br>11                 e.next = newTable[i]; //标记[1]<br>12                 newTable[i] = e;      //将元素放在数组上<br>13                 e = next;             //访问下一个Entry链上的元素<br>14             } while (e != null);<br>15         }<br>16     }<br>17 }<br>```</k,v></k,v></p>
+<p>1 void transfer(Entry[] newTable) {<br> 2     Entry[] src = table;                   //src引用了旧的Entry数组<br> 3     int newCapacity = newTable.length;<br> 4     for (int j = 0; j &lt; src.length; j++) { //遍历旧的Entry数组<br> 5         Entry<k,v> e = src[j];             //取得旧Entry数组的每个元素<br> 6         if (e != null) {<br> 7             src[j] = null;//释放旧Entry数组的对象引用（for循环后，旧的Entry数组不再引用任何对象）<br> 8             do {<br> 9                 Entry<k,v> next = e.next;<br>10                 int i = indexFor(e.hash, newCapacity); //！！重新计算每个元素在数组中的位置<br>11                 e.next = newTable[i]; //标记[1]<br>12                 newTable[i] = e;      //将元素放在数组上<br>13                 e = next;             //访问下一个Entry链上的元素<br>14             } while (e != null);<br>15         }<br>16     }<br>17 }</k,v></k,v></p>
+<p>```</p>
+<h2 id="感谢参考"><a href="#感谢参考" class="headerlink" title="感谢参考"></a>感谢参考</h2><p><a href="http://www.importnew.com/20386.html" target="_blank" rel="external">参考</a></p>
 
     
 
@@ -706,7 +708,7 @@ int size;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">22</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">22</span></a>
             </ul>
         </li>
         
@@ -798,7 +800,7 @@ int size;
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">30</span>
+                <span class="sidebar-badge">31</span>
             </a>
         </li>
         
