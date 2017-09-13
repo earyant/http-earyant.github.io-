@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2017-09-10T09:45:03.538Z</updated>
+  <updated>2017-09-12T10:16:00.647Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从敲下www.baidu.com到浏览器显示页面，都发生了什么？</title>
+    <link href="http://earyant.github.io/2017/09/12/%E4%BB%8E%E6%95%B2%E4%B8%8Bwww-baidu-com%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F/"/>
+    <id>http://earyant.github.io/2017/09/12/从敲下www-baidu-com到浏览器显示页面，都发生了什么？/</id>
+    <published>2017-09-12T10:16:00.000Z</published>
+    <updated>2017-09-12T10:16:00.647Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMvc工作流程</title>
+    <link href="http://earyant.github.io/2017/09/12/SpringMvc%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/"/>
+    <id>http://earyant.github.io/2017/09/12/SpringMvc工作流程/</id>
+    <published>2017-09-12T10:14:53.000Z</published>
+    <updated>2017-09-13T07:26:08.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;SpringMVC核心流程-主要在doDispatch方法中&quot;&gt;&lt;a href=&quot;#SpringMVC核心流程-主要在doDispatch方法中&quot; class=&quot;headerlink&quot; title=&quot;SpringMVC核心流程,主要在doDispatch方法中&quot;&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://earyant.github.io/2017/09/12/README/"/>
+    <id>http://earyant.github.io/2017/09/12/README/</id>
+    <published>2017-09-12T09:31:42.345Z</published>
+    <updated>2017-09-12T09:31:42.363Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;blog&quot;&gt;&lt;a href=&quot;#blog&quot; class=&quot;headerlink&quot; title=&quot;blog&quot;&gt;&lt;/a&gt;blog&lt;/h1&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>取余和取模的区别</title>
@@ -69,7 +115,7 @@
     <link href="http://earyant.github.io/2017/09/09/java%E6%95%B4%E7%90%86/"/>
     <id>http://earyant.github.io/2017/09/09/java整理/</id>
     <published>2017-09-09T13:36:59.000Z</published>
-    <updated>2017-09-11T06:42:37.775Z</updated>
+    <updated>2017-09-12T09:55:39.449Z</updated>
     
     <summary type="html">
     
@@ -101,7 +147,7 @@
     <link href="http://earyant.github.io/2017/09/03/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%B5%81%E7%A8%8B/"/>
     <id>http://earyant.github.io/2017/09/03/微信机器人流程/</id>
     <published>2017-09-03T07:10:30.000Z</published>
-    <updated>2017-09-07T02:57:32.461Z</updated>
+    <updated>2017-09-12T09:22:15.950Z</updated>
     
     <summary type="html">
     
@@ -287,54 +333,6 @@
       &lt;p&gt;在微服务架构中，需要几个关键的组件，服务注册与发现、服务消费、负载均衡、断路器、智能路由、配置管理等，由这几个组件可以组建一个简单的微服务架构，如下图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;img/路由网关.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 &lt;p&gt;注意：A 服务和 
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud学习4断路器（Hystrix）</title>
-    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A04%E6%96%AD%E8%B7%AF%E5%99%A8%EF%BC%88Hystrix%EF%BC%89/"/>
-    <id>http://earyant.github.io/2017/07/21/SpringCloud学习4断路器（Hystrix）/</id>
-    <published>2017-07-21T06:38:04.000Z</published>
-    <updated>2017-07-21T06:53:20.870Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在微服务架构中，我们将业务拆分成一个个的服务，服务与服务之间可以相互调用（RPC）。为了保证其高可用，单个服务又必须集群部署。由于网络原因或者自身的原因，服务并不能保证服务的 100% 可用，如果单个服务出现问题，调用这个服务就会出现网络延迟，此时若有大量的网络涌入，会形成
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud学习3服务消费者feign</title>
-    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A03%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85feign/"/>
-    <id>http://earyant.github.io/2017/07/21/SpringCloud学习3服务消费者feign/</id>
-    <published>2017-07-21T06:20:56.000Z</published>
-    <updated>2017-07-21T06:24:03.295Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;使用feign&quot;&gt;&lt;a href=&quot;#使用feign&quot; class=&quot;headerlink&quot; title=&quot;使用feign&quot;&gt;&lt;/a&gt;使用feign&lt;/h3&gt;&lt;p&gt;spring-cloud-starter-eureka&lt;br&gt;spring-cloud-starte
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud学习2服务消费者</title>
-    <link href="http://earyant.github.io/2017/07/21/SpringCloud%E5%AD%A6%E4%B9%A02%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85/"/>
-    <id>http://earyant.github.io/2017/07/21/SpringCloud学习2服务消费者/</id>
-    <published>2017-07-21T03:32:34.000Z</published>
-    <updated>2017-07-21T06:17:37.850Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在上一篇文章，讲了服务的注册和发现。在服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于 http restful 的。spring cloud 有两种调用方式，一种是 ribbon+restTemplate，另一种是 feign。在这一篇文章首先讲解下基于
     
     </summary>
     

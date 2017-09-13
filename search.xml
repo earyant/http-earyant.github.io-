@@ -3,6 +3,66 @@
   
     
     <entry>
+      <title><![CDATA[从敲下www.baidu.com到浏览器显示页面，都发生了什么？]]></title>
+      <url>/2017/09/12/%E4%BB%8E%E6%95%B2%E4%B8%8Bwww-baidu-com%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringMvc工作流程]]></title>
+      <url>/2017/09/12/SpringMvc%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<h2 id="SpringMVC核心流程-主要在doDispatch方法中"><a href="#SpringMVC核心流程-主要在doDispatch方法中" class="headerlink" title="SpringMVC核心流程,主要在doDispatch方法中"></a>SpringMVC核心流程,主要在doDispatch方法中</h2><ul>
+<li>1、用户发送请求，被SpringMvc的DispatcherServlet捕获到</li>
+<li>2、DispatcherServlet对获取到的URL进行解析，得到统一定位符URI，然后根据URI调用HandlerMapping获得Handler对象以及跟handler相关的拦截器，最后以HandlerExecutionChain对象形式返回。</li>
+<li>3、DispatcherServlet根据返回的Handler选择合适的HandlerAdapter，如果找到了HandlerAdapter,在之前就会执行preHandler方法</li>
+<li>4、提取request中的模型数据，填充Handler入参，开始执行Handler<ul>
+<li>在填充的过程中，SpringMvc会做一些操作：<ul>
+<li>HttpMessageConvert ： 将消息转换成一个对象，将对象转换成指定的响应信息。</li>
+<li>数据转换： 比如将String转换成Integer等</li>
+<li>数据格式化： 日期格式化等</li>
+<li>数据验证： 验证数据的有效性，包括长度、类型等等，验证结果存储到BindingResult或者Error中。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5、Handler执行完成后，像DispatcherServlet返回一个ModelAndView。</li>
+<li>6、根据返回的ModelAndView选择一个合适的ViewResolver返回给DispatcherServlet</li>
+<li>7、ViewResolveModel和View来渲染视图</li>
+<li>8、将渲染结果返回给客户端</li>
+</ul>
+<h2 id="处理关键"><a href="#处理关键" class="headerlink" title="处理关键"></a>处理关键</h2><ul>
+<li>DispatcherServlet的HandlerMapping集合中根据请求的URL匹配每一个handlerMapping对象中的某个handler,匹配成功后将会返回这个handler的处理连接handlerExecutorChain对象，而这个对象中包括多个handlerInterceptor。</li>
+<li>HandlerInterceptor中包含三个方法<ul>
+<li>preHandler，在Handler执行之前调用。</li>
+<li>postHandler，在Handler执行之后调用。</li>
+<li>afterComplete，在view渲染完成后，dispatchServlet返回之前调用。</li>
+</ul>
+</li>
+<li>当preHandler返回false时，请求将在执行afterComplete后直接返回，不会执行handler。    </li>
+</ul>
+<h2 id="首先有几个类需要声明-ModelAndView、HandlerExecutionChain、HandlerMapping、HandlerMethod、HandlerAdapter。"><a href="#首先有几个类需要声明-ModelAndView、HandlerExecutionChain、HandlerMapping、HandlerMethod、HandlerAdapter。" class="headerlink" title="首先有几个类需要声明,ModelAndView、HandlerExecutionChain、HandlerMapping、HandlerMethod、HandlerAdapter。"></a>首先有几个类需要声明,ModelAndView、HandlerExecutionChain、HandlerMapping、HandlerMethod、HandlerAdapter。</h2><ul>
+<li>1、HandlerMethod(org.springframework.web.method.HandlerMethod)，这个类为中存放了某个bean对象和该bean对象的某个要处理的Method对象。</li>
+<li>2、HandlerMapping,作用为通过request对象，获取对应的HandlerMethod对象。</li>
+<li>3、HandlerExecutionChain作用为通过加入Interceptor拦截器包装HandlerMapping返回的HandlerMethod对象。让待处理的方法对象与拦截器称为一个整体,即执行链。</li>
+<li>4、ModelAndView,顾名思义。Model即MVC的M，View即MVC的V。其对象存放的正是数据与视图信息。</li>
+<li>5、HandlerAdapter:作用为具体处理HandlerMethod,即通过它调用某个方法。</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>/2017/09/12/README/</url>
+      <content type="html"><![CDATA[<h1 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h1>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[取余和取模的区别]]></title>
       <url>/2017/09/10/%E5%8F%96%E4%BD%99%E5%92%8C%E5%8F%96%E6%A8%A1%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
       <content type="html"></content>
@@ -114,7 +174,8 @@
 <li>AVL树</li>
 <li>Hash树</li>
 <li>tire树</li>
-<li>b-树<br>*b+树</li>
+<li>b-树</li>
+<li>b+树</li>
 </ul>
 </li>
 <li>队列</li>
@@ -223,7 +284,7 @@
 </ul>
 </li>
 <li>面向对象</li>
-<li><p>集合</p>
+<li><p><a href="https://earyant.github.io/2017/09/10/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">集合</a></p>
 <ul>
 <li><p>Arrays </p>
 <pre><code>* Arrays.asList(): 可以将Array转换成List。
@@ -240,7 +301,10 @@
     return coll.toArray(new T[coll.size()]);
 </code></pre><ul>
 <li>map<ul>
-<li>HashMap</li>
+<li>HashMap<ul>
+<li><a href="https://earyant.github.io/2017/08/09/HashMap%E5%85%A8%E8%A7%A3%E6%9E%90/">Hashmap解析</a></li>
+</ul>
+</li>
 <li>EnumMap: 枚举类型座位键值的Map，效率要高于HashMap</li>
 <li>HashTable： </li>
 <li>ConcurrentHashMap：<ul>
@@ -262,7 +326,7 @@
 </ul>
 </li>
 <li>LinkedList<ul>
-<li>Deque实现，每一个节点都保存着上一个节点和下一个节点的指针。所以数据的存取和更新都具有线性复杂度。</li>
+<li>Deque实现，每一个节点都保存着上一个节点和下一个节点的指针。所以数据的存取和更新都具有线性复杂度。<br><a href="https://earyant.github.io/2017/09/10/ArrayList%E5%92%8CLinkedList%E5%AF%B9%E6%AF%94/">ArrayList和LinkedList对比</a></li>
 </ul>
 </li>
 <li>Vector</li>
@@ -567,6 +631,7 @@
 <li>判断如果未登陆则继续执行以下操作，如果已经登陆了，返回，不做任何操作。</li>
 <li>loginService.login()<ul>
 <li>代码登陆逻辑，如果登陆了，将状态setAlive置为已经登陆，若未登陆，sleep1秒继续。</li>
+<li>将联系人信息保存到redis中</li>
 </ul>
 </li>
 <li>webWxInit()<ul>
@@ -1385,14 +1450,14 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
