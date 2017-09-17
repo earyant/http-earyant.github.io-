@@ -12,7 +12,7 @@
     
     <title>
         
-            归档: 2017/7 | 
+            Spring中的事务管理 | 
         
         Earyant的技术博客
     </title>
@@ -67,15 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://earyant.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2017/7 | Earyant的技术博客">
+    <meta property="og:title" content="Spring中的事务管理 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
+        <meta property="article:published_time" content="Sun Sep 17 2017 17:40:06 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Sep 17 2017 18:42:30 GMT+0800" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2017/7 | Earyant的技术博客">
+    <meta name="twitter:title" content="Spring中的事务管理 | Earyant的技术博客">
     <meta name="twitter:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -83,13 +86,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/archives/2017/07/page/2/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Earyant的技术博客",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Earyant",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Welcom to Earyant's blog"
+    },
+    "headline": "Spring中的事务管理",
+    "url": "http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html",
+    "datePublished": "Sun Sep 17 2017 17:40:06 GMT+0800",
+    "dateModified": "Sun Sep 17 2017 18:42:30 GMT+0800",
+    "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://earyant.github.io"
+    }
+}
+</script>
 
 
     
@@ -289,695 +322,319 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-        
-            
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的分类"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据错误类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据错误类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的隔离级别"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务的隔离级别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的传播行为"><span class="post-toc-number">4.</span> <span class="post-toc-text">事务的传播行为</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
                 
-                    <!-- Paradox Thumbnail -->
-                    <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/08/09/HashMap全解析/"><span>[Top]</span>HashMap全解析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            定义HashMap...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/08/09/HashMap全解析/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>8月 09, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-                
-                
-            
-                
-                    <!-- Paradox Thumbnail -->
-                    <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="https://images.unsplash.com/photo-1421986527537-888d998adb74?dpr=1&amp;auto=format&amp;fit=crop&amp;w=1080&amp;h=720&amp;q=80&amp;cs=tinysrgb&amp;crop=">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/完整写一篇博客/"><span>[Top]</span>完整写一篇博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/完整写一篇博客/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/hexo教程/">hexo教程</a>
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-                
-                
-            
-        
-    
-
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/21/SpringCloud学习2服务消费者/">SpringCloud学习2服务消费者</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            在上一篇文章，讲了服务的注册和发现。在服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于 http restful 的。spring...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/21/SpringCloud学习2服务消费者/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 21, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/20/SpringCloud学习1EurekaServer/">SpringCloud学习1EurekaServer</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/20/SpringCloud学习1EurekaServer/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 20, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/20/微信公众平台Dubbo项目结构/">微信公众平台Dubbo项目结构</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/20/微信公众平台Dubbo项目结构/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 20, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50 lazy" data-original="https://images.unsplash.com/photo-1427348693976-99e4aca06bb9?dpr=1&amp;auto=format&amp;fit=crop&amp;w=1199&amp;h=799&amp;q=80&amp;cs=tinysrgb&amp;crop=">
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/20/基于微信公众号的微服务架构/">基于微信公众号的微服务架构</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-wechatParent:    
-wechat-base-parent
-wechat-busines...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/20/基于微信公众号的微服务架构/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 20, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/datetimepicker bootstrap日期格式化/">bootstrap日期格式化</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-p : 小写上下午 (‘am’ or ‘pm’)  meridian in lower case (‘am’ or ‘pm’) - ac...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/datetimepicker bootstrap日期格式化/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/datetimepicker Jquery日期格式化/">datetimepicker Jquery日期格式化</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            年
-y 一位数...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/datetimepicker Jquery日期格式化/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/搭建Material主题的Hexo博客/">搭建Material主题的Hexo博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            全篇可以在这搜到：
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/搭建Material主题的Hexo博客/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/node8-0方法弃用解决办法/">node8.0方法弃用解决办法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/node8-0方法弃用解决办法/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/18/RPC通俗解释/">RPC通俗解释</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            RP...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/18/RPC通俗解释/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Earyant's avatar">
-            </div>
-            <div>
-                <strong>Earyant</strong>
-                <span>7月 18, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-    <!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/archives/2017/07/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/2017/07/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2017/07/page/3/">3</a><a class="extend next" rel="next" href="/archives/2017/07/page/3/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_forward</i></button></a>
-        </nav>
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Spring中的事务管理
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Earyant</strong>
+        <span>9月 17, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/09/17/Spring中的事务管理/">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Spring中的事务管理&url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Spring中的事务管理&url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html&via=Earyant" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html&title=Spring中的事务管理" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=Spring中的事务管理&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html&text=Spring中的事务管理" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Telegram
+            </li>
+        </a>
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2><ul>
+<li>声明式事务</li>
+<li>编程式事务</li>
+</ul>
+<h2 id="数据错误类型"><a href="#数据错误类型" class="headerlink" title="数据错误类型"></a>数据错误类型</h2><ul>
+<li><p>脏读(dirty read)</p>
+<blockquote>
+<p>当前有两个事务A和B，当A事务对数据进行更改，但是还没提交（会有缓存），此时被事务B读取，然后事务A因其他原因导致失败数据回滚，此时的事务A的操作都是失败的，对数据的操作也是失败的，但是B事务已经读取了A没提交的数据，导致B读到了错误的数据。</p>
+</blockquote>
+</li>
+<li><p>不可重复读(no-repeatable-read)</p>
+<blockquote>
+<p>当前有两个事务A和B，A事务将会对数据进行两次操作，当A事务操作一次成功后，B事务此时对数据操作更改了值并提交，随后A事务再进行读取数据，发现数据已经被更改，造成A事务的数据混乱。</p>
+</blockquote>
+</li>
+<li><p>幻读(phantom read)</p>
+<blockquote>
+<p>与不可重复读同样都是多次读数据不一致的问题，但是no-repeatable-read强调的是本身需要的数据集改变了， phantom read强调多次查询得出的条件数据集改变了。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><ul>
+<li>ISOLATION_DEFAULT 默认级别</li>
+<li>ISOLATION_READ_UNCOMMIT   事务最低级别，允许其他事务看到此事务中未提交的数据。   <strong>这种级别会导致脏读、幻读、不可重复读</strong></li>
+<li>ISOLATION_READ_COMMIT   保证数据提交后才能被另外一个事务看到。  <strong>这种级别可以防止脏读，但是不能防止不可重复读和幻读</strong></li>
+<li>ISOLATION_REPEATABLE_READ       <strong>这种级别可以防止脏读、不可重复读，但是不能防止幻读</strong></li>
+<li>ISOLATION_SERALIZABLE     <strong>最强级别，可以防止脏读、不可重复读、幻读</strong></li>
+</ul>
+<h2 id="事务的传播行为"><a href="#事务的传播行为" class="headerlink" title="事务的传播行为"></a>事务的传播行为</h2><ul>
+<li><p>PROPAGATION_REQUIRED 如果存在一个事务，就是用这个事务，如果没有事务，就开启一个新的事务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line">    ...</div><div class="line">    methodB();</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>PROPAGATION_SUPPORTS 如果存在一个事务，就用这个事务，如果没有事务，就非事务执行，但是对于事务同步管理器，PROPAGATION_SUPPORTS和不适用事务有少许区别。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line">    ...</div><div class="line">    methodB();</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_SUPPORTS</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当通过methodA调用methodB时，methodB就是用methodA的事务，如果单独调用methodB的时候，methodB就非事务执行。</p>
+</li>
+<li>PROPAGATION_MANDATORY 如果存在一个事务，就是用当前事务，如果不存在事务，就抛出一个异常。</li>
+<li><p>PROPAGATION_REQUIRED_NEW 开启一个新的事务，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">  doSomeThingA();</div><div class="line"></div><div class="line">  methodB();</div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRES_NEW</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">……</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相当于：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">TransactionManager tm = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">//获得一个JTA事务管理器</span></div><div class="line"></div><div class="line">  tm = getTransactionManager();</div><div class="line"></div><div class="line">  tm.begin();<span class="comment">//开启一个新的事务</span></div><div class="line"></div><div class="line">  Transaction ts1 = tm.getTransaction();</div><div class="line"></div><div class="line">  doSomeThing();</div><div class="line"></div><div class="line">  tm.suspend();<span class="comment">//挂起当前事务</span></div><div class="line"></div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">    tm.begin();<span class="comment">//重新开启第二个事务</span></div><div class="line"></div><div class="line">    Transaction ts2 = tm.getTransaction();</div><div class="line"></div><div class="line">    methodB();</div><div class="line"></div><div class="line">    ts2.commit();<span class="comment">//提交第二个事务</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Catch(RunTimeException ex)&#123;</div><div class="line"></div><div class="line">    ts2.rollback();<span class="comment">//回滚第二个事务</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//methodB执行完后，复恢第一个事务</span></div><div class="line"></div><div class="line">  tm.resume(ts1);</div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">  ts1.commit();<span class="comment">//提交第一个事务</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RunTimeException ex)&#123;</div><div class="line"></div><div class="line">  ts1.rollback();<span class="comment">//回滚第一个事务</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"><span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，我把ts1称为外层事务，ts2称为内层事务。从上面的代码可以看出，ts2与ts1是两个独立的事务，互不相干。Ts2是否成功并不依赖于ts1。如果methodA方法在调用methodB方法后的doSomeThingB方法失败了，而methodB方法所做的结果依然被提交。而除了methodB之外的其它代码导致的结果却被回滚了。使用PROPAGATION_REQUIRES_NEW,需要使用JtaTransactionManager作为事务管理器。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>PROPAGATION_NOT_SUPPORTED 总是非事务执行，并挂起任何事务，也需要JTATransctionManager作为事务管理器</li>
+<li>PROPAGATION_NEVER  总是非事务执行，如果存在一个事务，则抛出异常。</li>
+<li><p>PROPAGATION_NESTED 如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行。这是一个嵌套事务,使用JDBC 3.0驱动时,仅仅支持DataSourceTransactionManager作为事务管理器。需要JDBC 驱动的java.sql.Savepoint类。有一些JTA的事务管理器实现可能也提供了同样的功能。使用PROPAGATION_NESTED，还需要把PlatformTransactionManager的nestedTransactionAllowed属性设为true;而nestedTransactionAllowed属性值默认为false;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"></div><div class="line">methodA()&#123;</div><div class="line"></div><div class="line">doSomeThingA();</div><div class="line"></div><div class="line">methodB();</div><div class="line"></div><div class="line">doSomeThingB();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//事务属性 PROPAGATION_NESTED</span></div><div class="line"></div><div class="line">methodB()&#123;</div><div class="line"></div><div class="line">……</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果单独调用methodB方法，则按REQUIRED属性执行。如果调用methodA方法，相当于下面的效果：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> doSomeThingB();</div><div class="line"></div><div class="line"> con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>PROPAGATION_NESTED 与PROPAGATION_REQUIRES_NEW的区别:它们非常类似,都像一个嵌套事务，如果不存在一个活动的事务，都会开启一个新的事务。使用PROPAGATION_REQUIRES_NEW时，内层事务与外层事务就像两个独立的事务一样，一旦内层事务进行了提交后，外层事务不能对其进行回滚。两个事务互不影响。两个事务不是一个真正的嵌套事务。同时它需要JTA事务管理器的支持。<br>  使用PROPAGATION_NESTED时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。DataSourceTransactionManager使用savepoint支持PROPAGATION_NESTED时，需要JDBC 3.0以上驱动及1.4以上的JDK版本支持。其它的JTA TrasactionManager实现可能有不同的支持方式。<br>  PROPAGATION_REQUIRES_NEW 启动一个新的, 不依赖于环境的 “内部” 事务. 这个事务将被完全 commited 或 rolled back 而不依赖于外部事务, 它拥有自己的隔离范围, 自己的锁, 等等. 当内部事务开始执行时, 外部事务将被挂起, 内务事务结束时, 外部事务将继续执行。<br>  另一方面, PROPAGATION_NESTED 开始一个 “嵌套的” 事务,  它是已经存在事务的一个真正的子事务. 潜套事务开始执行时,  它将取得一个 savepoint. 如果这个嵌套事务失败, 我们将回滚到此 savepoint. 潜套事务是外部事务的一部分, 只有外部事务结束后它才会被提交。<br>  由此可见, PROPAGATION_REQUIRES_NEW 和 PROPAGATION_NESTED 的最大区别在于, PROPAGATION_REQUIRES_NEW 完全是一个新的事务, 而 PROPAGATION_NESTED 则是外部事务的子事务, 如果外部事务 commit, 潜套事务也会被 commit, 这个规则同样适用于 roll back.<br>  PROPAGATION_REQUIRED应该是我们首先的事务传播行为。它能够满足我们大多数的事务需求。</p>
+</blockquote>
+</li>
+</ul>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/09/17/RabbitMQ结合Aop实现高并发Log记录/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
