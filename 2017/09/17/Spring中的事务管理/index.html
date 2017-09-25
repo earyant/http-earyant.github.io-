@@ -74,7 +74,7 @@
 
     
         <meta property="article:published_time" content="Sun Sep 17 2017 17:40:06 GMT+0800" />
-        <meta property="article:modified_time" content="Sun Sep 17 2017 18:42:30 GMT+0800" />
+        <meta property="article:modified_time" content="Sat Sep 23 2017 15:19:56 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -115,7 +115,7 @@
     "headline": "Spring中的事务管理",
     "url": "http://earyant.github.io/2017/09/17/Spring中的事务管理/index.html",
     "datePublished": "Sun Sep 17 2017 17:40:06 GMT+0800",
-    "dateModified": "Sun Sep 17 2017 18:42:30 GMT+0800",
+    "dateModified": "Sat Sep 23 2017 15:19:56 GMT+0800",
     "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -349,7 +349,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的分类"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据错误类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据错误类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的隔离级别"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务的隔离级别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的传播行为"><span class="post-toc-number">4.</span> <span class="post-toc-text">事务的传播行为</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本特征"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本特征</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的分类"><span class="post-toc-number">2.</span> <span class="post-toc-text">事务的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据错误类型"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据错误类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的隔离级别"><span class="post-toc-number">4.</span> <span class="post-toc-text">事务的隔离级别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务的传播行为"><span class="post-toc-number">5.</span> <span class="post-toc-text">事务的传播行为</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -537,7 +537,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2><ul>
+        <h2 id="基本特征"><a href="#基本特征" class="headerlink" title="基本特征"></a>基本特征</h2><ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性</li>
+<li>持久性<h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2></li>
 <li>声明式事务</li>
 <li>编程式事务</li>
 </ul>
@@ -591,7 +595,7 @@
 <blockquote>
 <p>如果单独调用methodB方法，则按REQUIRED属性执行。如果调用methodA方法，相当于下面的效果：</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> doSomeThingB();</div><div class="line"></div><div class="line"> con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">  con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">  con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>PROPAGATION_NESTED 与PROPAGATION_REQUIRES_NEW的区别:它们非常类似,都像一个嵌套事务，如果不存在一个活动的事务，都会开启一个新的事务。使用PROPAGATION_REQUIRES_NEW时，内层事务与外层事务就像两个独立的事务一样，一旦内层事务进行了提交后，外层事务不能对其进行回滚。两个事务互不影响。两个事务不是一个真正的嵌套事务。同时它需要JTA事务管理器的支持。<br>  使用PROPAGATION_NESTED时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。DataSourceTransactionManager使用savepoint支持PROPAGATION_NESTED时，需要JDBC 3.0以上驱动及1.4以上的JDK版本支持。其它的JTA TrasactionManager实现可能有不同的支持方式。<br>  PROPAGATION_REQUIRES_NEW 启动一个新的, 不依赖于环境的 “内部” 事务. 这个事务将被完全 commited 或 rolled back 而不依赖于外部事务, 它拥有自己的隔离范围, 自己的锁, 等等. 当内部事务开始执行时, 外部事务将被挂起, 内务事务结束时, 外部事务将继续执行。<br>  另一方面, PROPAGATION_NESTED 开始一个 “嵌套的” 事务,  它是已经存在事务的一个真正的子事务. 潜套事务开始执行时,  它将取得一个 savepoint. 如果这个嵌套事务失败, 我们将回滚到此 savepoint. 潜套事务是外部事务的一部分, 只有外部事务结束后它才会被提交。<br>  由此可见, PROPAGATION_REQUIRES_NEW 和 PROPAGATION_NESTED 的最大区别在于, PROPAGATION_REQUIRES_NEW 完全是一个新的事务, 而 PROPAGATION_NESTED 则是外部事务的子事务, 如果外部事务 commit, 潜套事务也会被 commit, 这个规则同样适用于 roll back.<br>  PROPAGATION_REQUIRED应该是我们首先的事务传播行为。它能够满足我们大多数的事务需求。</p>
 </blockquote>
@@ -615,6 +619,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2017/09/18/java8新增功能/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -714,7 +726,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">13</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">22</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">22</span></a>
             </ul>
         </li>
         
@@ -806,7 +818,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">38</span>
+                <span class="sidebar-badge">43</span>
             </a>
         </li>
         

@@ -3,9 +3,194 @@
   
     
     <entry>
+      <title><![CDATA[Collections类全解析]]></title>
+      <url>/2017/09/24/Collections%E7%B1%BB%E5%85%A8%E8%A7%A3%E6%9E%90/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mysql内连接、左外连接、右外连接、全连接]]></title>
+      <url>/2017/09/23/Mysql%E5%86%85%E8%BF%9E%E6%8E%A5%E3%80%81%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5%E3%80%81%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5%E3%80%81%E5%85%A8%E8%BF%9E%E6%8E%A5/</url>
+      <content type="html"><![CDATA[<h2 id="指定方式"><a href="#指定方式" class="headerlink" title="指定方式"></a>指定方式</h2><blockquote>
+<p>连接条件可以在FROM或WHERE语句中指定。</p>
+</blockquote>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul>
+<li><p>内连接</p>
+<blockquote>
+<p>典型的连接运算，使用=或者&lt;&gt;之类的比较运算。包括相等连接和自然连接。<br>内连接使用比较运算符根据每个表共有的值匹配两个表中的行。</p>
+</blockquote>
+</li>
+<li><p>外连接</p>
+<ul>
+<li><p>左外连接</p>
+<blockquote>
+<p>left join 结果集包括左表中的所有行，如果左表的某行在右表中没有匹配行，结果集中显示为空。</p>
+</blockquote>
+</li>
+<li><p>右外连接</p>
+<blockquote>
+<p>与左外连接相反。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>全连接</p>
+<blockquote>
+<p>返回左表和右表中所有的行。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mysql索引]]></title>
+      <url>/2017/09/23/Mysql%E7%B4%A2%E5%BC%95/</url>
+      <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>由用户创建的，能够被修改和删除的，实际存储在数据库中的物理存在。它是某一表中一列或者若干列值得集合和相应的指向表中物理标志这些值的数据页的逻辑指针清单</p>
+</blockquote>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>通过创建唯一索引，可以保证数据库中每一行数据的唯一性。</li>
+<li>大大加快数据的检索速度。</li>
+<li>加速表与表之间的联系。</li>
+<li>在使用分组和排序子句进行数据检索时，可以显著减少查询中分组和排序的时间。</li>
+<li>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统性能。</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>创建和维护索引需要耗费时间，时间随数据量增加而增加。</li>
+<li>索引占据物理空间，如果建立聚簇索引，占用空间更大。</li>
+</ul>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul>
+<li>聚集索引，表中数据按照索引的顺序来存储。叶子节点存储了真实的数据行，没有另外单独的数据页。</li>
+<li>非聚集索引，表数据存储顺序与索引顺序无关，叶节点包含索引字段值及指向数据页数据行的逻辑指针。</li>
+<li>一张表上只能创建一个聚集索引，因为真实数据的物理顺序只能是一种。如果一张表没有聚集索引，它被称为“堆集”，没有特定的顺序，新加的元行被添加到末尾。</li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> [object Object] </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ArrayList原理]]></title>
+      <url>/2017/09/23/ArrayList%E5%8E%9F%E7%90%86/</url>
+      <content type="html"><![CDATA[<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>  存储数据是通过数组： transient Objectp[] elementData<br>  size字段： 存储整个数组的大小，</p>
+<pre><code>&gt; 注意的是： size是每次add和remove都会自增和自减的，所以增加null也会size+1.
+</code></pre><ul>
+<li>是否允许空：<br>允许</li>
+<li>是否允许重复数据：<br>允许</li>
+<li>是否有序：<br>是</li>
+<li>是否线程安全：<br>不是</li>
+</ul>
+<h2 id="默认大小-10"><a href="#默认大小-10" class="headerlink" title="默认大小 : 10"></a>默认大小 : 10</h2>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">()</span></span>&#123;</div><div class="line">  <span class="keyword">this</span>(<span class="number">10</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">( <span class="keyword">int</span> minCapacity)</span></span>&#123;</div><div class="line">  modCount++;</div><div class="line">  <span class="keyword">int</span> oldCapacity = elementData.length;</div><div class="line">  <span class="keyword">if</span> (minCapacity &gt; oldCapacity) &#123;</div><div class="line">      Object oldData[] = elementData;</div><div class="line">      <span class="keyword">int</span> newCapacity = (oldCapacity * <span class="number">3</span>)/<span class="number">2</span> + <span class="number">1</span>;</div><div class="line">          <span class="keyword">if</span> (newCapacity &lt; minCapacity)</div><div class="line">      newCapacity = minCapacity;</div><div class="line">             <span class="comment">// minCapacity is usually close to size, so this is a win:</span></div><div class="line">             elementData = Arrays.copyOf(elementData, newCapacity);</div><div class="line">           &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><ul>
+<li>根据下标删除。</li>
+<li><p>根据元素删除。</p>
+<blockquote>
+<p>删除跟元素匹配的 <em>第一个</em> 元素</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</div><div class="line"></div><div class="line">System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index,</div><div class="line"></div><div class="line">         numMoved);</div><div class="line"></div><div class="line">elementData[--size] = <span class="keyword">null</span>; <span class="comment">// Let gc do its work</span></div></pre></td></tr></table></figure>
+<ul>
+<li>1、把指定元素后面位置的所有元素，利用System.arraycopy方法整体向前移动一个位置</li>
+<li>2、最后一个位置的元素指定为null，这样让gc可以去回收它<blockquote>
+<p>因为删除的时候，需要将后面所有元素向前移动一个位置，所以删除的时候，很消耗性能。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h2><ul>
+<li>add(T t)</li>
+<li>add(int position,T t)<blockquote>
+<p>插入时候会将所有后面的元素向后移动一个位置，很消耗性能。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="ArrayList的优缺点"><a href="#ArrayList的优缺点" class="headerlink" title="ArrayList的优缺点"></a>ArrayList的优缺点</h2><ul>
+<li>底层以数组方式存储，是一种随机访问方式，并且实现了RandomAccess接口，因此查找十分快速。</li>
+<li><p>添加很方便，往数组的最后添加一个就行了。</p>
+</li>
+<li><p>删除和添加的时候涉及到移动后面所有数据，性能消耗比较大。    </p>
+</li>
+</ul>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><blockquote>
+<p>不是线程安全的，所有方法都没有Synchronized修饰，在并发情况下会出现安全问题。可以使用Collections.synchronizedList方式</p>
+</blockquote>
+<h2 id="为什么ArrayList的elementData是用transient修饰的？"><a href="#为什么ArrayList的elementData是用transient修饰的？" class="headerlink" title="为什么ArrayList的elementData是用transient修饰的？"></a>为什么ArrayList的elementData是用transient修饰的？</h2><blockquote>
+<p>private transient Object[] elementData;</p>
+<p>ArrayList 实现了Serializable接口，所以是可以序列化的。但是elementData不一定是满的，没必要全部序列化。所以ArrayList重写了writeObject方法实现，增快了序列化的速度，见笑了序列化后的大小：<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(java.io.ObjectOutputStream s)</span></span></div><div class="line">        <span class="keyword">throws</span> java.io.IOException&#123;</div><div class="line"><span class="comment">// Write out element count, and any hidden stuff</span></div><div class="line"><span class="keyword">int</span> expectedModCount = modCount;</div><div class="line">s.defaultWriteObject();</div><div class="line">        <span class="comment">// Write out array length</span></div><div class="line">       s.writeInt(elementData.length);</div><div class="line">    <span class="comment">// Write out all elements in the proper order.</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++)</div><div class="line">           s.writeObject(elementData[i]);</div><div class="line">    <span class="keyword">if</span> (modCount != expectedModCount) &#123;</div><div class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java8新增功能]]></title>
+      <url>/2017/09/18/java8%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD/</url>
+      <content type="html"><![CDATA[<p>[TOC]</p>
+<h1 id="接口中default关键字修饰方法可以增加默认实现。"><a href="#接口中default关键字修饰方法可以增加默认实现。" class="headerlink" title="接口中default关键字修饰方法可以增加默认实现。"></a>接口中default关键字修饰方法可以增加默认实现。</h1>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Formula</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">default</span> <span class="keyword">double</span> <span class="title">sqrt</span><span class="params">(<span class="keyword">int</span> a )</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> Math.sqrt(a);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Collections.sort(names,(a,b)-&gt;b.compareTo(a));</div></pre></td></tr></table></figure>
+<h1 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h1> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@FunctionInterface</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Coverter</span>&lt;<span class="title">F</span>,<span class="title">T</span>&gt;</span>&#123;</div><div class="line">  <span class="function">T <span class="title">convert</span><span class="params">(F from)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Convert&lt;String,Integer&gt; converter = (from) -&gt; Integer.valueOf(from);</div><div class="line">Integer converted = converter.convert(<span class="string">"123"</span>);</div></pre></td></tr></table></figure>
+<h1 id="方法和构造函数引用"><a href="#方法和构造函数引用" class="headerlink" title="方法和构造函数引用"></a>方法和构造函数引用</h1><ul>
+<li><p>静态方法引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Convert&lt;String,Integer&gt; converter = Integer::valueOf;</div><div class="line">Integer converted = converter.convert(<span class="string">"123"</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过:: 关键字获取方法或者构造函数的引用</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Something</span></span>&#123;</div><div class="line">  <span class="function">String <span class="title">startsWith</span><span class="params">(String s)</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> String.valueOf(s.charAt(<span class="number">0</span>));</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">Something something = <span class="keyword">new</span> Something();</div><div class="line">Converter&lt;String,String&gt; converter = something::startsWith;</div><div class="line">String converted = converter.convert(<span class="string">"java"</span>);</div></pre></td></tr></table></figure>
+<ul>
+<li>引用构造函数<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">  String firstName；</div><div class="line">  String lastName；</div><div class="line">  Person()&#123;&#125;;</div><div class="line">  Person(String firstName,String lastName)&#123;</div><div class="line">    <span class="keyword">this</span>.firstName=firstName;</div><div class="line">    <span class="keyword">this</span>.lastName=lastName;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"><span class="comment">//新建工厂类</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">PersonFactory</span>&lt;<span class="title">P</span> <span class="keyword">extends</span> <span class="title">Person</span>&gt;</span>&#123;</div><div class="line">  <span class="function">P <span class="title">create</span><span class="params">(String firstName,String lastName)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//通过构造函数引用将所有东西拼到一起，通过手动实现。</span></div><div class="line"></div><div class="line">PersonFactory&lt;Person&gt; personFactory = Person::<span class="keyword">new</span>;</div><div class="line">Person person = personFactory.create(<span class="string">"earyant"</span>,<span class="string">"Lee"</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="类库示例"><a href="#类库示例" class="headerlink" title="类库示例"></a>类库示例</h1><h2 id="Predicates-断言"><a href="#Predicates-断言" class="headerlink" title="Predicates(断言)"></a>Predicates(断言)</h2><blockquote>
+<p>是一个布尔类型的函数，该函数只有一个输入函数，它实现了多种默认方法，用于处理复杂的逻辑动词。(and ,or,negate(否定))</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Predicate&lt;String&gt; predicate = (s)-&gt;s.length()&gt;<span class="number">0</span>;</div><div class="line">predicate.test(<span class="string">"earyant"</span>)  <span class="comment">// true</span></div><div class="line">predicate.negate().test(<span class="string">"earyant"</span>); <span class="comment">//false  </span></div><div class="line"></div><div class="line">Predicate&lt;Boolean&gt; nonNull = Objects::nonNull;</div><div class="line">Predicate&lt;Boolean&gt; isNull = Objects::isNull;</div><div class="line"></div><div class="line">Predicate&lt;String&gt; isEmpty = String::isEmpty;</div><div class="line">Predicate&lt;String&gt; isNotEmpty = isEmpty.negate();</div></pre></td></tr></table></figure>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><blockquote>
+<p>接收一个参数，并返回单一的结果，默认方法可以将多个函数穿在一起(compose，andThen)：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Function&lt;String,Integer&gt; toInteger = Integer:valueOf;</div><div class="line">Function&lt;String,String&gt; backToString = toInteger.andThen(String::valueOf);</div><div class="line">backToString.apply(<span class="string">"123"</span>);</div></pre></td></tr></table></figure>
+<h2 id="Suppliers"><a href="#Suppliers" class="headerlink" title="Suppliers"></a>Suppliers</h2><blockquote>
+<p>Supplier 接口产生一个给定类型的结果，与Function不同的是，Supplier没有输入参数。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Supplier&lt;Person&gt; personSupplier = Person:<span class="keyword">new</span>;</div><div class="line">personSupplier.get();</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Spring中的事务管理]]></title>
       <url>/2017/09/17/Spring%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/</url>
-      <content type="html"><![CDATA[<h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2><ul>
+      <content type="html"><![CDATA[<h2 id="基本特征"><a href="#基本特征" class="headerlink" title="基本特征"></a>基本特征</h2><ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性</li>
+<li>持久性<h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2></li>
 <li>声明式事务</li>
 <li>编程式事务</li>
 </ul>
@@ -59,7 +244,7 @@
 <blockquote>
 <p>如果单独调用methodB方法，则按REQUIRED属性执行。如果调用methodA方法，相当于下面的效果：</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"> doSomeThingB();</div><div class="line"></div><div class="line"> con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">  con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">  con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>PROPAGATION_NESTED 与PROPAGATION_REQUIRES_NEW的区别:它们非常类似,都像一个嵌套事务，如果不存在一个活动的事务，都会开启一个新的事务。使用PROPAGATION_REQUIRES_NEW时，内层事务与外层事务就像两个独立的事务一样，一旦内层事务进行了提交后，外层事务不能对其进行回滚。两个事务互不影响。两个事务不是一个真正的嵌套事务。同时它需要JTA事务管理器的支持。<br>  使用PROPAGATION_NESTED时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。DataSourceTransactionManager使用savepoint支持PROPAGATION_NESTED时，需要JDBC 3.0以上驱动及1.4以上的JDK版本支持。其它的JTA TrasactionManager实现可能有不同的支持方式。<br>  PROPAGATION_REQUIRES_NEW 启动一个新的, 不依赖于环境的 “内部” 事务. 这个事务将被完全 commited 或 rolled back 而不依赖于外部事务, 它拥有自己的隔离范围, 自己的锁, 等等. 当内部事务开始执行时, 外部事务将被挂起, 内务事务结束时, 外部事务将继续执行。<br>  另一方面, PROPAGATION_NESTED 开始一个 “嵌套的” 事务,  它是已经存在事务的一个真正的子事务. 潜套事务开始执行时,  它将取得一个 savepoint. 如果这个嵌套事务失败, 我们将回滚到此 savepoint. 潜套事务是外部事务的一部分, 只有外部事务结束后它才会被提交。<br>  由此可见, PROPAGATION_REQUIRES_NEW 和 PROPAGATION_NESTED 的最大区别在于, PROPAGATION_REQUIRES_NEW 完全是一个新的事务, 而 PROPAGATION_NESTED 则是外部事务的子事务, 如果外部事务 commit, 潜套事务也会被 commit, 这个规则同样适用于 roll back.<br>  PROPAGATION_REQUIRED应该是我们首先的事务传播行为。它能够满足我们大多数的事务需求。</p>
 </blockquote>
@@ -85,10 +270,12 @@
       <title><![CDATA[aop原理及实现]]></title>
       <url>/2017/09/17/aop%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/</url>
       <content type="html"><![CDATA[<h2 id="静态代理、动态代理"><a href="#静态代理、动态代理" class="headerlink" title="静态代理、动态代理"></a>静态代理、动态代理</h2><p>1、AspectJ 使用静态代理，生成class文件时，会侵入到代码中。<br>2、Spring AOP 使用动态代理，不会侵入代码，而是在内存中临时为代码生成一个AOP对象，这个AOP对象包含目标对象的全部方法，并且在特定切点进行增强处理，并且调原对象的方法。</p>
-<pre><code>* Jvm动态代理： 通过反射接收代理的类，并要求被代理的类必须实现一个接口。JVM代理的核心是InvocationHandler接口和proxy类。
-* CGLib(Code Generation Library)： 如果目标没有实现接口，那么Spring会使用CGLib动态代理目标类。它是一个代码生成的类库，可以在运行时动态生成某个类的子类。
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">注意： CGLib是通过继承方式实现的，如果某个类被标记为final，是不能通过CGLib实现动态代理的。</div></pre></td></tr></table></figure>
-</code></pre><h2 id="示例-使用了CGLib-："><a href="#示例-使用了CGLib-：" class="headerlink" title="示例(使用了CGLib)："></a>示例(使用了CGLib)：</h2><p>  定义Person类，其中sayHello方法是切点，切点被Timer注解修饰。<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">  <span class="meta">@Timer</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</div><div class="line">    System.out.println(<span class="string">"sayHello"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Jvm动态代理： 通过反射接收代理的类，并要求被代理的类必须实现一个接口。JVM代理的核心是InvocationHandler接口和proxy类。</li>
+<li>CGLib(Code Generation Library)： 如果目标没有实现接口，那么Spring会使用CGLib动态代理目标类。它是一个代码生成的类库，可以在运行时动态生成某个类的子类。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">注意： CGLib是通过继承方式实现的，如果某个类被标记为final，是不能通过CGLib实现动态代理的。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="示例-使用了CGLib-："><a href="#示例-使用了CGLib-：" class="headerlink" title="示例(使用了CGLib)："></a>示例(使用了CGLib)：</h2><p>  定义Person类，其中sayHello方法是切点，切点被Timer注解修饰。<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">  <span class="meta">@Timer</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</div><div class="line">    System.out.println(<span class="string">"sayHello"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>  配置切点：<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Aspect</span></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AdviceTest</span></span>&#123;</div><div class="line">  <span class="meta">@Pointcut</span>(<span class="string">"@annotation(com.earyant.aop.Timer)"</span>)</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Before</span>(<span class="string">"pointcut()"</span>)</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span></span>&#123;</div><div class="line">    System.out.println(<span class="string">"before"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>  在Mail类中调用。<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">  <span class="meta">@Autowired</span></div><div class="line">  <span class="keyword">private</span> Person person;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    person.sayHello();</div><div class="line">    System.out.println(person.getClass().getName());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>  输出结果：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">before</div><div class="line">sayHello</div><div class="line">com.earyant.aop.Person$$EnhancerBySpringCGLIB$$56b89168</div></pre></td></tr></table></figure></p>
@@ -393,34 +580,20 @@
 <li>面向对象</li>
 <li><p><a href="https://earyant.github.io/2017/09/10/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">集合</a></p>
 <ul>
-<li><p>Arrays </p>
-<pre><code>* Arrays.asList(): 可以将Array转换成List。
-* Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找
-* Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法
-* Arrays.copyOfRange :  可以复制整个数组或者其中一个部分
-* Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。
-* Arrays.equals : 比较两个数组是否想相等。
-* Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分
-* Arrays.hashCode : 根据数组内容计算器hash值。
-* Arrays.sort : 对整个数组或者数组一部分进行排序。
-* Arrays.toString : 打印数组的内容
-* 所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：
-    return coll.toArray(new T[coll.size()]);
-</code></pre><ul>
 <li>map<ul>
 <li>HashMap<ul>
 <li><a href="https://earyant.github.io/2017/08/09/HashMap%E5%85%A8%E8%A7%A3%E6%9E%90/">Hashmap解析</a></li>
 </ul>
 </li>
 <li>EnumMap: 枚举类型座位键值的Map，效率要高于HashMap</li>
-<li>HashTable： </li>
+<li>HashTable：</li>
 <li>ConcurrentHashMap：<ul>
 <li>get操作全并发访问，put操作可配置并发操作的哈希表，并发级别可以通过构造参数中的concurrentLevel参数设置(默认级别为16).该参数会在Map内部划分一些分区，在put的时候，只有更新的分区是锁住的。</li>
 </ul>
 </li>
 <li>ConcurrentSkipListMap： 基于跳跃表的ConcurrentNavigableMap实现。本质上这种集合可以当做TreeMap的线程安全版本来使用。</li>
 <li>IdentityHashMap</li>
-<li>LinkedHashMap </li>
+<li>LinkedHashMap</li>
 <li>TreeMap</li>
 <li>WeakHashMap</li>
 </ul>
@@ -439,7 +612,7 @@
 <li>Vector</li>
 </ul>
 </li>
-<li><p>set </p>
+<li><p>set</p>
 <ul>
 <li>HashSet</li>
 <li>EnumSet</li>
@@ -453,7 +626,7 @@
 <li><p>Queues/Deques</p>
 <ul>
 <li>ArrayDeQue ： Deque是基于有首尾指针的数组（环形缓冲区）实现的。和LinkedList不同，这个类没有实现List接口，因此，如果没有收尾元素的话，就不能去除任何元素。比LinkedList好一点，产生的垃圾数量较少。</li>
-<li>Stack ：后进先出的队列<br>– 并发 – </li>
+<li>Stack ：后进先出的队列<br>– 并发 –</li>
 <li>ArrayBlockingQueue： 基于书实现的一个有界阻塞对，大小不能重新定义，试图向一个满的队列添加元素的时候，就会受到阻塞，知道另一个方法从队列中取出元素。</li>
 <li>ConcurrentLinkedDeque、ConcurrentLinkedQueue：基于链表实现的无解队列，添加元素不阻塞。要求消费者的速度至少要比生产一样快，不然内存就会耗尽，严重依赖于CAS操作。</li>
 <li>DelayQueue ： 无界的保存Delayed元素的集合，元素只有在延时已经过期的时候才能被取出。队列的第一个元素延期最小(包含负值，延时已经过期)，要实现一个延期任务的队列的时候使用(不要自己手动实现–使用ScheduledThreadPoolExecutor)</li>
@@ -521,8 +694,19 @@
 <li>swap 交换集合中的两个元素的位置</li>
 </ul>
 </li>
-</ul>
-</li>
+<li>Arrays<pre><code>* Arrays.asList(): 可以将Array转换成List。
+* Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找
+* Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法
+* Arrays.copyOfRange :  可以复制整个数组或者其中一个部分
+* Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。
+* Arrays.equals : 比较两个数组是否想相等。
+* Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分
+* Arrays.hashCode : 根据数组内容计算器hash值。
+* Arrays.sort : 对整个数组或者数组一部分进行排序。
+* Arrays.toString : 打印数组的内容
+* 所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：
+    return coll.toArray(new T[coll.size()]);
+</code></pre></li>
 </ul>
 </li>
 </ul>
@@ -1557,14 +1741,14 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
