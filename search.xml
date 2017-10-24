@@ -3,6 +3,383 @@
   
     
     <entry>
+      <title><![CDATA[求m的n次方]]></title>
+      <url>/2017/10/24/%E6%B1%82m%E7%9A%84n%E6%AC%A1%E6%96%B9/</url>
+      <content type="html"><![CDATA[<h2 id="初步设想"><a href="#初步设想" class="headerlink" title="初步设想"></a>初步设想</h2><p>  最简单的方法，就是for循环一下。<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> result = <span class="number">1L</span>;</div><div class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">     result *= m;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>  这种方法结果肯定正确，但是时间复杂度上，需要O(n)。很是不理想。于是我想着改进一下。</p>
+<h2 id="探求乘法原理"><a href="#探求乘法原理" class="headerlink" title="探求乘法原理"></a>探求乘法原理</h2><p>  乘法原理就是n个m相乘，例如m=10，n=5， 那么表达式为 10<em>10</em>10<em>10</em>10,有人说这不是废话嘛，当然不是，之所以展开，是因为可以改写法，如：(10<em>10)</em> (10<em>10)</em> 10,又有人说了，这不是还是废话嘛，别急往下看，你会发现(10*10)重复了。</p>
+<p>  什么意思？</p>
+<p>  如果单纯用for循环10的4次幂，需要 <em>循环4次运算</em>，现在我先用10<em>10,</em>第1次运算<em>，再用得出的结果乘以得出的结果，也就是(10</em>10)<em> (10</em>10),<em>第2次运算</em>。就这么简单，此次运算节省了2次，节省了百分之50啊，重大发现啊。</p>
+<p>  如果是10的8次幂呢？单纯for循环需要8次，新的方法需要几次？<em>3次</em>。怎么算的？(10<em>10)</em> (10<em>10)</em> (10<em>10)</em> (10<em>10)。发现就是算10</em>10的4次方，算出10<em>10需要 </em>第一次*，4次方刚刚算了是2次，一共是3次，这么神奇啊，节省了5次运算啊。这是节省了百分之。。。ummmm，管他百分之多少呢，反正很多。</p>
+<p>  照这么下去，16次方需要 <em>4</em> 次运算，32次方需要 <em>5</em> 次运算，64次方需要 <em>6</em> 次运算，重大发现，也就是说，<em>如果n是2的i次幂，那么就需要i次运算就可以算出m的n次方了。</em></p>
+<p>  天晴了， 世界和平了，我又拯救了世界了，可以回家睡懒觉了。</p>
+<p>  咦，等等，如果n不是2的多少次幂怎么办？比如10的5次幂？</p>
+<p>  ummmm，我想了想，把5拆成4+1呢？也就是10的4次幂再乘以10，这个方法可以。</p>
+<p>  那10的6次幂就可以拆成4+2.</p>
+<p>  7次方就可以拆成4+2+1.嗯，不错。</p>
+<p>  于是，我写了个代码，如下</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pow</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">      <span class="keyword">int</span> m = <span class="number">5</span>;</div><div class="line">      <span class="keyword">int</span> n = <span class="number">134</span>;</div><div class="line">      <span class="keyword">long</span> start = System.currentTimeMillis();</div><div class="line">      System.out.println(<span class="string">"for循环版，结果为 ： "</span> + Double.toString(pow(m, n)));</div><div class="line">      <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">      System.out.println(<span class="string">"for循环版，总耗时： "</span> + (end - start));</div><div class="line"></div><div class="line"></div><div class="line">      start = System.currentTimeMillis();</div><div class="line">      System.out.println(<span class="string">"叠乘法，结果为 ： "</span> + Double.toString(pow2(m, n)));</div><div class="line">      end = System.currentTimeMillis();</div><div class="line">      System.out.println(<span class="string">"叠乘法，总耗时： "</span> + (end - start));</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * m的n次方,for循环版</div><div class="line">   *</div><div class="line">   * <span class="doctag">@param</span> m 底数</div><div class="line">   * <span class="doctag">@param</span> n 幂数</div><div class="line">   * <span class="doctag">@return</span></div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">      <span class="keyword">boolean</span> negative = <span class="keyword">false</span>;</div><div class="line">      <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</div><div class="line">          n = -n;</div><div class="line">          negative = <span class="keyword">true</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">/**</span></div><div class="line">       * 循环乘法</div><div class="line">       */</div><div class="line">      <span class="keyword">double</span> result = <span class="number">1L</span>;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">          result *= m;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (negative) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">1</span> / result;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> result;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * m的n次方,折中叠乘法</div><div class="line">   *</div><div class="line">   * <span class="doctag">@param</span> m 底数</div><div class="line">   * <span class="doctag">@param</span> n 幂数</div><div class="line">   * <span class="doctag">@return</span></div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">pow2</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">      <span class="keyword">boolean</span> negative = <span class="keyword">false</span>;</div><div class="line">      <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</div><div class="line">          n = -n;</div><div class="line">          negative = <span class="keyword">true</span>;</div><div class="line">      &#125;</div><div class="line"><span class="comment">//        当m是2的时候，直接位移就可以。</span></div><div class="line">      <span class="keyword">if</span> (m == <span class="number">2</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">2</span> &lt;&lt; n;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">/**</span></div><div class="line">       * 叠乘法</div><div class="line">       */</div><div class="line"><span class="comment">//        最后结果。</span></div><div class="line">      <span class="keyword">double</span> result = <span class="number">1L</span>;</div><div class="line"><span class="comment">//        定义一个指针，从右向左按位与。</span></div><div class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i &lt;&lt;= <span class="number">1</span>) &#123;</div><div class="line"><span class="comment">//            按位与，如果大于0，说明此位为1,需要m的i次方。</span></div><div class="line">          <span class="keyword">if</span> ((i &amp; n) &gt; <span class="number">0</span>) &#123;</div><div class="line">              <span class="keyword">double</span> resultTemp = <span class="number">1L</span>;</div><div class="line"><span class="comment">//                m的i次方不能写成循环i次的m相乘，而是m叠乘，次数为ln(i)。    例如m的8次方，就是((m*m)*(m*m))*((m*m)*(m*m)),也就是 ((m*m)2)2</span></div><div class="line">              <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j &lt;&lt;= <span class="number">1</span>) &#123;</div><div class="line">                  <span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</div><div class="line">                      resultTemp = m;</div><div class="line">                  &#125; <span class="keyword">else</span> &#123;</div><div class="line">                      <span class="keyword">if</span> (greatThanMax(resultTemp, resultTemp)) &#123;</div><div class="line">                          <span class="keyword">return</span> Double.MAX_VALUE;</div><div class="line">                      &#125;</div><div class="line">                          resultTemp *= resultTemp;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">              <span class="keyword">if</span> (greatThanMax(resultTemp, result)) &#123;</div><div class="line">                  <span class="keyword">return</span> Double.MAX_VALUE;</div><div class="line">              &#125;</div><div class="line">              result *= resultTemp;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (negative) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="number">1</span> / result;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> result;</div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 检查两个数相乘是否大于double的最大值。</div><div class="line">   *</div><div class="line">   * <span class="doctag">@param</span> m</div><div class="line">   * <span class="doctag">@param</span> n</div><div class="line">   * <span class="doctag">@return</span></div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">greatThanMax</span><span class="params">(<span class="keyword">double</span> m, <span class="keyword">double</span> n)</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> (m &gt; (Double.MAX_VALUE / n));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试结果为</p>
+<blockquote>
+<p>for循环版，结果为 ： 4.591774807899563E93<br>    for循环版，总耗时： 1<br>    叠乘法，结果为 ： 4.591774807899562E93<br>    叠乘法，总耗时： 0</p>
+</blockquote>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java学习路线]]></title>
+      <url>/2017/10/24/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</url>
+      <content type="html"><![CDATA[<h1 id="本文作为收藏用"><a href="#本文作为收藏用" class="headerlink" title="本文作为收藏用"></a>本文作为收藏用</h1><p>##</p>
+<p>作者：匿名用户<br>链接：<a href="https://www.zhihu.com/question/39890405/answer/83676977" target="_blank" rel="external">https://www.zhihu.com/question/39890405/answer/83676977</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<ul>
+<li><p>第一个是基础。</p>
+<blockquote>
+<p>比如对集合类，并发包，IO/NIO，JVM，内存模型，泛型，异常，反射，等有深入了解，最好是看过源码了解底层的设计。比如一般面试都会问ConcurrentHashMap，CopyOnWrite，线程池，CAS，AQS，虚拟机优化等知识点，因为这些对互联网的企业是绝对重要的。而且一般人这关都过不了，还发闹骚说这些没什么用，为什么要面试。举一例子，在使用线程池时，因为使用了无界队列，在远程服务异常情况下导致内层飙升，怎么去解决？你要是连线程池都不清楚，你怎么去玩？再举一例，由于对ThreadLocal理解出错，使用它做线程安全的控制，导致没能实现真的线程安全。所以作为一个拿两万的JAVA程序员这点基础是要有的。</p>
+</blockquote>
+</li>
+<li><p>第二你需要有全面的互联网技术相关知识。</p>
+<blockquote>
+<p>从底层说起，你起码得深入了解mysql，redis，mongodb，nginx，tomcat，rpc，jms等方面的知识。你要问需要了解到什么程度，我可以给你说个大慨。首先对于MySQL，你要知道常见的参数设置，存储引擎怎么去选择，还需要了解常见的索引引擎，知道怎么去选择。知道怎么去设计表，怎么优化sql，怎么根据执行计划去调优。高级的你需要去做分库分表的设计和优化，一般互联网企业的数据库都是读写分离，还会垂直与水平拆分，所以这个也有经验的成分在里面。然后redis，mongodb都是需要了解原理，需要会调整参数的，而nginx和tomcat几乎都是JAVA互联网方面必配，其实很阿里的技术栈选择有点关系。至于rpc相关的就多的去，必须各种网络协议，序列化技术，SOA等等，你要有一个深入的理解。现在应用比较广的rpc框架，在国内就是dubbo了，可以自行搜索。至于jms相关的起码得了解原理吧，一般情况下不是专门开发中间件系统和支撑系统的不需要了解太多细节，国内企业常用的主要是activeMQ和kafka。你能对我说的都研究的比较深入，阿里p7都不是太大问题的，当然这个还需要看你的架构能力方面的面试表现了。</p>
+</blockquote>
+</li>
+<li><p>第三就是编程能力</p>
+<blockquote>
+<p>编程思想，算法能力，架构能力。首先2W程序员对算法的要求我觉得还是比较低，再高级也最多红黑树吧，但是排序和查询的基本算法得会。编程思想是必须的，问你个AOP和IOC你起码的清清楚楚，设计模式不说每种都用过，但也能了解个几种吧。编程能力这个我觉得不好去评价，但是拿一个2000W用户根据姓名年龄排序这种题目也能信手拈来。最后就是架构能力，这种不是说要你设计个多牛逼多高并发的系统，起码让你做一个秒杀系统，防重请求的设计能快速搞定而没有坑吧。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p><a href="https://www.zhihu.com/question/39890405/answer/83676977" target="_blank" rel="external">在北京做Java开发如何月薪达到两万，需要技术水平达到什么程度？</a><br><a href="https://www.zhihu.com/question/40801731/answer/91814769" target="_blank" rel="external">零基础应该选择学习 java、php、前端 还是 python？</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据库架构设计（转发）]]></title>
+      <url>/2017/10/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%BD%AC%E5%8F%91%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p><a href="http://gitbook.cn/books/59be67b577cac00b9c2362fa/index.html" target="_blank" rel="external">链接地址</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据库跨库分页实践（转发）]]></title>
+      <url>/2017/10/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B7%A8%E5%BA%93%E5%88%86%E9%A1%B5%E5%AE%9E%E8%B7%B5%EF%BC%88%E8%BD%AC%E5%8F%91%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p><a href="http://gitbook.cn/books/58a98f512bd83c246b6b8866/index.html" target="_blank" rel="external">转载链接</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[基本类型和包装类型差别]]></title>
+      <url>/2017/10/03/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%E5%B7%AE%E5%88%AB/</url>
+      <content type="html"><![CDATA[<h2 id="基本类型以及包装类型"><a href="#基本类型以及包装类型" class="headerlink" title="基本类型以及包装类型"></a>基本类型以及包装类型</h2><p>   java中定义了基本类型： </p>
+<pre><code>* 整形： byte、short、int、long
+* 浮点型：float、double
+* 逻辑型： boolean
+* 字符型： char
+</code></pre><p>   以及对应的包装类型：</p>
+<pre><code>* 整形： Byte、Short、Integer、Long
+* 浮点型： Float、Double
+* 逻辑型： Boolean
+* 字符型： Char 
+</code></pre><h2 id="自动装箱、拆箱"><a href="#自动装箱、拆箱" class="headerlink" title="自动装箱、拆箱"></a>自动装箱、拆箱</h2><p>   java为满足程序员基本类型和包装类型混合使用，按需自动装箱拆箱。<br>   自动装箱拆箱使基本类型和包装类型之间的区别逐渐模糊，但是语义上有些许差别，性能上也有明显差别。</p>
+<h2 id="基本类型和包装类型差别"><a href="#基本类型和包装类型差别" class="headerlink" title="基本类型和包装类型差别"></a>基本类型和包装类型差别</h2><ul>
+<li>基本类型有默认值，例如int值默认为0 ，而Integer没有默认引用，默认为null。<br> 所以在写数据库实体类或者网络请求接收字段的时候要使用包装类型，防止接受参数为null的情况。</li>
+<li><p>包装类的频繁更改并不是在原来的基础上更改，而是产生新的对象，所以包装类的频繁更改性能很差.</p>
+<blockquote>
+<p>使用Long情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">long</span> now = System.currentTimeMillis();</div><div class="line">        Long sum = <span class="number">0L</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</div><div class="line">            sum += i;</div><div class="line">        &#125;</div><div class="line">        System.out.println(sum);</div><div class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"using Long total time = "</span> + (end - now));</div></pre></td></tr></table></figure>
+</blockquote>
+<p>耗费时间为</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">2305843005992468481</span></div><div class="line">all time = <span class="number">8832</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用long情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testlongAutoBoxing</span><span class="params">()</span> </span>&#123;</div><div class="line">         <span class="keyword">long</span> now = System.currentTimeMillis();</div><div class="line">         <span class="keyword">long</span> sum = <span class="number">0L</span>;</div><div class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</div><div class="line">             sum += i;</div><div class="line">         &#125;</div><div class="line">         System.out.println(<span class="string">"using long ,sum ="</span> + sum);</div><div class="line">         <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">         System.out.println(<span class="string">"using long total time = "</span> + (end - now));</div><div class="line">     &#125;</div><div class="line">``` </div><div class="line">总耗费时间为</div><div class="line">```java</div><div class="line"> <span class="number">2305843005992468481</span></div><div class="line"> all time = <span class="number">787</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>   在使用Long的时间比long增加10倍，原因是Long的操作过程中会构造大概2^31个实例。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> EffectJava </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java单例的七种写法]]></title>
+      <url>/2017/09/27/java%E5%8D%95%E4%BE%8B%E7%9A%84%E4%B8%83%E7%A7%8D%E5%86%99%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h1 id="懒汉"><a href="#懒汉" class="headerlink" title="懒汉"></a>懒汉</h1><h2 id="线程不安全"><a href="#线程不安全" class="headerlink" title="线程不安全"></a>线程不安全</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">     <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </div><div class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;   </div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">       <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </div><div class="line">           instance = <span class="keyword">new</span> Singleton();  </div><div class="line">       &#125;  </div><div class="line">     <span class="keyword">return</span> instance;  </div><div class="line">     &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">  <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </div><div class="line">      instance = <span class="keyword">new</span> Singleton();  </div><div class="line">  &#125;  </div><div class="line">  <span class="keyword">return</span> instance;  </div><div class="line">  &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="饿汉"><a href="#饿汉" class="headerlink" title="饿汉"></a>饿汉</h1>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line"> <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line"> <span class="keyword">return</span> instance;  </div><div class="line"> &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="饿汉变种"><a href="#饿汉变种" class="headerlink" title="饿汉变种"></a>饿汉变种</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;  </div><div class="line">  <span class="keyword">static</span> &#123;  </div><div class="line">  instance = <span class="keyword">new</span> Singleton();  </div><div class="line">  &#125;  </div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.instance;  </div><div class="line">  &#125;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">      <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </div><div class="line">      <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </div><div class="line">      &#125;  </div><div class="line">      <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">          <span class="keyword">return</span> SingletonHolder.INSTANCE;  </div><div class="line">      &#125;  </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;  </div><div class="line">     INSTANCE;  </div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;  </div><div class="line">     &#125;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="双重校验锁"><a href="#双重校验锁" class="headerlink" title="双重校验锁"></a>双重校验锁</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">      <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </div><div class="line">      <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;   </div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;  </div><div class="line">      <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </div><div class="line">          <span class="keyword">synchronized</span> (Singleton.class) &#123;  </div><div class="line">          <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </div><div class="line">              singleton = <span class="keyword">new</span> Singleton();  </div><div class="line">          &#125;  </div><div class="line">         &#125;  </div><div class="line">     &#125;  </div><div class="line">     <span class="keyword">return</span> singleton;  </div><div class="line">     &#125;  </div><div class="line"> &#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java线程详解]]></title>
+      <url>/2017/09/27/java%E7%BA%BF%E7%A8%8B%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
+<li>新建状态(New) : <blockquote>
+<p>线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。</p>
+</blockquote>
+</li>
+<li>就绪状态(Runnable): <blockquote>
+<p>也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.start()。处于就绪状态的线程，随时可能被CPU调度执行。</p>
+</blockquote>
+</li>
+<li>运行状态(Running) : <blockquote>
+<p>线程获取CPU权限进行执行。需要注意的是，线程只能从就绪状态进入到运行状态。</p>
+</blockquote>
+</li>
+<li><p>阻塞状态(Blocked) : </p>
+<blockquote>
+<p>阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：</p>
+<ul>
+<li>等待阻塞 – 通过调用线程的wait()方法，让线程等待某工作的完成。</li>
+<li>同步阻塞 – 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态。</li>
+<li>其他阻塞 – 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</li>
+<li>死亡状态(Dead) : 线程执行完了或者因异常退出了run()方法，该线程结束生命周期。<br>这5种状态涉及到的内容包括Object类, Thread和synchronized关键字。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Object类，定义了wait(), notify(), notifyAll()等休眠/唤醒函数。</p>
+</li>
+<li>Thread类，定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。</li>
+<li>synchronized，是关键字；它区分为synchronized代码块和synchronized方法。synchronized的作用是让线程获取对象的同步锁。</li>
+</ul>
+<h2 id="实现多线程的两种方式：Thread和Runnable"><a href="#实现多线程的两种方式：Thread和Runnable" class="headerlink" title="实现多线程的两种方式：Thread和Runnable"></a>实现多线程的两种方式：Thread和Runnable</h2><ul>
+<li><p>Runnable 是一个接口，该接口中只包含了一个run()方法。它的定义如下：<br>public interface Runnable {<br> public abstract void run();<br>}<br>Runnable的作用，实现多线程。我们可以定义一个类A实现Runnable接口；然后，通过new Thread(new A())等方式新建线程。<br>Thread 是一个类。Thread本身就实现了Runnable接口。它的声明如下：<br>public class Thread implements Runnable {}<br>Thread的作用，实现多线程。</p>
+<h3 id="Thread和Runnable的异同点："><a href="#Thread和Runnable的异同点：" class="headerlink" title="Thread和Runnable的异同点："></a>Thread和Runnable的异同点：</h3></li>
+<li>Thread 和 Runnable 的相同点：<blockquote>
+<p>都是“多线程的实现方式”。</p>
+</blockquote>
+</li>
+<li>Thread 和 Runnable 的不同点：<blockquote>
+<p>Thread 是类，而Runnable是接口；Thread本身是实现了Runnable接口的类。我们知道“一个类只能有一个父类，但是却能实现多个接口”，因此Runnable具有更好的扩展性。<br>此外，Runnable还可以用于“资源的共享”。即，多个线程都是基于某一个Runnable对象建立的，它们会共享Runnable对象上的资源。<br>通常，建议通过“Runnable”实现多线程！</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java并发锁]]></title>
+      <url>/2017/09/27/java%E5%B9%B6%E5%8F%91%E9%94%81/</url>
+      <content type="html"><![CDATA[<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><ul>
+<li>锁<br>   -[ ] 公平锁<br>   -[ ] 非公平锁<ul>
+<li>隐式锁Synchronized</li>
+<li>显式锁Lock<ul>
+<li>ReentrantLock</li>
+<li>ReadWriteLock</li>
+<li>ReentrantReadWriteLock</li>
+<li>StampedLock </li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+<li>无锁<ul>
+<li>atomic</li>
+<li>concurrent</li>
+<li>blocking</li>
+<li>threadLocal</li>
+<li>volatile</li>
+<li>CAS</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><ul>
+<li><p>Synchronized</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</div><div class="line">			<span class="keyword">return</span> ++count;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Lock</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> Lock lock = <span class="keyword">new</span> Lock();</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">()</span></span>&#123;</div><div class="line">		lock.lock();</div><div class="line">		<span class="keyword">int</span> newCount = ++count;</div><div class="line">		lock.unlock();</div><div class="line">		<span class="keyword">return</span> newCount;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不可重入自旋锁的简单实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Lock</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> isLocked = <span class="keyword">false</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span></div><div class="line">		<span class="keyword">throws</span> InterruptedException&#123;</div><div class="line">		<span class="keyword">while</span>(isLocked)&#123;</div><div class="line">			wait();</div><div class="line">		&#125;</div><div class="line">		isLocked = <span class="keyword">true</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>&#123;</div><div class="line">		isLocked = <span class="keyword">false</span>;</div><div class="line">		notify();</div><div class="line">	&#125;</div><div class="line">&#125;&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="threadLocal"><a href="#threadLocal" class="headerlink" title="threadLocal"></a>threadLocal</h2><p>   如果想知道为什么使用ThreadLocal，就得先了解局部变量和全局变量对线程安全的影响。<br>   局部变量存储在线程自己的栈中。也就是说，局部变量永远也不会被多个线程共享。所以，基础类型的局部变量是线程安全的。<br>   当多个线程引用同一个对象时，因为对象引用是放在栈上的，但是对象实例存储在堆中，所以不是线程安全的。</p>
+<p>   ThreadLocal就是拷贝一份到线程缓存中，Thread正是操作这个对象，就不会出现安全问题。</p>
+<ul>
+<li><p>InheritableThreadLocal</p>
+<p>InheritableThreadLocal类是ThreadLocal的子类。为了解决ThreadLocal实例内部每个线程都只能看到自己的私有值，所以InheritableThreadLocal允许一个线程创建的所有子线程访问其父线程的值。</p>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[深入分析Synchronized]]></title>
+      <url>/2017/09/27/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90Synchronized/</url>
+      <content type="html"><![CDATA[<h1 id="Java同步关键字（synchronzied）"><a href="#Java同步关键字（synchronzied）" class="headerlink" title="Java同步关键字（synchronzied）"></a>Java同步关键字（synchronzied）</h1><blockquote>
+<p>所有同步在一个对象上的同步块在同时只能被一个线程进入并执行操作。所有其他等待进入该同步块的线程将被阻塞，直到执行该同步块中的线程退出。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul>
+<li>实例方法同步<br>作用在实例上 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</div><div class="line"><span class="keyword">this</span>.count += value;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>静态方法同步</p>
+<blockquote>
+<p>作用在对象上</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</div><div class="line"><span class="keyword">this</span>.count += value;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>实例方法中同步块</p>
+<blockquote>
+<p>作用在this这个实例上</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</div><div class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</div><div class="line">       <span class="keyword">this</span>.count += value;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>静态方法中同步块</p>
+<blockquote>
+<p>作用在MyClass这个class上</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">log1</span><span class="params">(String msg1, String msg2)</span></span>&#123;</div><div class="line">       log.writeln(msg1);</div><div class="line">       log.writeln(msg2);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">log2</span><span class="params">(String msg1, String msg2)</span></span>&#123;</div><div class="line">       <span class="keyword">synchronized</span>(MyClass.class)&#123;</div><div class="line">          log.writeln(msg1);</div><div class="line">          log.writeln(msg2);</div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p>[参考]{<a href="http://ifeve.com/synchronized-blocks/}" target="_blank" rel="external">http://ifeve.com/synchronized-blocks/}</a></p>
+<p>[参考2]{<a href="http://cmsblogs.com/?hmsr=toutiao.io&amp;p=2071&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io}" target="_blank" rel="external">http://cmsblogs.com/?hmsr=toutiao.io&amp;p=2071&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io}</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[负载均衡]]></title>
+      <url>/2017/09/26/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
+      <content type="html"><![CDATA[<h2 id="什么是负载均衡"><a href="#什么是负载均衡" class="headerlink" title="什么是负载均衡"></a>什么是负载均衡</h2><p>   负载均衡（Load Balance）是分布式系统架构设计中必须考虑的因素之一，它通常是指，将请求/数据【均匀】分摊到多个操作单元上执行，负载均衡的关键在于【均匀】。</p>
+<p>   常见互联网分布式架构如上，分为客户端层、反向代理nginx层、站点层、服务层、数据层。可以看到，每一个下游都有多个上游调用，只需要做到，每一个上游都均匀访问每一个下游，就能实现“将请求/数据【均匀】分摊到多个操作单元上执行”。</p>
+<ul>
+<li>“客户端层-&gt;反向代理层”的负载均衡<br>【客户端层】到【反向代理层】的负载均衡，是通过“DNS轮询”实现的：DNS-server对于一个域名配置了多个解析ip，每次DNS解析请求来访问DNS-server，会轮询返回这些ip，保证每个ip的解析概率是相同的。这些ip就是nginx的外网ip，以做到每台nginx的请求分配也是均衡的。</li>
+<li>“反向代理层-&gt;站点层”的负载均衡<br>  【反向代理层】到【站点层】的负载均衡，是通过“nginx”实现的。通过修改nginx.conf，可以实现多种负载均衡策略：<ul>
+<li>请求轮询：和DNS轮询类似，请求依次路由到各个web-server</li>
+<li>最少连接路由：哪个web-server的连接少，路由到哪个web-server</li>
+<li>ip哈希：按照访问用户的ip哈希值来路由web-server，只要用户的ip分布是均匀的，请求理论上也是均匀的，ip哈希均衡方法可以做到，同一个用户的请求固定落到同一台web-server上，此策略适合有状态服务，例如session.</li>
+</ul>
+</li>
+<li>“站点层-&gt;服务层”的负载均衡<br>   【站点层】到【服务层】的负载均衡，是通过“服务连接池”实现的。<br>   上游连接池会建立与下游服务多个连接，每次请求会“随机”选取连接来访问下游服务。</li>
+<li>“数据层”的负载均衡<br> 在数据量很大的情况下，由于数据层（db，cache）涉及数据的水平切分，所以数据层的负载均衡更为复杂一些，它分为“数据的均衡”，与“请求的均衡”。<ul>
+<li>数据的均衡是指：水平切分后的每个服务（db，cache），数据量是差不多的。</li>
+<li>请求的均衡是指：水平切分后的每个服务（db，cache），请求量是差不多的。<br>业内常见的水平切分方式有这么几种：<ul>
+<li>按照range水平切分        <ul>
+<li>好处<ul>
+<li>规则简单，service只需判断一下uid范围就能路由到对应的存储服务</li>
+<li>数据均衡性较好</li>
+<li>比较容易扩展，可以随时加一个uid[2kw,3kw]的数据服务</li>
+</ul>
+</li>
+<li>不足是：<ul>
+<li>请求的负载不一定均衡，一般来说，新注册的用户会比老用户更活跃，大range的服务请求压力会更大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>按照id哈希水平切分<ul>
+<li>好处：<ul>
+<li>规则简单，service只需对uid进行hash能路由到对应的存储服务</li>
+<li>数据均衡性较好</li>
+<li>请求均匀性较好</li>
+</ul>
+</li>
+<li>不足：<ul>
+<li>不容易扩展，扩展一个数据服务，hash方法改变时候，可能需要进行数据迁移</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[代理]]></title>
+      <url>/2017/09/26/%E4%BB%A3%E7%90%86/</url>
+      <content type="html"><![CDATA[<h1 id="代理分类"><a href="#代理分类" class="headerlink" title="代理分类"></a>代理分类</h1><h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><pre><code>&gt;服务器ip地址不变，用户ip地址变。例如用户(1.1.1.1)使用正向代理(2.2.2.2)访问服务器(3.3.3.3),那么服务器收到的消息来自2.2.2.2.服务器不知道用户真正的地址。
+</code></pre><h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><pre><code>&gt; 反之，用户不知道服务器的地址。
+</code></pre><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><pre><code>对用户屏蔽高可用、屏蔽web-server扩展、内网等一些细节。
+由于web-server有多台，需要进行负载均衡。
+</code></pre><h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="[负载均衡]{}"></a>[负载均衡]{}</h1><h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><ul>
+<li>nginx/apache</li>
+<li>F5</li>
+<li>lvs</li>
+</ul>
+<h2 id="什么是四层（转发-交换），什么是七层（转发-交换）？"><a href="#什么是四层（转发-交换），什么是七层（转发-交换）？" class="headerlink" title="什么是四层（转发/交换），什么是七层（转发/交换）？"></a>什么是四层（转发/交换），什么是七层（转发/交换）？</h2><p>   <img src="img/网络协议7层与5层协议.png" alt="这个是来源于OSI七层模型"><br>   由图可见，4层指传输层，7层指应用层<br>   更具体的，对应到nginx反向代理hash：</p>
+<ul>
+<li>四层：根据用户ip+port来做hash</li>
+<li>七层：根据http协议中的某些属性来做hash</li>
+</ul>
+<h2 id="为什么中间少了几层？"><a href="#为什么中间少了几层？" class="headerlink" title="为什么中间少了几层？"></a>为什么中间少了几层？</h2><pre><code>OSI应用层、表示层、会话层合并到TCP/IP的应用层啦。
+</code></pre><h2 id="上面有四层，七层，那有没有二层，三层呢？"><a href="#上面有四层，七层，那有没有二层，三层呢？" class="headerlink" title="上面有四层，七层，那有没有二层，三层呢？"></a>上面有四层，七层，那有没有二层，三层呢？</h2><ul>
+<li>二层：根据数据链路层MAC地址完成数据交换</li>
+<li>三层：根据网络层IP地址完成数据交换   </li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[炸了那个Jvm]]></title>
+      <url>/2017/09/25/%E7%82%B8%E4%BA%86%E9%82%A3%E4%B8%AAJvm/</url>
+      <content type="html"><![CDATA[<p><a href="http://zhuanlan.51cto.com/art/201709/550451.htm" target="_blank" rel="external">http://zhuanlan.51cto.com/art/201709/550451.htm</a></p>
+<h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>   <img src="img/JVM内存模型.jpg" alt=""></p>
+<p>   打印出来的信息：</p>
+<pre><code>PSYoungGen      total 3072K, used 128K 
+    eden space 2560K, 5% used  
+    survivor  space 
+        from space 512K, 0% used  
+         to   space 512K, 0% used  
+
+ParOldGen       total 6656K, used 408K 
+    object space 6656K, 6% used   
+
+PSPermGen       total 4096K, used 3039K    
+    object space 4096K, 74% used  
+</code></pre><h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
+<li>年轻代：<br>  存放对象的特点： 生命周期短，多为临时变量。<blockquote>
+<p>新实例化的对象都会在eden中new出来，经过手动System.gc()（本质上也是调用Runtime的gc）、Runtime.getRuntime().gc()（本地方法）或者一段时间后系统自动触发gc，年轻代使用 <em>复制清除</em>算法 ，从Root对象开始标记为存活，存活的对象引用的对象也会标记为存活，扫描整个eden区后，将存活的对象存放到其中一个survivor区，清除eden区和另外一个eden区。下次再产生新的对象仍然是放到eden区内，再gc时将eden区和有对象存储的survivor存活的对象复制到另外一个survivor区内，清除这两个区，反复如此，清除一定次数后（之前看过介绍15次，不太确定）将仍然存活的放到年老代。</p>
+</blockquote>
+</li>
+<li>年老代<br>  存放对象特点： 生命周期长。<blockquote>
+<p>年老代使用<em>标记整理</em>算法，还是从Root对象开始搜索，标记所有存活的对象，把所有存活的对象复制到一个区域内，再清除其他区域。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="栈内存溢出-java-lang-StackOverflowError"><a href="#栈内存溢出-java-lang-StackOverflowError" class="headerlink" title="栈内存溢出(java.lang.StackOverflowError)"></a>栈内存溢出(java.lang.StackOverflowError)</h3><pre><code>&gt; -Xmx10m
+  -XX:MaxPermSize=5m
+  -XX:MaxDirectMemorySize=5m
+  -XX:+PrintGCDetails
+</code></pre><h3 id="永久代溢出-java-lang-OutOfMemoryError-GC-overhead-limit-exceeded"><a href="#永久代溢出-java-lang-OutOfMemoryError-GC-overhead-limit-exceeded" class="headerlink" title="永久代溢出(java.lang.OutOfMemoryError: GC overhead limit exceeded)"></a>永久代溢出(java.lang.OutOfMemoryError: GC overhead limit exceeded)</h3>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Collections类全解析]]></title>
       <url>/2017/09/24/Collections%E7%B1%BB%E5%85%A8%E8%A7%A3%E6%9E%90/</url>
       <content type="html"></content>
@@ -222,15 +599,15 @@
 <li><p>PROPAGATION_REQUIRED 如果存在一个事务，就是用这个事务，如果没有事务，就开启一个新的事务</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line">    ...</div><div class="line">    methodB();</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>PROPAGATION_SUPPORTS 如果存在一个事务，就用这个事务，如果没有事务，就非事务执行，但是对于事务同步管理器，PROPAGATION_SUPPORTS和不适用事务有少许区别。</p>
+<li><p>PROPAGATION_SUPPORTS 如果存在一个事务，就用这个事务，如果没有事务，就非事务执行，但是对于事务同步管理器，PROPAGATION_SUPPORTS和不使用事务有少许区别。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line">    ...</div><div class="line">    methodB();</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_SUPPORTS</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>当通过methodA调用methodB时，methodB就是用methodA的事务，如果单独调用methodB的时候，methodB就非事务执行。</p>
 </li>
 <li>PROPAGATION_MANDATORY 如果存在一个事务，就是用当前事务，如果不存在事务，就抛出一个异常。</li>
 <li><p>PROPAGATION_REQUIRED_NEW 开启一个新的事务，</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">  doSomeThingA();</div><div class="line"></div><div class="line">  methodB();</div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRES_NEW</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">……</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</div><div class="line">  doSomeThingA();</div><div class="line">  methodB();</div><div class="line">  doSomeThingB();</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRES_NEW</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">methodB</span><span class="params">()</span></span>&#123;</div><div class="line">……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>相当于：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">TransactionManager tm = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">//获得一个JTA事务管理器</span></div><div class="line"></div><div class="line">  tm = getTransactionManager();</div><div class="line"></div><div class="line">  tm.begin();<span class="comment">//开启一个新的事务</span></div><div class="line"></div><div class="line">  Transaction ts1 = tm.getTransaction();</div><div class="line"></div><div class="line">  doSomeThing();</div><div class="line"></div><div class="line">  tm.suspend();<span class="comment">//挂起当前事务</span></div><div class="line"></div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">    tm.begin();<span class="comment">//重新开启第二个事务</span></div><div class="line"></div><div class="line">    Transaction ts2 = tm.getTransaction();</div><div class="line"></div><div class="line">    methodB();</div><div class="line"></div><div class="line">    ts2.commit();<span class="comment">//提交第二个事务</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Catch(RunTimeException ex)&#123;</div><div class="line"></div><div class="line">    ts2.rollback();<span class="comment">//回滚第二个事务</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//methodB执行完后，复恢第一个事务</span></div><div class="line"></div><div class="line">  tm.resume(ts1);</div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">  ts1.commit();<span class="comment">//提交第一个事务</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RunTimeException ex)&#123;</div><div class="line"></div><div class="line">  ts1.rollback();<span class="comment">//回滚第一个事务</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"><span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">TransactionManager tm = <span class="keyword">null</span>;</div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">  <span class="comment">//获得一个JTA事务管理器</span></div><div class="line">  tm = getTransactionManager();</div><div class="line">  tm.begin();<span class="comment">//开启一个新的事务</span></div><div class="line">  Transaction ts1 = tm.getTransaction();</div><div class="line">  doSomeThing();</div><div class="line">  tm.suspend();<span class="comment">//挂起当前事务</span></div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">    tm.begin();<span class="comment">//重新开启第二个事务</span></div><div class="line">    Transaction ts2 = tm.getTransaction();</div><div class="line">    methodB();</div><div class="line">    ts2.commit();<span class="comment">//提交第二个事务</span></div><div class="line">  &#125;</div><div class="line">  Catch(RunTimeException ex)&#123;</div><div class="line">    ts2.rollback();<span class="comment">//回滚第二个事务</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">finally</span>&#123;</div><div class="line">   <span class="comment">//释放资源</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">//methodB执行完后，复恢第一个事务</span></div><div class="line">  tm.resume(ts1);</div><div class="line">  doSomeThingB();</div><div class="line">  ts1.commit();<span class="comment">//提交第一个事务</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span>(RunTimeException ex)&#123;</div><div class="line">  ts1.rollback();<span class="comment">//回滚第一个事务</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"><span class="comment">//释放资源</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>在这里，我把ts1称为外层事务，ts2称为内层事务。从上面的代码可以看出，ts2与ts1是两个独立的事务，互不相干。Ts2是否成功并不依赖于ts1。如果methodA方法在调用methodB方法后的doSomeThingB方法失败了，而methodB方法所做的结果依然被提交。而除了methodB之外的其它代码导致的结果却被回滚了。使用PROPAGATION_REQUIRES_NEW,需要使用JtaTransactionManager作为事务管理器。</p>
 </blockquote>
@@ -240,12 +617,10 @@
 <li>PROPAGATION_NOT_SUPPORTED 总是非事务执行，并挂起任何事务，也需要JTATransctionManager作为事务管理器</li>
 <li>PROPAGATION_NEVER  总是非事务执行，如果存在一个事务，则抛出异常。</li>
 <li><p>PROPAGATION_NESTED 如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行。这是一个嵌套事务,使用JDBC 3.0驱动时,仅仅支持DataSourceTransactionManager作为事务管理器。需要JDBC 驱动的java.sql.Savepoint类。有一些JTA的事务管理器实现可能也提供了同样的功能。使用PROPAGATION_NESTED，还需要把PlatformTransactionManager的nestedTransactionAllowed属性设为true;而nestedTransactionAllowed属性值默认为false;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line"></div><div class="line">methodA()&#123;</div><div class="line"></div><div class="line">doSomeThingA();</div><div class="line"></div><div class="line">methodB();</div><div class="line"></div><div class="line">doSomeThingB();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//事务属性 PROPAGATION_NESTED</span></div><div class="line"></div><div class="line">methodB()&#123;</div><div class="line"></div><div class="line">……</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事务属性 PROPAGATION_REQUIRED</span></div><div class="line">methodA()&#123;</div><div class="line">doSomeThingA();</div><div class="line">methodB();</div><div class="line">doSomeThingB();</div><div class="line">&#125;</div><div class="line"><span class="comment">//事务属性 PROPAGATION_NESTED</span></div><div class="line">methodB()&#123;</div><div class="line">……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>如果单独调用methodB方法，则按REQUIRED属性执行。如果调用methodA方法，相当于下面的效果：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line"> con = getConnection();</div><div class="line"></div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line"> doSomeThingA();</div><div class="line"></div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"></div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">     methodB();</div><div class="line"></div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">    con.rollback(savepoint);</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line">   <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">  doSomeThingB();</div><div class="line"></div><div class="line">  con.commit();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line"></div><div class="line">  con.rollback();</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"></div><div class="line"> <span class="comment">//释放资源</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">  Connection con = <span class="keyword">null</span>;</div><div class="line">Savepoint savepoint = <span class="keyword">null</span>;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line"> con = getConnection();</div><div class="line"> con.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"> doSomeThingA();</div><div class="line"> savepoint = con2.setSavepoint();</div><div class="line"> <span class="keyword">try</span>&#123;</div><div class="line">     methodB();</div><div class="line"> &#125;<span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line">    con.rollback(savepoint);</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">finally</span>&#123;</div><div class="line">   <span class="comment">//释放资源</span></div><div class="line">&#125;</div><div class="line">  doSomeThingB();</div><div class="line">  con.commit();</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span>(RuntimeException ex)&#123;</div><div class="line">  con.rollback();</div><div class="line">&#125;</div><div class="line"><span class="keyword">finally</span>&#123;</div><div class="line"> <span class="comment">//释放资源</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>PROPAGATION_NESTED 与PROPAGATION_REQUIRES_NEW的区别:它们非常类似,都像一个嵌套事务，如果不存在一个活动的事务，都会开启一个新的事务。使用PROPAGATION_REQUIRES_NEW时，内层事务与外层事务就像两个独立的事务一样，一旦内层事务进行了提交后，外层事务不能对其进行回滚。两个事务互不影响。两个事务不是一个真正的嵌套事务。同时它需要JTA事务管理器的支持。<br>  使用PROPAGATION_NESTED时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。DataSourceTransactionManager使用savepoint支持PROPAGATION_NESTED时，需要JDBC 3.0以上驱动及1.4以上的JDK版本支持。其它的JTA TrasactionManager实现可能有不同的支持方式。<br>  PROPAGATION_REQUIRES_NEW 启动一个新的, 不依赖于环境的 “内部” 事务. 这个事务将被完全 commited 或 rolled back 而不依赖于外部事务, 它拥有自己的隔离范围, 自己的锁, 等等. 当内部事务开始执行时, 外部事务将被挂起, 内务事务结束时, 外部事务将继续执行。<br>  另一方面, PROPAGATION_NESTED 开始一个 “嵌套的” 事务,  它是已经存在事务的一个真正的子事务. 潜套事务开始执行时,  它将取得一个 savepoint. 如果这个嵌套事务失败, 我们将回滚到此 savepoint. 潜套事务是外部事务的一部分, 只有外部事务结束后它才会被提交。<br>  由此可见, PROPAGATION_REQUIRES_NEW 和 PROPAGATION_NESTED 的最大区别在于, PROPAGATION_REQUIRES_NEW 完全是一个新的事务, 而 PROPAGATION_NESTED 则是外部事务的子事务, 如果外部事务 commit, 潜套事务也会被 commit, 这个规则同样适用于 roll back.<br>  PROPAGATION_REQUIRED应该是我们首先的事务传播行为。它能够满足我们大多数的事务需求。</p>
 </blockquote>
 </li>
@@ -539,7 +914,7 @@
 <li>MyISAM</li>
 </ul>
 </li>
-<li>锁<ul>
+<li>[锁]{}<ul>
 <li>行锁、表锁、页级锁、意向锁、读锁、写锁、悲观锁、乐观锁、以及枷锁的select sql方式</li>
 </ul>
 </li>
@@ -581,10 +956,7 @@
 <li><p><a href="https://earyant.github.io/2017/09/10/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">集合</a></p>
 <ul>
 <li>map<ul>
-<li>HashMap<ul>
-<li><a href="https://earyant.github.io/2017/08/09/HashMap%E5%85%A8%E8%A7%A3%E6%9E%90/">Hashmap解析</a></li>
-</ul>
-</li>
+<li><a href="https://earyant.github.io/2017/08/09/HashMap%E5%85%A8%E8%A7%A3%E6%9E%90/">Hashmap</a></li>
 <li>EnumMap: 枚举类型座位键值的Map，效率要高于HashMap</li>
 <li>HashTable：</li>
 <li>ConcurrentHashMap：<ul>
@@ -694,19 +1066,20 @@
 <li>swap 交换集合中的两个元素的位置</li>
 </ul>
 </li>
-<li>Arrays<pre><code>* Arrays.asList(): 可以将Array转换成List。
-* Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找
-* Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法
-* Arrays.copyOfRange :  可以复制整个数组或者其中一个部分
-* Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。
-* Arrays.equals : 比较两个数组是否想相等。
-* Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分
-* Arrays.hashCode : 根据数组内容计算器hash值。
-* Arrays.sort : 对整个数组或者数组一部分进行排序。
-* Arrays.toString : 打印数组的内容
-* 所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：
-    return coll.toArray(new T[coll.size()]);
-</code></pre></li>
+<li>Arrays<ul>
+<li>Arrays.asList(): 可以将Array转换成List。</li>
+<li>Arrays.binarySearch : 在一个已排序的或者其中一段中快速查找</li>
+<li>Arrays.copyOf : 如果扩大数组容量又不想改变内容时候用这个方法</li>
+<li>Arrays.copyOfRange :  可以复制整个数组或者其中一个部分</li>
+<li>Arrays.deepEquals、Arrays.deepHashCode : Arrays.equals、hashCode的高级版本，支持子数据操作。</li>
+<li>Arrays.equals : 比较两个数组是否想相等。</li>
+<li>Arrays.fill  : 用一个给定的值填充整个数组或者其中一个部分</li>
+<li>Arrays.hashCode : 根据数组内容计算器hash值。</li>
+<li>Arrays.sort : 对整个数组或者数组一部分进行排序。</li>
+<li>Arrays.toString : 打印数组的内容</li>
+<li>所有集合都可以用 T[] Collection.toArray(T[] a)方法复制到整个数组：<br>  return coll.toArray(new T[coll.size()]);</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1741,26 +2114,26 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[gallery]]></title>
       <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
       <title><![CDATA[timeline]]></title>
       <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
