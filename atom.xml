@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2017-10-24T09:54:54.711Z</updated>
+  <updated>2017-11-26T09:38:50.823Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -16,11 +16,65 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>线程间通信</title>
+    <link href="http://earyant.github.io/2017/11/09/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
+    <id>http://earyant.github.io/2017/11/09/线程间通信/</id>
+    <published>2017-11-09T05:53:12.000Z</published>
+    <updated>2017-11-26T09:38:50.823Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s/Nij2KMBmDn5E5nFhpwn24w&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;参考如下&lt;/a&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+      <category term="java基础" scheme="http://earyant.github.io/tags/java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EffectiveJava读书笔记</title>
+    <link href="http://earyant.github.io/2017/10/26/EffectiveJava%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>http://earyant.github.io/2017/10/26/EffectiveJava读书笔记/</id>
+    <published>2017-10-26T14:13:26.000Z</published>
+    <updated>2017-10-27T07:32:18.174Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#EffectiveJava 读书笔记&lt;/p&gt;
+&lt;p&gt;本文于2017年10月26日再读一遍，对书中的内容进行整理提取，方便以后查阅&lt;/p&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;第一章：创建和销毁对象&quot;&gt;&lt;a href=&quot;#第一章：创建和销毁对象&quot; class=&quot;hea
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java类解析</title>
+    <link href="http://earyant.github.io/2017/10/26/java%E7%B1%BB%E8%A7%A3%E6%9E%90/"/>
+    <id>http://earyant.github.io/2017/10/26/java类解析/</id>
+    <published>2017-10-26T06:21:04.000Z</published>
+    <updated>2017-10-26T09:19:16.236Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Java对象头&quot;&gt;&lt;a href=&quot;#Java对象头&quot; class=&quot;headerlink&quot; title=&quot;Java对象头&quot;&gt;&lt;/a&gt;Java对象头&lt;/h2&gt;&lt;p&gt;  一般占用两个机器码，在32位虚拟机中，一个机器码占用4个字节，就是32位，但是如果是数组，需要占
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>求m的n次方</title>
     <link href="http://earyant.github.io/2017/10/24/%E6%B1%82m%E7%9A%84n%E6%AC%A1%E6%96%B9/"/>
     <id>http://earyant.github.io/2017/10/24/求m的n次方/</id>
     <published>2017-10-24T08:45:47.000Z</published>
-    <updated>2017-10-24T09:54:54.711Z</updated>
+    <updated>2017-10-26T06:24:49.456Z</updated>
     
     <summary type="html">
     
@@ -300,59 +354,6 @@
     
       &lt;p&gt;[TOC]&lt;/p&gt;
 &lt;h1 id=&quot;接口中default关键字修饰方法可以增加默认实现。&quot;&gt;&lt;a href=&quot;#接口中default关键字修饰方法可以增加默认实现。&quot; class=&quot;headerlink&quot; title=&quot;接口中default关键字修饰方法可以增加默认实现。&quot;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Spring中的事务管理</title>
-    <link href="http://earyant.github.io/2017/09/17/Spring%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/"/>
-    <id>http://earyant.github.io/2017/09/17/Spring中的事务管理/</id>
-    <published>2017-09-17T09:40:06.000Z</published>
-    <updated>2017-09-27T08:36:37.952Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;基本特征&quot;&gt;&lt;a href=&quot;#基本特征&quot; class=&quot;headerlink&quot; title=&quot;基本特征&quot;&gt;&lt;/a&gt;基本特征&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;原子性&lt;/li&gt;
-&lt;li&gt;一致性&lt;/li&gt;
-&lt;li&gt;隔离性&lt;/li&gt;
-&lt;li&gt;持久性&lt;h2 id=&quot;事务的分类&quot;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>RabbitMQ结合Aop实现高并发Log记录</title>
-    <link href="http://earyant.github.io/2017/09/17/RabbitMQ%E7%BB%93%E5%90%88Aop%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%B9%B6%E5%8F%91Log%E8%AE%B0%E5%BD%95/"/>
-    <id>http://earyant.github.io/2017/09/17/RabbitMQ结合Aop实现高并发Log记录/</id>
-    <published>2017-09-17T08:48:20.000Z</published>
-    <updated>2017-09-17T10:06:02.223Z</updated>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;[] &lt;a href=&quot;https://mp.weixin.qq.com/s?src=11&amp;amp;timestamp=1505634383&amp;amp;ver=397&amp;amp;signature=4eGGO7W4eNN4mhNGRac0hSUTD4tyNwjT0H
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>aop原理及实现</title>
-    <link href="http://earyant.github.io/2017/09/17/aop%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/"/>
-    <id>http://earyant.github.io/2017/09/17/aop原理及实现/</id>
-    <published>2017-09-17T07:48:32.000Z</published>
-    <updated>2017-09-17T12:44:25.055Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;静态代理、动态代理&quot;&gt;&lt;a href=&quot;#静态代理、动态代理&quot; class=&quot;headerlink&quot; title=&quot;静态代理、动态代理&quot;&gt;&lt;/a&gt;静态代理、动态代理&lt;/h2&gt;&lt;p&gt;1、AspectJ 使用静态代理，生成class文件时，会侵入到代码中。&lt;br&gt;2、
     
     </summary>
     
