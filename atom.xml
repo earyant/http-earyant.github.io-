@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2017-11-26T09:38:50.823Z</updated>
+  <updated>2018-01-14T13:41:15.279Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>springcloud配置问题</title>
+    <link href="http://earyant.github.io/2018/01/14/springcloud%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/"/>
+    <id>http://earyant.github.io/2018/01/14/springcloud配置问题/</id>
+    <published>2018-01-14T13:41:03.000Z</published>
+    <updated>2018-01-14T13:41:15.279Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;注册中心不自动上线下线&lt;/li&gt;
+&lt;li&gt;异步返回值&lt;/li&gt;
+&lt;li&gt;bean参数传值&lt;br&gt;*&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;eureka-不自动下线&quot;&gt;&lt;a href=&quot;#eureka-不自动下线&quot; class=&quot;headerlink&quot; title
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringCloud集群同步、自我保护模式以及实例注册、心跳、下线配置</title>
+    <link href="http://earyant.github.io/2017/12/26/SpringCloud%E9%9B%86%E7%BE%A4%E5%90%8C%E6%AD%A5%E3%80%81%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%AE%9E%E4%BE%8B%E6%B3%A8%E5%86%8C%E3%80%81%E5%BF%83%E8%B7%B3%E3%80%81%E4%B8%8B%E7%BA%BF%E9%85%8D%E7%BD%AE/"/>
+    <id>http://earyant.github.io/2017/12/26/SpringCloud集群同步、自我保护模式以及实例注册、心跳、下线配置/</id>
+    <published>2017-12-25T16:28:39.000Z</published>
+    <updated>2017-12-25T16:30:23.293Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1. 概述&quot;&gt;&lt;/a&gt;1. 概述&lt;/h1&gt;&lt;p&gt;本文在上文 Spring cloud系列四 Eureka 之概述和服务注册中心集群的基础上，继续介绍Eureka新的内容
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>线程间通信</title>
@@ -322,41 +359,6 @@
     
     
       <category term="[object Object]" scheme="http://earyant.github.io/tags/object-Object/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ArrayList原理</title>
-    <link href="http://earyant.github.io/2017/09/23/ArrayList%E5%8E%9F%E7%90%86/"/>
-    <id>http://earyant.github.io/2017/09/23/ArrayList原理/</id>
-    <published>2017-09-23T06:36:39.000Z</published>
-    <updated>2017-09-24T08:05:02.322Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;实现方式&quot;&gt;&lt;a href=&quot;#实现方式&quot; class=&quot;headerlink&quot; title=&quot;实现方式&quot;&gt;&lt;/a&gt;实现方式&lt;/h2&gt;&lt;p&gt;  存储数据是通过数组： transient Objectp[] elementData&lt;br&gt;  size字段： 存储整个
-    
-    </summary>
-    
-    
-      <category term="java" scheme="http://earyant.github.io/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java8新增功能</title>
-    <link href="http://earyant.github.io/2017/09/18/java8%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD/"/>
-    <id>http://earyant.github.io/2017/09/18/java8新增功能/</id>
-    <published>2017-09-18T13:34:40.000Z</published>
-    <updated>2017-09-18T14:39:57.946Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;接口中default关键字修饰方法可以增加默认实现。&quot;&gt;&lt;a href=&quot;#接口中default关键字修饰方法可以增加默认实现。&quot; class=&quot;headerlink&quot; title=&quot;接口中default关键字修饰方法可以增加默认实现。&quot;
-    
-    </summary>
-    
     
   </entry>
   

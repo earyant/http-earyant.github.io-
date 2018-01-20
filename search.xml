@@ -3,6 +3,73 @@
   
     
     <entry>
+      <title><![CDATA[springcloud配置问题]]></title>
+      <url>/2018/01/14/springcloud%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<ul>
+<li>注册中心不自动上线下线</li>
+<li>异步返回值</li>
+<li>bean参数传值<br>*</li>
+</ul>
+<h3 id="eureka-不自动下线"><a href="#eureka-不自动下线" class="headerlink" title="eureka 不自动下线"></a>eureka 不自动下线</h3><p>Eureka Server在运行期间，会统计心跳失败的比例在15分钟之内是否低于85%，如果出现低于的情况（在单机调试的时候很容易满足，实际在生产环境上通常是由于网络不稳定导致），Eureka Server会将当前的实例注册信息保护起来，同时提示这个警告。保护模式主要用于一组客户端和Eureka Server之间存在网络分区场景下的保护。一旦进入保护模式，Eureka Server将会尝试保护其服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。</p>
+<p>详见：<a href="https://github.com/Netflix/eureka/wiki/Understanding-Eureka-Peer-to-Peer-Communication" target="_blank" rel="external">https://github.com/Netflix/eureka/wiki/Understanding-Eureka-Peer-to-Peer-Communication</a></p>
+<p>解决方法：设置enableSelfPreservation:false</p>
+<p>配置心跳检测时长，下线leaseRenewalIntervalInSeconds: 2</p>
+<h3 id="负载均衡在服务下掉后的重试策略："><a href="#负载均衡在服务下掉后的重试策略：" class="headerlink" title="负载均衡在服务下掉后的重试策略："></a><a href="http://blog.didispace.com/spring-cloud-ribbon-failed-retry/" target="_blank" rel="external">负载均衡在服务下掉后的重试策略：</a></h3><p>默认没有开启：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">spring.cloud.loadbalancer.retry.enabled=<span class="keyword">true</span></div><div class="line"></div><div class="line">hystrix.command.<span class="keyword">default</span>.execution.isolation.thread.timeoutInMilliseconds=<span class="number">10000</span></div><div class="line"></div><div class="line">hello-service.ribbon.ConnectTimeout=<span class="number">250</span></div><div class="line">hello-service.ribbon.ReadTimeout=<span class="number">1000</span></div><div class="line">hello-service.ribbon.OkToRetryOnAllOperations=<span class="keyword">true</span></div><div class="line">hello-service.ribbon.MaxAutoRetriesNextServer=<span class="number">2</span></div><div class="line">hello-service.ribbon.MaxAutoRetries=<span class="number">1</span></div></pre></td></tr></table></figure></p>
+<h3 id="断路器配置重试"><a href="#断路器配置重试" class="headerlink" title="断路器配置重试:"></a><a href="http://blog.didispace.com/spring-cloud-ribbon-failed-retry/" target="_blank" rel="external">断路器配置重试:</a></h3><p>如何处理服务挂掉后或者手动关闭服务后，Ribbon负载均衡还是一直调用这个服务，然后调用@HystrixCommand断路器注解的方法：利用Hystrix，在error callback方法中可以shutdown指定的server<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ZoneAwareLoadBalancer&lt;Server&gt; lb = (ZoneAwareLoadBalancer&lt;Server&gt;) springClientFactory.getLoadBalancer(<span class="string">"CLOUD-SERVICE"</span>);</div><div class="line">Server server = lb.chooseServer();</div><div class="line">System.out.println(<span class="string">"error-&gt;"</span> + server.getHostPort());</div><div class="line">lb.markServerDown(server);</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringCloud集群同步、自我保护模式以及实例注册、心跳、下线配置]]></title>
+      <url>/2017/12/26/SpringCloud%E9%9B%86%E7%BE%A4%E5%90%8C%E6%AD%A5%E3%80%81%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%AE%9E%E4%BE%8B%E6%B3%A8%E5%86%8C%E3%80%81%E5%BF%83%E8%B7%B3%E3%80%81%E4%B8%8B%E7%BA%BF%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><p>本文在上文 Spring cloud系列四 Eureka 之概述和服务注册中心集群的基础上，继续介绍Eureka新的内容:</p>
+<pre><code>集群重要类：PeerAwareInstanceRegistryImpl
+新的Eureka Server节点加入集群后的影响
+新服务注册(Register)注册时的影响
+服务心跳(renew)
+服务下线和剔除
+自我保护模式
+</code></pre><h1 id="2-Eureka-Server的集群同步操作"><a href="#2-Eureka-Server的集群同步操作" class="headerlink" title="2. Eureka Server的集群同步操作"></a>2. Eureka Server的集群同步操作</h1><h2 id="2-1-Eureka官网的架构图"><a href="#2-1-Eureka官网的架构图" class="headerlink" title="2.1. Eureka官网的架构图"></a>2.1. Eureka官网的架构图</h2><p>下方的操作需要结合下图理解：<br>这里写图片描述</p>
+<p>##2.2. PeerAwareInstanceRegistryImpl</p>
+<p>集群相关重要的类com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl: 为了保证集群里所有Eureka Server节点的状态同步，所有以下操作都会同步到集群的所有服务上：服务注册（Registers）、服务更新（Renewals）、服务取消（Cancels）,服务超时（Expirations）和服务状态变更（Status Changes）。以下是一些部分方法：</p>
+<pre><code>syncUp：在Eureka Server重启或新的Eureka Server节点加进来的，会执行初始化，从集群其他节点中获取所有的实例注册信息，从而能够正常提供服务。当Eureka Server启动时，它会从其它节点获取所有的注册信息，如果获取同步失败，它在一定时间（此值由决定）内拒绝服务。
+replicateToPeers： 同步以下操作到所有的集群节点：服务注册（Registers）、服务更新（Renewals）、服务取消（Cancels）,服务超时（Expirations）和服务状态变更（Status Changes）
+register: 注册实例，并且复印此实例的信息到所有的eureka server的节点。如果其它Eureka Server调用此节点，只在本节点更新实例信息，避免通知其他节点执行更新
+renew：心跳，同步集群
+cancel
+其他
+</code></pre><p>Eureka Server集群之间的状态是采用异步方式同步的，所以不保证节点间的状态一定是一致的，不过基本能保证最终状态是一致的。</p>
+<h2 id="2-3-新的Eureka-Server节点加入集群后的影响"><a href="#2-3-新的Eureka-Server节点加入集群后的影响" class="headerlink" title="2.3. 新的Eureka Server节点加入集群后的影响"></a>2.3. 新的Eureka Server节点加入集群后的影响</h2><p>当有新的节点加入到集群中，会对现在Eureka Server和Eureka Client有什么影响以及他们如何发现新增的Eureka Server节点：</p>
+<pre><code>新增的Eureka Server：在Eureka Server重启或新的Eureka Server节点加进来的，它会从集群里其它节点获取所有的实例注册信息。如果获取同步失败，它会在一定时间（此值由决定eureka.server.peer-eureka-nodes-update-interval-ms决定）内拒绝服务。
+
+已有Eureka Server和Service Consumer如何发现新的Eureka Server
+    已有的Eureka Server：在运行过程中，Eureka Server之间会定时同步实例的注册信息。这样即使新的Application Service只向集群中一台注册服务，则经过一段时间会集群中所有的Eureka Server都会有这个实例的信息。那么Eureka Server节点之间如何相互发现，各个节点之间定时（时间由eureka.server.peer-eureka-nodes-update-interval-ms决定）更新节点信息，进行相互发现。
+    Service Consumer：Service Consumer刚启动时，它会从配置文件读取Eureka Server的地址信息。当集群中新增一个Eureka Server中时，那么Service Provider如何发现这个Eureka Server？Service Consumer会定时（此值由eureka.client.eureka-service-url-poll-interval-seconds决定）调用Eureka Server集群接口，获取所有的Eureka Server信息的并更新本地配置。
+</code></pre><h2 id="2-4-新服务注册-Register-注册时的影响"><a href="#2-4-新服务注册-Register-注册时的影响" class="headerlink" title="2.4. 新服务注册(Register)注册时的影响"></a>2.4. 新服务注册(Register)注册时的影响</h2><p>Service Provider要对外提供服务，把自己注册到Eureka Server上。如果配置参数eureka.client.registerWithEureka=true（默认值true）时，会向Eureka Server注册进行注册，Eureka Server会保存注册信息到内存中。</p>
+<p>Service Consumer为了避免每次调用服务请求都需要向Eureka Server获取服务实例的注册信息，此时需要设置eureka.client.fetchRegistry=true，它会在本地缓存所有实例注册信息。为了保证缓存数据的有效性，它会定时（值由eureka.client.registry-fetch-interval-seconds定义，默认值为30s）向注册中心更新实例。</p>
+<h2 id="2-5-服务心跳-renew"><a href="#2-5-服务心跳-renew" class="headerlink" title="2.5. 服务心跳(renew)"></a>2.5. 服务心跳(renew)</h2><p>服务实例会通过心跳(eureka.instance.lease-renewal-interval-in-seconds定义心跳的频率，默认值为30s)续约的方式向Eureka Server定时更新自己的状态。Eureka Server收到心跳后，会通知集群里的其它Eureka Server更新此实例的状态。Service Provider/Service Consumer也会定时更新缓存的实例信息。</p>
+<h2 id="2-6-服务下线和剔除"><a href="#2-6-服务下线和剔除" class="headerlink" title="2.6. 服务下线和剔除"></a>2.6. 服务下线和剔除</h2><p>服务的下线有两种情况：</p>
+<pre><code>在Service Provider服务shutdown的时候，主动通知Eureka Server把自己剔除，从而避免客户端调用已经下线的服务。
+Eureka Server会定时（间隔值是eureka.server.eviction-interval-timer-in-ms，默认值为0，默认情况不删除实例）进行检查，如果发现实例在在一定时间（此值由eureka.instance.lease-expiration-duration-in-seconds定义，默认值为90s）内没有收到心跳，则会注销此实例。
+</code></pre><p>这种情况下，Eureka Client的最多需要[eureka.instance.lease-renewal-interval-in-seconds + eureka.client.registry-fetch-interval-seconds]时间才发现服务已经下线。同理，一个新的服务上线后，Eureka Client的服务消费方最多需要相同的时间才发现服务已经上线</p>
+<p>服务下线，同时会更新到Eureka Server其他节点和Eureka client的缓存，流程类似同以上的register过程</p>
+<h2 id="2-7-自我保护模式"><a href="#2-7-自我保护模式" class="headerlink" title="2.7. 自我保护模式"></a>2.7. 自我保护模式</h2><p>如果Eureka Server最近1分钟收到renew的次数小于阈值（即预期的最小值），则会触发自我保护模式，此时Eureka Server此时会认为这是网络问题，它不会注销任何过期的实例。等到最近收到renew的次数大于阈值后，则Eureka Server退出自我保护模式。</p>
+<p>自我保护模式阈值计算：</p>
+<pre><code>每个instance的预期心跳数目 = 60/每个instance的心跳间隔秒数
+阈值 = 所有注册到服务的instance的数量的预期心跳之和 *自我保护系数
+</code></pre><p>以上的参数都可配置的：</p>
+<pre><code>instance的心跳间隔秒数：eureka.instance.lease-renewal-interval-in-seconds
+自我保护系数：eureka.server.renewal-percent-threshold
+</code></pre><p>如果我们的实例比较少且是内部网络时，推荐关掉此选项。我们也可以通过eureka.server.enable-self-preservation = false来禁用自我保护系数</p>
+<h2 id="2-8-配置demo"><a href="#2-8-配置demo" class="headerlink" title="2.8 配置demo"></a>2.8 配置demo</h2><p>以下配置的demo如下：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="attr">server:</span></div><div class="line"><span class="attr">  port:</span> <span class="number">10761</span></div><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  application:</span></div><div class="line"><span class="attr">    name:</span> <span class="string">cloud-registration-center</span></div><div class="line"><span class="comment">## eureka ： 主要配置属性在EurekaInstanceConfigBean和EurekaClientConfigBean中</span></div><div class="line"><span class="attr">eureka:</span></div><div class="line"><span class="attr">  instance:</span></div><div class="line">    <span class="comment"># hostname: 127.0.0.1</span></div><div class="line">    <span class="comment"># 使用IP注册</span></div><div class="line"><span class="attr">    preferIpAddress:</span> <span class="literal">true</span></div><div class="line">    <span class="comment"># 心跳间隔</span></div><div class="line"><span class="attr">    lease-renewal-interval-in-seconds:</span> <span class="number">3</span></div><div class="line">    <span class="comment"># 服务失效时间： 如果多久没有收到请求，则可以删除服务</span></div><div class="line"><span class="attr">    lease-expiration-duration-in-seconds:</span> <span class="number">7</span></div><div class="line"><span class="attr">  client:</span></div><div class="line">    <span class="comment"># 关闭eureka client</span></div><div class="line">    <span class="comment"># enabled: false</span></div><div class="line">    <span class="comment"># 注册自身到eureka服务器</span></div><div class="line"><span class="attr">    registerWithEureka:</span> <span class="literal">true</span></div><div class="line">    <span class="comment"># 表示是否从eureka服务器获取注册信息</span></div><div class="line"><span class="attr">    fetchRegistry:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># 客户端从Eureka Server集群里更新Eureka Server信息的频率</span></div><div class="line"><span class="attr">    eureka-service-url-poll-interval-seconds:</span> <span class="number">60</span></div><div class="line">    <span class="comment"># 定义从注册中心获取注册服务的信息</span></div><div class="line"><span class="attr">    registry-fetch-interval-seconds:</span> <span class="number">5</span></div><div class="line">    <span class="comment"># 设置eureka服务器所在的地址，查询服务和注册服务都需要依赖这个地址</span></div><div class="line"><span class="attr">    serviceUrl:</span></div><div class="line"><span class="attr">      defaultZone:</span> <span class="attr">http://127.0.0.1:10761/eureka/</span></div><div class="line">       <span class="comment"># 设置eureka服务器所在的地址，可以同时向多个服务注册服务</span></div><div class="line">       <span class="comment"># defaultZone: http://192.168.21.3:10761/eureka/,http://192.168.21.4:10761/eureka/</span></div><div class="line"><span class="attr">  server:</span></div><div class="line">     <span class="comment"># renewal-percent-threshold: 0.1</span></div><div class="line">     <span class="comment"># 关闭自我保护模式</span></div><div class="line"><span class="attr">     enable-self-preservation:</span> <span class="literal">false</span></div><div class="line">     <span class="comment"># Eureka Server 自我保护系数，当enable-self-preservation=true时，启作用</span></div><div class="line">     <span class="comment"># renewal-percent-threshold:</span></div><div class="line">     <span class="comment"># 设置清理间隔,单位为毫秒,默认为0</span></div><div class="line"><span class="attr">     eviction-interval-timer-in-ms:</span> <span class="number">3000</span></div><div class="line">     <span class="comment"># 设置如果Eureka Server启动时无法从临近Eureka Server节点获取注册信息，它多久不对外提供注册服务</span></div><div class="line"><span class="attr">     wait-time-in-ms-when-sync-empty:</span> <span class="number">6000000</span></div><div class="line">     <span class="comment"># 集群之间相互更新节点信息的时间频率</span></div><div class="line"><span class="attr">     peer-eureka-nodes-update-interval-ms:</span> <span class="number">60000</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[线程间通信]]></title>
       <url>/2017/11/09/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
       <content type="html"><![CDATA[<p><a href="http://mp.weixin.qq.com/s/Nij2KMBmDn5E5nFhpwn24w" target="_blank" rel="external">参考如下</a></p>
@@ -1017,22 +1084,104 @@ PSPermGen       total 4096K, used 3039K
 <li>数组</li>
 <li>链表</li>
 <li>树<ul>
+<li>二叉树<ul>
+<li>满二叉树</li>
+<li>完美二叉树</li>
+<li>完全二叉树</li>
+<li>二叉搜索树： 其任何节点中的值都会大于或者等于其做字数中存储的值并小于或者等于其右子树的值。<ul>
+<li>时间复杂度：<ul>
+<li>索引: O(log(n))</li>
+<li>搜索: O(log(n))</li>
+<li>插入: O(log(n))</li>
+<li>删除: O(log(n))</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>红黑树</li>
 <li>AVL树</li>
 <li>Hash树</li>
 <li>tire树</li>
 <li>b-树</li>
 <li>b+树</li>
+<li>Trie 字典树，基数树或者前缀树，能够存储键为字符串的动态集合或者关联数组的搜索树，树中节点没有存储键值，而是在该节点在树中的挂载位置决定了其关联键值，某个节点的所有子节点都拥有相同的前缀，整树根节点则是空字符串</li>
+<li>Fenwick Tree：树状数组，又称为 Binary Indexed Tree，其表现形式为树，不过本质上是以数组实现，数组的下标代表着树中的顶点，每个顶点的父节点或者子节点的下标能够通过位运算获得，数组中的每个元素包含了预计算的区间值之和，在整颗数更新的过程中同样会更新这些预计算的值。<ul>
+<li>时间复杂度：<ul>
+<li>区间求值： O(log(n))</li>
+<li>更新： O(log(n))</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Segment Tree<ul>
+<li>线段树是用于存放间隔或者线段的树形数据结构，它允许快速查找某一个节点在某若干条线段中出现的次数。<ul>
+<li>区间查询： O(log(n))</li>
+<li>更新: O(log(n))</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>队列</li>
-<li>栈<h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h3></li>
+<li>栈</li>
+<li>堆<br> 堆是一种特殊的基于树的满足某些特性的数据结构，整个堆中的所有父子节点的键值都会满足相同的排序条件。堆更准确地可以分为最大堆与最小堆，在最大堆中，父节点的键值永远大于或者等于子节点的值，并且整个堆中的最大值存储于根节点；而最小堆中，父节点的键值永远小于或者等于其子节点的键值，并且整个堆中的最小值存储于根节点。</li>
+<li>Hashing<ul>
+<li>哈希能够将任意长度的数据映射到固定长度的数据，哈希函数返回的即是哈希值，如果两个不同的键得到相同的哈希值，将这种现象称为碰撞。</li>
+<li>Hash Map<br> 是一种能够建立起键与值之间关系的数据结构，Hash Map能够使用哈希函数将键转化为桶或者槽中的下标，从而优化对于目标值的搜索速度。</li>
+<li>碰撞解决：<ul>
+<li>链地址法：<br> 每个桶都是互相独立的，包含一系列索引的列表，搜索操作的时间复杂度即是搜索桶的时间（固定时间）与遍历列表的时间之和。</li>
+<li>开地址法：<br> 当插入新值时，会判断该值对应的哈希桶是否存在，如果存在则根据某种算法一次选择下一个可能的位置，知道找到一个尚未被占用的地址，所谓开地址法也是只某个元素的位置并不永远由其哈希值决定。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Graph<br> 图是一种数据元素间为多对多关系的数据结构，加上一组基本操作构成的抽象数据类型<ul>
+<li>无向图：<br> 无向图具有对称的邻接矩阵，因此如果存在某条从节点u到节点v的边，反之从v到u的边也存在。</li>
+<li>有向图：<br> 有向图的邻接矩阵是非对称的，即如果存在从u到v的表并不意味着存在v到u的边。<h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h3></li>
+</ul>
+</li>
 <li>查找：<ul>
 <li>二分查找，以及变种二分查找。</li>
 </ul>
 </li>
 <li>排序：<ul>
-<li>7种排序</li>
+<li>7种排序<ul>
+<li>快速排序<ul>
+<li>稳定： 否</li>
+<li>时间复杂度：<ul>
+<li>最优时间：O(nlog(n))</li>
+<li>最坏时间: O(n^2)</li>
+<li>平均时间：O(nlog(n))</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>归并排序：<ul>
+<li>分治算法，不断将某个数组分为两个部分，分别对左子数组与右子数组进行排序，然后将两个数组合并为新的有序数组</li>
+<li>稳定：是</li>
+<li>时间复杂度<ul>
+<li>最优时间： O(nlog(n))</li>
+<li>最坏时间： O(nlog(n))</li>
+<li>平均时间： O(nlog(n))</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>桶排序：<ul>
+<li>桶排序将数组分到有限数量的筒子里，每个桶子再个别排序，有可能在使用别的排序算法或者以地柜方式继续使用桶排序。</li>
+<li>时间复杂度：<ul>
+<li>最优时间： O(n+k)</li>
+<li>最坏时间： O(n^2)</li>
+<li>平均时间： O(n+k)<br>//TODO <a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>时间、空间复杂度（理解并分析）</li>
 <li>动态规划、贪心算法</li>
 <li>图<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3></li>
@@ -1157,6 +1306,13 @@ PSPermGen       total 4096K, used 3039K
 </li>
 <li>LinkedList<ul>
 <li>Deque实现，每一个节点都保存着上一个节点和下一个节点的指针。所以数据的存取和更新都具有线性复杂度。<br><a href="https://earyant.github.io/2017/09/10/ArrayList%E5%92%8CLinkedList%E5%AF%B9%E6%AF%94/">ArrayList和LinkedList对比</a></li>
+<li>时间复杂度：<ul>
+<li>索引:  O(n)</li>
+<li>搜索:  O(n)</li>
+<li>插入:  O(1)</li>
+<li>移除:  O(1)</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Vector</li>
@@ -1176,7 +1332,32 @@ PSPermGen       total 4096K, used 3039K
 <li><p>Queues/Deques</p>
 <ul>
 <li>ArrayDeQue ： Deque是基于有首尾指针的数组（环形缓冲区）实现的。和LinkedList不同，这个类没有实现List接口，因此，如果没有收尾元素的话，就不能去除任何元素。比LinkedList好一点，产生的垃圾数量较少。</li>
-<li>Stack ：后进先出的队列<br>– 并发 –</li>
+<li>Queue<ul>
+<li>enqueue： 插入到队列中</li>
+<li>dequeue： 将队头移除</li>
+<li>时间复杂度：<ul>
+<li>索引: O(n)</li>
+<li>搜索: O(n)</li>
+<li>插入: O(1)</li>
+<li>移除: O(1)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Stack ：后进先出的队列</p>
+<ul>
+<li>push： 将元素压入栈</li>
+<li>pop：  将栈顶元素移除</li>
+<li>时间复杂度：<ul>
+<li>索引: O(n)</li>
+<li>搜索: O(n)</li>
+<li>插入: O(1)</li>
+<li>移除: O(1)</li>
+</ul>
+</li>
+</ul>
+<p>– 并发 –</p>
+</li>
 <li>ArrayBlockingQueue： 基于书实现的一个有界阻塞对，大小不能重新定义，试图向一个满的队列添加元素的时候，就会受到阻塞，知道另一个方法从队列中取出元素。</li>
 <li>ConcurrentLinkedDeque、ConcurrentLinkedQueue：基于链表实现的无解队列，添加元素不阻塞。要求消费者的速度至少要比生产一样快，不然内存就会耗尽，严重依赖于CAS操作。</li>
 <li>DelayQueue ： 无界的保存Delayed元素的集合，元素只有在延时已经过期的时候才能被取出。队列的第一个元素延期最小(包含负值，延时已经过期)，要实现一个延期任务的队列的时候使用(不要自己手动实现–使用ScheduledThreadPoolExecutor)</li>
@@ -2292,6 +2473,12 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
@@ -2300,12 +2487,6 @@ mathJax    启用 Mathjax    false
     <entry>
       <title><![CDATA[tags]]></title>
       <url>/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
