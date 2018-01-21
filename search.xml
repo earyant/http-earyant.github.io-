@@ -3,6 +3,184 @@
   
     
     <entry>
+      <title><![CDATA[java8新特性]]></title>
+      <url>/2018/01/20/java8%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+      <content type="html"><![CDATA[<h1 id="java8新特性"><a href="#java8新特性" class="headerlink" title="java8新特性"></a>java8新特性</h1><h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><blockquote>
+<p>java8接受一个函数作为另一个函数的参数传入进去</p>
+</blockquote>
+<p>Arrays.asList( “a”, “b”, “d” ).forEach( e -&gt; System.out.println( e ) ); 参数的类型是编译器推断出来的</p>
+<blockquote>
+<p>Lambda可以引用类的成员变量与局部变量（如果这些变量不是final的话，它们会被隐含的转为final，这样效率更高）。</p>
+</blockquote>
+<h2 id="默认方法和静态方法"><a href="#默认方法和静态方法" class="headerlink" title="默认方法和静态方法"></a>默认方法和静态方法</h2><blockquote>
+<p>在JVM中，默认方法的实现是非常高效的，并且通过字节码指令为方法调用提供了支持。默认方法允许继续使用现有的Java接口，而同时能够保障正常的编译过程。这方面好的例子是大量的方法被添加到java.util.Collection接口中去：stream()，parallelStream()，forEach()，removeIf()，……</p>
+</blockquote>
+<h2 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h2><h2 id="Java编译器的新特性"><a href="#Java编译器的新特性" class="headerlink" title="Java编译器的新特性"></a>Java编译器的新特性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterNames</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Method method = ParameterNames.class.getMethod( <span class="string">"main"</span>, String[].class );</div><div class="line">        <span class="keyword">for</span>( <span class="keyword">final</span> Parameter parameter: method.getParameters() ) &#123;</div><div class="line">            System.out.println( <span class="string">"Parameter: "</span> + parameter.getName() );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Parameter: args</p>
+</blockquote>
+<p>对于有经验的Maven用户，通过maven-compiler-plugin的配置可以将-parameters参数添加到编译器中去。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">compilerArgument</span>&gt;</span>-parameters<span class="tag">&lt;/<span class="name">compilerArgument</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Java-类库的新特性"><a href="#Java-类库的新特性" class="headerlink" title="Java 类库的新特性"></a>Java 类库的新特性</h2><h3 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h3><p>平时用的判空：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span> (name == <span class="keyword">null</span>)&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">  &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">return</span> name;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>改成Optional：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  Optional&lt;String &gt; names = Opntional.of(name);</div><div class="line">  <span class="keyword">if</span> (names.isPresent())&#123;</div><div class="line">      <span class="keyword">return</span> names.get();</div><div class="line">  &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果单纯改成这样，还不如直接写成 ==null，看起来更加繁琐。 应该改成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> Opntional.of(name).get().orElse(<span class="string">""</span>);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> totalPointsOfOpenTasks = tasks</div><div class="line">    .stream()</div><div class="line">    .filter( task -&gt; task.getStatus() == Status.OPEN )</div><div class="line">    .mapToInt( Task::getPoints )</div><div class="line">    .sum();</div></pre></td></tr></table></figure>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><blockquote>
+<p>对于Stream中包含的元素使用给定的过滤函数进行过滤操作，新生成的Stream只包含符合条件的元素；</p>
+</blockquote>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><blockquote>
+<p>映射转换</p>
+</blockquote>
+<h4 id="mapTo"><a href="#mapTo" class="headerlink" title="mapTo*"></a>mapTo*</h4><blockquote>
+<p>映射转换成 <em>的类型，</em> 包括Integer、Double、Long</p>
+</blockquote>
+<h4 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h4><blockquote>
+<p>合并集合,和map类似，不同的是其每个元素转换得到的是Stream对象，会把子Stream中的元素压缩到父集合中；</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;1,2&#125;，&#123;3,4&#125;，&#123;5,6&#125;&#125; - &gt; flatMap - &gt; &#123;1,2,3,4,5,6&#125;</div><div class="line"></div><div class="line">&#123;&apos;a&apos;，&apos;b&apos;&#125;，&#123;&apos;c&apos;，&apos;d&apos;&#125;，&#123;&apos;e&apos;，&apos;f&apos;&#125;&#125; - &gt; flatMap - &gt; &#123;&apos;a&apos;，&apos;b&apos;，&apos;c&apos; D&quot;， &apos;E&apos;， &apos;F&apos;&#125;</div></pre></td></tr></table></figure>
+<h4 id="flatMapTo"><a href="#flatMapTo" class="headerlink" title="flatMapTo*"></a>flatMapTo*</h4><h4 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h4><blockquote>
+<p>对于Stream中包含的元素进行去重操作（去重逻辑依赖元素的equals方法），新生成的Stream中没有重复的元素；</p>
+<h4 id="sorted"><a href="#sorted" class="headerlink" title="sorted"></a>sorted</h4></blockquote>
+<h4 id="peek"><a href="#peek" class="headerlink" title="peek"></a>peek</h4><blockquote>
+<p>监控器</p>
+</blockquote>
+<p>提供一个Consumer消费函数，返回一个新的Stream，如果只写 Stream.of(“1”,”2”,”3”).peek(e-&gt; System.out.Println(e)) 是不会打印结果的 新Stream每个元素被<strong>消费</strong>的时候都会执行给定的消费函数； Stream.of(“1”,”2”,”3”).peek(e-&gt; System.out.Println(e)).collect(Collectors.toList());</p>
+<h4 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h4><p>对一个Stream进行截断操作，获取其前N个元素，如果原Stream中包含的元素个数小于N，那就获取其所有的元素；</p>
+<h4 id="skip"><a href="#skip" class="headerlink" title="skip"></a>skip</h4><p>返回一个丢弃原Stream的前N个元素后剩下元素组成的新Stream，如果原Stream中包含的元素个数小于N，那么返回空Stream；</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><blockquote>
+<p>遍历</p>
+</blockquote>
+<h4 id="forEachOrdered"><a href="#forEachOrdered" class="headerlink" title="forEachOrdered"></a>forEachOrdered</h4><blockquote>
+<p>与forEach一样，只不过每次遍历结果都是相同的，forEach不是固定的序列</p>
+</blockquote>
+<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>给定一个生成函数，生成一个无限的队列 Stream.generate(Math::random);</p>
+<h4 id="iterate"><a href="#iterate" class="headerlink" title="iterate"></a>iterate</h4><p>也是生成无限长度的Stream，和generator不同的是，其元素的生成是重复对给定的种子值(seed)调用用户指定函数来生成的。其中包含的元素可以认为是：seed，f(seed),f(f(seed))无限循环</p>
+<p>Stream.iterate(1, item -&gt; item + 1).limit(10).forEach(System.out::println);</p>
+<h4 id="collect"><a href="#collect" class="headerlink" title="collect"></a>collect</h4><blockquote>
+<p>汇聚函数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方法参数</th>
+<th>返回类型</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toList</td>
+<td>List<code>&lt;T &gt;</code></td>
+<td>把流中的参数汇聚成List集合</td>
+<td>示例:List<code>&lt;Menu&gt;</code> menus=Menu.getMenus.stream().collect(Collectors.toList())</td>
+</tr>
+<tr>
+<td>toSet</td>
+<td>Set<code>&lt;T&gt;</code></td>
+<td>把流中所有元素收集到Set中,删除重复项</td>
+<td>Set<code>&lt;Menu&gt;</code> menus=Menu.getMenus.stream().collect(Collectors.toSet())</td>
+</tr>
+<tr>
+<td>toCollection</td>
+<td>Collection<code>&lt;T&gt;</code></td>
+<td>把流中所有元素收集到给定的供应源创建的集合中</td>
+<td><code>ArrayList&lt;Menu&gt; menus=Menu.getMenus.stream().collect(Collectors.toCollection(ArrayList::new))</code></td>
+</tr>
+<tr>
+<td>Counting</td>
+<td>Long</td>
+<td>计算流中元素个数</td>
+<td>Long count=Menu.getMenus.stream().collect(Collectors.counting());</td>
+</tr>
+<tr>
+<td>SummingInt</td>
+<td>Integer</td>
+<td>对流中元素的一个整数属性求和</td>
+<td>Integer count=Menu.getMenus.stream().collect(Collectors.summingInt(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>averagingInt</td>
+<td>Double</td>
+<td>计算流中元素integer属性的平均值</td>
+<td>Double averaging=Menu.getMenus.stream().collect((Collectors.averagingInt(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>Joining</td>
+<td>String</td>
+<td>连接流中每个元素的toString方法生成的字符串</td>
+<td>String name=Menu.getMenus.stream().map(Menu::getName).collect(Collectors.joining(“, “))</td>
+</tr>
+<tr>
+<td>maxBy</td>
+<td>Optional<code>&lt;T&gt;</code></td>
+<td>一个包裹了流中按照给定比较器选出的最大元素的optional 如果为空返回的是Optional.empty()</td>
+<td>Optional<code>&lt;Menu&gt;</code> fattest=Menu.getMenus.stream().collectCollectors.maxBy(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>minBy</td>
+<td>Optional<code>&lt;T&gt;</code></td>
+<td>一个包裹了流中按照给定比较器选出的最大元素的optional如果为空返回的是Optional.empty()</td>
+<td>Optional<code>&lt;Menu&gt;</code> lessest=Menu.getMenus.stream().collect(minBy(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>Reducing</td>
+<td>归约操作产生的类型</td>
+<td>从一个作为累加器的初始值开始,利用binaryOperator与流中的元素逐个结合,从而将流归约为单个值</td>
+<td>int count=Menu.getMenus.stream().collect(reducing(0,Menu::getCalories,Integer::sum));</td>
+</tr>
+<tr>
+<td>collectingAndThen</td>
+<td>转换函数返回的类型</td>
+<td>包裹另一个转换器,对其结果应用转换函数</td>
+<td>Int count=Menu.getMenus.stream().collect(collectingAndThen(toList(),List::size))</td>
+</tr>
+<tr>
+<td>groupingBy</td>
+<td>Map<code>&lt;K,List&lt;T&gt;&gt;</code></td>
+<td>根据流中元素的某个值对流中的元素进行分组,并将属性值做为结果map的键</td>
+<td>Map<code>&lt;Type,List&lt;Menu&gt;&gt;</code> menuType=Menu.getMenus.stream().collect(groupingby(Menu::getType))</td>
+</tr>
+<tr>
+<td>partitioningBy</td>
+<td>Map<code>&lt;Boolean,List&lt;T&gt;&gt;</code></td>
+<td>根据流中每个元素应用谓语的结果来对项目进行分区</td>
+<td>Map<code>&lt;Boolean,List&lt;Menu&gt;&gt;</code> menuType=Menu.getMenus.stream().collect(partitioningBy(Menu::isType));</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><ul>
+<li><code>Optional&lt;t&gt; reduce(BinaryOperator&lt;t&gt; accumulator);</code></li>
+</ul>
+<p>List <code>&lt;integer&gt;</code> ints = Lists.newArrayList(1,2,3,4,5,6,7,8,9,10); System.out.println(“ints sum is:” + ints.stream().reduce((sum, item) -&gt; sum + item).get());</p>
+<p>可以看到reduce方法接受一个函数，这个函数有两个参数，第一个参数是上次函数执行的返回值（也称为中间结果），第二个参数是stream中的元素，这个函数把这两个值相加，得到的和会被赋值给下次执行这个函数的第一个参数。要注意的是：<strong>第一次执行的时候第一个参数的值是Stream的第一个元素，第二个参数是Stream的第二个元素</strong>。这个方法返回值类型是Optional，这是Java8防止出现NPE的一种可行方法，后面的文章会详细介绍，这里就简单的认为是一个容器，其中可能会包含0个或者1个对象。</p>
+<ul>
+<li>T reduce(T identity, BinaryOperator<code>&lt;t&gt;</code> accumulator);<br>这个定义上上面已经介绍过的基本一致，不同的是：它允许用户提供一个循环计算的初始值，如果Stream为空，就直接返回该值。而且这个方法不会返回Optional，因为其不会出现null值。</li>
+</ul>
+<h4 id="count"><a href="#count" class="headerlink" title="count"></a>count</h4><blockquote>
+<p>个数</p>
+</blockquote>
+<h4 id="allMatch"><a href="#allMatch" class="headerlink" title="allMatch"></a>allMatch</h4><p>是不是所有都满足给定的条件</p>
+<h4 id="anyMatch"><a href="#anyMatch" class="headerlink" title="anyMatch"></a>anyMatch</h4><p>是不是存在某一个元素满足给定的条件</p>
+<h4 id="findFirst"><a href="#findFirst" class="headerlink" title="findFirst"></a>findFirst</h4><p>返回第一个，返回的是Optional值</p>
+<h4 id="noneMatch"><a href="#noneMatch" class="headerlink" title="noneMatch"></a>noneMatch</h4><p>是否没有一个元素满足给定的条件</p>
+<h4 id="max和min"><a href="#max和min" class="headerlink" title="max和min"></a>max和min</h4><p>给定的比较条件，返回最大最小值</p>
+<p><a href="http://ifeve.com/stream/" target="_blank" rel="external">参考</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> java8 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[springcloud配置问题]]></title>
       <url>/2018/01/14/springcloud%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<ul>
@@ -2473,14 +2651,14 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     

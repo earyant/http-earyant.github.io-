@@ -12,7 +12,7 @@
     
     <title>
         
-            基本类型和包装类型差别 | 
+            java8新特性 | 
         
         Earyant的技术博客
     </title>
@@ -38,7 +38,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Earyant">
     <meta name="description" itemprop="description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
-    <meta name="keywords" content="Earyant,EffectJava">
+    <meta name="keywords" content="Earyant,java8">
 
     <!-- Site Verification -->
     
@@ -67,18 +67,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://earyant.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="基本类型和包装类型差别 | Earyant的技术博客">
+    <meta property="og:title" content="java8新特性 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
-    <meta property="og:article:tag" content="EffectJava"> 
+    <meta property="og:article:tag" content="java8"> 
 
     
-        <meta property="article:published_time" content="Tue Oct 03 2017 14:39:22 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Oct 03 2017 15:46:08 GMT+0800" />
+        <meta property="article:published_time" content="Sat Jan 20 2018 09:47:36 GMT+0800" />
+        <meta property="article:modified_time" content="Sun Jan 21 2018 23:41:58 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="基本类型和包装类型差别 | Earyant的技术博客">
+    <meta name="twitter:title" content="java8新特性 | Earyant的技术博客">
     <meta name="twitter:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +86,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2018/01/20/java8新特性/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -112,10 +112,10 @@
         },
         "description": "Welcom to Earyant's blog"
     },
-    "headline": "基本类型和包装类型差别",
-    "url": "http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html",
-    "datePublished": "Tue Oct 03 2017 14:39:22 GMT+0800",
-    "dateModified": "Tue Oct 03 2017 15:46:08 GMT+0800",
+    "headline": "java8新特性",
+    "url": "http://earyant.github.io/2018/01/20/java8新特性/index.html",
+    "datePublished": "Sat Jan 20 2018 09:47:36 GMT+0800",
+    "dateModified": "Sun Jan 21 2018 23:41:58 GMT+0800",
     "description": "个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -349,7 +349,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本类型以及包装类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本类型以及包装类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自动装箱、拆箱"><span class="post-toc-number">2.</span> <span class="post-toc-text">自动装箱、拆箱</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本类型和包装类型差别"><span class="post-toc-number">3.</span> <span class="post-toc-text">基本类型和包装类型差别</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#java8新特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">java8新特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lambda表达式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">lambda表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认方法和静态方法"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">默认方法和静态方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重复注解"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">重复注解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Java编译器的新特性"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Java编译器的新特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Java-类库的新特性"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Java 类库的新特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Optional"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">Optional</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Stream"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">Stream</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#filter"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">filter</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#map"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">map</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mapTo"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">mapTo*</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#flatMap"><span class="post-toc-number">1.5.2.4.</span> <span class="post-toc-text">flatMap</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#flatMapTo"><span class="post-toc-number">1.5.2.5.</span> <span class="post-toc-text">flatMapTo*</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#distinct"><span class="post-toc-number">1.5.2.6.</span> <span class="post-toc-text">distinct</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#sorted"><span class="post-toc-number">1.5.2.7.</span> <span class="post-toc-text">sorted</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#peek"><span class="post-toc-number">1.5.2.8.</span> <span class="post-toc-text">peek</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#limit"><span class="post-toc-number">1.5.2.9.</span> <span class="post-toc-text">limit</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#skip"><span class="post-toc-number">1.5.2.10.</span> <span class="post-toc-text">skip</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#forEach"><span class="post-toc-number">1.5.2.11.</span> <span class="post-toc-text">forEach</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#forEachOrdered"><span class="post-toc-number">1.5.2.12.</span> <span class="post-toc-text">forEachOrdered</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#generate"><span class="post-toc-number">1.5.2.13.</span> <span class="post-toc-text">generate</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#iterate"><span class="post-toc-number">1.5.2.14.</span> <span class="post-toc-text">iterate</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#collect"><span class="post-toc-number">1.5.2.15.</span> <span class="post-toc-text">collect</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#reduce"><span class="post-toc-number">1.5.2.16.</span> <span class="post-toc-text">reduce</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#count"><span class="post-toc-number">1.5.2.17.</span> <span class="post-toc-text">count</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#allMatch"><span class="post-toc-number">1.5.2.18.</span> <span class="post-toc-text">allMatch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#anyMatch"><span class="post-toc-number">1.5.2.19.</span> <span class="post-toc-text">anyMatch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#findFirst"><span class="post-toc-number">1.5.2.20.</span> <span class="post-toc-text">findFirst</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#noneMatch"><span class="post-toc-number">1.5.2.21.</span> <span class="post-toc-text">noneMatch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#max和min"><span class="post-toc-number">1.5.2.22.</span> <span class="post-toc-text">max和min</span></a></li></ol></li></ol></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -387,7 +387,7 @@
         
     
             <p class="article-headline-p">
-                基本类型和包装类型差别
+                java8新特性
             </p>
         </div>
 
@@ -406,7 +406,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Earyant</strong>
-        <span>10月 03, 2017</span>
+        <span>1月 20, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -428,7 +428,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/">
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2018/01/20/java8新特性/">
     
 </ul>
     
@@ -441,7 +441,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/EffectJava/">EffectJava</a>
+        <a class="post_tag-link" href="/tags/java8/">java8</a>
     </ul>
     
 
@@ -468,7 +468,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=基本类型和包装类型差别&url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=java8新特性&url=http://earyant.github.io/2018/01/20/java8新特性/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -477,7 +477,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=基本类型和包装类型差别&url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html&via=Earyant" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=java8新特性&url=http://earyant.github.io/2018/01/20/java8新特性/index.html&via=Earyant" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -486,7 +486,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2018/01/20/java8新特性/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -495,7 +495,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2018/01/20/java8新特性/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -504,7 +504,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html&title=基本类型和包装类型差别" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2018/01/20/java8新特性/index.html&title=java8新特性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -513,7 +513,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=基本类型和包装类型差别&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=java8新特性&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2018/01/20/java8新特性/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -522,7 +522,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/10/03/基本类型和包装类型差别/index.html&text=基本类型和包装类型差别" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2018/01/20/java8新特性/index.html&text=java8新特性" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -537,33 +537,170 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="基本类型以及包装类型"><a href="#基本类型以及包装类型" class="headerlink" title="基本类型以及包装类型"></a>基本类型以及包装类型</h2><p>   java中定义了基本类型： </p>
-<pre><code>* 整形： byte、short、int、long
-* 浮点型：float、double
-* 逻辑型： boolean
-* 字符型： char
-</code></pre><p>   以及对应的包装类型：</p>
-<pre><code>* 整形： Byte、Short、Integer、Long
-* 浮点型： Float、Double
-* 逻辑型： Boolean
-* 字符型： Char 
-</code></pre><h2 id="自动装箱、拆箱"><a href="#自动装箱、拆箱" class="headerlink" title="自动装箱、拆箱"></a>自动装箱、拆箱</h2><p>   java为满足程序员基本类型和包装类型混合使用，按需自动装箱拆箱。<br>   自动装箱拆箱使基本类型和包装类型之间的区别逐渐模糊，但是语义上有些许差别，性能上也有明显差别。</p>
-<h2 id="基本类型和包装类型差别"><a href="#基本类型和包装类型差别" class="headerlink" title="基本类型和包装类型差别"></a>基本类型和包装类型差别</h2><ul>
-<li>基本类型有默认值，例如int值默认为0 ，而Integer没有默认引用，默认为null。<br> 所以在写数据库实体类或者网络请求接收字段的时候要使用包装类型，防止接受参数为null的情况。</li>
-<li><p>包装类的频繁更改并不是在原来的基础上更改，而是产生新的对象，所以包装类的频繁更改性能很差.</p>
-<blockquote>
-<p>使用Long情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">long</span> now = System.currentTimeMillis();</div><div class="line">        Long sum = <span class="number">0L</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</div><div class="line">            sum += i;</div><div class="line">        &#125;</div><div class="line">        System.out.println(sum);</div><div class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"using Long total time = "</span> + (end - now));</div></pre></td></tr></table></figure>
+        <h1 id="java8新特性"><a href="#java8新特性" class="headerlink" title="java8新特性"></a>java8新特性</h1><h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><blockquote>
+<p>java8接受一个函数作为另一个函数的参数传入进去</p>
 </blockquote>
-<p>耗费时间为</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">2305843005992468481</span></div><div class="line">all time = <span class="number">8832</span></div></pre></td></tr></table></figure>
+<p>Arrays.asList( “a”, “b”, “d” ).forEach( e -&gt; System.out.println( e ) ); 参数的类型是编译器推断出来的</p>
 <blockquote>
-<p>使用long情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testlongAutoBoxing</span><span class="params">()</span> </span>&#123;</div><div class="line">         <span class="keyword">long</span> now = System.currentTimeMillis();</div><div class="line">         <span class="keyword">long</span> sum = <span class="number">0L</span>;</div><div class="line">         <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</div><div class="line">             sum += i;</div><div class="line">         &#125;</div><div class="line">         System.out.println(<span class="string">"using long ,sum ="</span> + sum);</div><div class="line">         <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">         System.out.println(<span class="string">"using long total time = "</span> + (end - now));</div><div class="line">     &#125;</div><div class="line">``` </div><div class="line">总耗费时间为</div><div class="line">```java</div><div class="line"> <span class="number">2305843005992468481</span></div><div class="line"> all time = <span class="number">787</span></div></pre></td></tr></table></figure>
+<p>Lambda可以引用类的成员变量与局部变量（如果这些变量不是final的话，它们会被隐含的转为final，这样效率更高）。</p>
 </blockquote>
-</li>
+<h2 id="默认方法和静态方法"><a href="#默认方法和静态方法" class="headerlink" title="默认方法和静态方法"></a>默认方法和静态方法</h2><blockquote>
+<p>在JVM中，默认方法的实现是非常高效的，并且通过字节码指令为方法调用提供了支持。默认方法允许继续使用现有的Java接口，而同时能够保障正常的编译过程。这方面好的例子是大量的方法被添加到java.util.Collection接口中去：stream()，parallelStream()，forEach()，removeIf()，……</p>
+</blockquote>
+<h2 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h2><h2 id="Java编译器的新特性"><a href="#Java编译器的新特性" class="headerlink" title="Java编译器的新特性"></a>Java编译器的新特性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterNames</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Method method = ParameterNames.class.getMethod( <span class="string">"main"</span>, String[].class );</div><div class="line">        <span class="keyword">for</span>( <span class="keyword">final</span> Parameter parameter: method.getParameters() ) &#123;</div><div class="line">            System.out.println( <span class="string">"Parameter: "</span> + parameter.getName() );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Parameter: args</p>
+</blockquote>
+<p>对于有经验的Maven用户，通过maven-compiler-plugin的配置可以将-parameters参数添加到编译器中去。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">compilerArgument</span>&gt;</span>-parameters<span class="tag">&lt;/<span class="name">compilerArgument</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Java-类库的新特性"><a href="#Java-类库的新特性" class="headerlink" title="Java 类库的新特性"></a>Java 类库的新特性</h2><h3 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h3><p>平时用的判空：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span> (name == <span class="keyword">null</span>)&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">  &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">return</span> name;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>改成Optional：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  Optional&lt;String &gt; names = Opntional.of(name);</div><div class="line">  <span class="keyword">if</span> (names.isPresent())&#123;</div><div class="line">      <span class="keyword">return</span> names.get();</div><div class="line">  &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果单纯改成这样，还不如直接写成 ==null，看起来更加繁琐。 应该改成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(String name)</span></span>&#123;</div><div class="line">  <span class="keyword">return</span> Opntional.of(name).get().orElse(<span class="string">""</span>);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> totalPointsOfOpenTasks = tasks</div><div class="line">    .stream()</div><div class="line">    .filter( task -&gt; task.getStatus() == Status.OPEN )</div><div class="line">    .mapToInt( Task::getPoints )</div><div class="line">    .sum();</div></pre></td></tr></table></figure>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><blockquote>
+<p>对于Stream中包含的元素使用给定的过滤函数进行过滤操作，新生成的Stream只包含符合条件的元素；</p>
+</blockquote>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><blockquote>
+<p>映射转换</p>
+</blockquote>
+<h4 id="mapTo"><a href="#mapTo" class="headerlink" title="mapTo*"></a>mapTo*</h4><blockquote>
+<p>映射转换成 <em>的类型，</em> 包括Integer、Double、Long</p>
+</blockquote>
+<h4 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h4><blockquote>
+<p>合并集合,和map类似，不同的是其每个元素转换得到的是Stream对象，会把子Stream中的元素压缩到父集合中；</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;1,2&#125;，&#123;3,4&#125;，&#123;5,6&#125;&#125; - &gt; flatMap - &gt; &#123;1,2,3,4,5,6&#125;</div><div class="line"></div><div class="line">&#123;&apos;a&apos;，&apos;b&apos;&#125;，&#123;&apos;c&apos;，&apos;d&apos;&#125;，&#123;&apos;e&apos;，&apos;f&apos;&#125;&#125; - &gt; flatMap - &gt; &#123;&apos;a&apos;，&apos;b&apos;，&apos;c&apos; D&quot;， &apos;E&apos;， &apos;F&apos;&#125;</div></pre></td></tr></table></figure>
+<h4 id="flatMapTo"><a href="#flatMapTo" class="headerlink" title="flatMapTo*"></a>flatMapTo*</h4><h4 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h4><blockquote>
+<p>对于Stream中包含的元素进行去重操作（去重逻辑依赖元素的equals方法），新生成的Stream中没有重复的元素；</p>
+<h4 id="sorted"><a href="#sorted" class="headerlink" title="sorted"></a>sorted</h4></blockquote>
+<h4 id="peek"><a href="#peek" class="headerlink" title="peek"></a>peek</h4><blockquote>
+<p>监控器</p>
+</blockquote>
+<p>提供一个Consumer消费函数，返回一个新的Stream，如果只写 Stream.of(“1”,”2”,”3”).peek(e-&gt; System.out.Println(e)) 是不会打印结果的 新Stream每个元素被<strong>消费</strong>的时候都会执行给定的消费函数； Stream.of(“1”,”2”,”3”).peek(e-&gt; System.out.Println(e)).collect(Collectors.toList());</p>
+<h4 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h4><p>对一个Stream进行截断操作，获取其前N个元素，如果原Stream中包含的元素个数小于N，那就获取其所有的元素；</p>
+<h4 id="skip"><a href="#skip" class="headerlink" title="skip"></a>skip</h4><p>返回一个丢弃原Stream的前N个元素后剩下元素组成的新Stream，如果原Stream中包含的元素个数小于N，那么返回空Stream；</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><blockquote>
+<p>遍历</p>
+</blockquote>
+<h4 id="forEachOrdered"><a href="#forEachOrdered" class="headerlink" title="forEachOrdered"></a>forEachOrdered</h4><blockquote>
+<p>与forEach一样，只不过每次遍历结果都是相同的，forEach不是固定的序列</p>
+</blockquote>
+<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>给定一个生成函数，生成一个无限的队列 Stream.generate(Math::random);</p>
+<h4 id="iterate"><a href="#iterate" class="headerlink" title="iterate"></a>iterate</h4><p>也是生成无限长度的Stream，和generator不同的是，其元素的生成是重复对给定的种子值(seed)调用用户指定函数来生成的。其中包含的元素可以认为是：seed，f(seed),f(f(seed))无限循环</p>
+<p>Stream.iterate(1, item -&gt; item + 1).limit(10).forEach(System.out::println);</p>
+<h4 id="collect"><a href="#collect" class="headerlink" title="collect"></a>collect</h4><blockquote>
+<p>汇聚函数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方法参数</th>
+<th>返回类型</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toList</td>
+<td>List<code>&lt;T &gt;</code></td>
+<td>把流中的参数汇聚成List集合</td>
+<td>示例:List<code>&lt;Menu&gt;</code> menus=Menu.getMenus.stream().collect(Collectors.toList())</td>
+</tr>
+<tr>
+<td>toSet</td>
+<td>Set<code>&lt;T&gt;</code></td>
+<td>把流中所有元素收集到Set中,删除重复项</td>
+<td>Set<code>&lt;Menu&gt;</code> menus=Menu.getMenus.stream().collect(Collectors.toSet())</td>
+</tr>
+<tr>
+<td>toCollection</td>
+<td>Collection<code>&lt;T&gt;</code></td>
+<td>把流中所有元素收集到给定的供应源创建的集合中</td>
+<td><code>ArrayList&lt;Menu&gt; menus=Menu.getMenus.stream().collect(Collectors.toCollection(ArrayList::new))</code></td>
+</tr>
+<tr>
+<td>Counting</td>
+<td>Long</td>
+<td>计算流中元素个数</td>
+<td>Long count=Menu.getMenus.stream().collect(Collectors.counting());</td>
+</tr>
+<tr>
+<td>SummingInt</td>
+<td>Integer</td>
+<td>对流中元素的一个整数属性求和</td>
+<td>Integer count=Menu.getMenus.stream().collect(Collectors.summingInt(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>averagingInt</td>
+<td>Double</td>
+<td>计算流中元素integer属性的平均值</td>
+<td>Double averaging=Menu.getMenus.stream().collect((Collectors.averagingInt(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>Joining</td>
+<td>String</td>
+<td>连接流中每个元素的toString方法生成的字符串</td>
+<td>String name=Menu.getMenus.stream().map(Menu::getName).collect(Collectors.joining(“, “))</td>
+</tr>
+<tr>
+<td>maxBy</td>
+<td>Optional<code>&lt;T&gt;</code></td>
+<td>一个包裹了流中按照给定比较器选出的最大元素的optional 如果为空返回的是Optional.empty()</td>
+<td>Optional<code>&lt;Menu&gt;</code> fattest=Menu.getMenus.stream().collectCollectors.maxBy(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>minBy</td>
+<td>Optional<code>&lt;T&gt;</code></td>
+<td>一个包裹了流中按照给定比较器选出的最大元素的optional如果为空返回的是Optional.empty()</td>
+<td>Optional<code>&lt;Menu&gt;</code> lessest=Menu.getMenus.stream().collect(minBy(Menu::getCalories))</td>
+</tr>
+<tr>
+<td>Reducing</td>
+<td>归约操作产生的类型</td>
+<td>从一个作为累加器的初始值开始,利用binaryOperator与流中的元素逐个结合,从而将流归约为单个值</td>
+<td>int count=Menu.getMenus.stream().collect(reducing(0,Menu::getCalories,Integer::sum));</td>
+</tr>
+<tr>
+<td>collectingAndThen</td>
+<td>转换函数返回的类型</td>
+<td>包裹另一个转换器,对其结果应用转换函数</td>
+<td>Int count=Menu.getMenus.stream().collect(collectingAndThen(toList(),List::size))</td>
+</tr>
+<tr>
+<td>groupingBy</td>
+<td>Map<code>&lt;K,List&lt;T&gt;&gt;</code></td>
+<td>根据流中元素的某个值对流中的元素进行分组,并将属性值做为结果map的键</td>
+<td>Map<code>&lt;Type,List&lt;Menu&gt;&gt;</code> menuType=Menu.getMenus.stream().collect(groupingby(Menu::getType))</td>
+</tr>
+<tr>
+<td>partitioningBy</td>
+<td>Map<code>&lt;Boolean,List&lt;T&gt;&gt;</code></td>
+<td>根据流中每个元素应用谓语的结果来对项目进行分区</td>
+<td>Map<code>&lt;Boolean,List&lt;Menu&gt;&gt;</code> menuType=Menu.getMenus.stream().collect(partitioningBy(Menu::isType));</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><ul>
+<li><code>Optional&lt;t&gt; reduce(BinaryOperator&lt;t&gt; accumulator);</code></li>
 </ul>
-<p>   在使用Long的时间比long增加10倍，原因是Long的操作过程中会构造大概2^31个实例。</p>
+<p>List <code>&lt;integer&gt;</code> ints = Lists.newArrayList(1,2,3,4,5,6,7,8,9,10); System.out.println(“ints sum is:” + ints.stream().reduce((sum, item) -&gt; sum + item).get());</p>
+<p>可以看到reduce方法接受一个函数，这个函数有两个参数，第一个参数是上次函数执行的返回值（也称为中间结果），第二个参数是stream中的元素，这个函数把这两个值相加，得到的和会被赋值给下次执行这个函数的第一个参数。要注意的是：<strong>第一次执行的时候第一个参数的值是Stream的第一个元素，第二个参数是Stream的第二个元素</strong>。这个方法返回值类型是Optional，这是Java8防止出现NPE的一种可行方法，后面的文章会详细介绍，这里就简单的认为是一个容器，其中可能会包含0个或者1个对象。</p>
+<ul>
+<li>T reduce(T identity, BinaryOperator<code>&lt;t&gt;</code> accumulator);<br>这个定义上上面已经介绍过的基本一致，不同的是：它允许用户提供一个循环计算的初始值，如果Stream为空，就直接返回该值。而且这个方法不会返回Optional，因为其不会出现null值。</li>
+</ul>
+<h4 id="count"><a href="#count" class="headerlink" title="count"></a>count</h4><blockquote>
+<p>个数</p>
+</blockquote>
+<h4 id="allMatch"><a href="#allMatch" class="headerlink" title="allMatch"></a>allMatch</h4><p>是不是所有都满足给定的条件</p>
+<h4 id="anyMatch"><a href="#anyMatch" class="headerlink" title="anyMatch"></a>anyMatch</h4><p>是不是存在某一个元素满足给定的条件</p>
+<h4 id="findFirst"><a href="#findFirst" class="headerlink" title="findFirst"></a>findFirst</h4><p>返回第一个，返回的是Optional值</p>
+<h4 id="noneMatch"><a href="#noneMatch" class="headerlink" title="noneMatch"></a>noneMatch</h4><p>是否没有一个元素满足给定的条件</p>
+<h4 id="max和min"><a href="#max和min" class="headerlink" title="max和min"></a>max和min</h4><p>给定的比较条件，返回最大最小值</p>
+<p><a href="http://ifeve.com/stream/" target="_blank" rel="external">参考</a></p>
 
     
 
@@ -583,21 +720,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/10/12/数据库跨库分页实践（转发）/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/09/27/java单例的七种写法/" id="post_nav-older" class="next-content">
+        <a href="/2018/01/14/springcloud配置问题/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
