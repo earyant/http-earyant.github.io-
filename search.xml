@@ -3,8 +3,8 @@
   
     
     <entry>
-      <title><![CDATA[docker部署elk服务]]></title>
-      <url>/2018/02/12/docker%E9%83%A8%E7%BD%B2elk%E6%9C%8D%E5%8A%A1/</url>
+      <title><![CDATA[docker简单部署elk服务]]></title>
+      <url>/2018/02/12/docker%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2elk%E6%9C%8D%E5%8A%A1/</url>
       <content type="html"><![CDATA[<h1 id="本文章记录自己通过docker搭建elk的过程"><a href="#本文章记录自己通过docker搭建elk的过程" class="headerlink" title="本文章记录自己通过docker搭建elk的过程"></a>本文章记录自己通过docker搭建elk的过程</h1><h2 id="docker下载镜像"><a href="#docker下载镜像" class="headerlink" title="docker下载镜像"></a>docker下载镜像</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull sebp/elk :latest</div></pre></td></tr></table></figure>
 <h2 id="docker-至少分配3g内存"><a href="#docker-至少分配3g内存" class="headerlink" title="docker 至少分配3g内存"></a>docker 至少分配3g内存</h2><p>elasticsearch 至少需要2g，logstash至少需要1g</p>
 <h2 id="设置最大运行线程数"><a href="#设置最大运行线程数" class="headerlink" title="设置最大运行线程数"></a>设置最大运行线程数</h2><pre><code>最大线程数要超过262144
@@ -2700,26 +2700,26 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
       <title><![CDATA[timeline]]></title>
       <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
