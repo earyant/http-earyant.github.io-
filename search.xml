@@ -3,12 +3,67 @@
   
     
     <entry>
+      <title><![CDATA[深爱不寿]]></title>
+      <url>/2018/02/25/%E6%B7%B1%E7%88%B1%E4%B8%8D%E5%AF%BF/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[爱吃西瓜]]></title>
+      <url>/2018/02/25/%E7%88%B1%E5%90%83%E8%A5%BF%E7%93%9C/</url>
+      <content type="html"><![CDATA[<p>最甜的是西瓜中间的那口</p>
+<p>可我连籽都吃掉</p>
+<p>我爱的东西本来就不多</p>
+<p>爱就爱它的所有</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 散文诗 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[docker简单结合elk、logstash]]></title>
+      <url>/2018/02/13/docker%E7%AE%80%E5%8D%95%E7%BB%93%E5%90%88elk%E3%80%81logstash/</url>
+      <content type="html"><![CDATA[<h2 id="本文记录docker搭建elk，并简单结合logstash日志输出"><a href="#本文记录docker搭建elk，并简单结合logstash日志输出" class="headerlink" title="本文记录docker搭建elk，并简单结合logstash日志输出"></a>本文记录docker搭建elk，并简单结合logstash日志输出</h2><h3 id="filebeat"><a href="#filebeat" class="headerlink" title="filebeat"></a>filebeat</h3><blockquote>
+<p>docker pull docker.elastic.co/beats/filebeat:6.2.1</p>
+</blockquote>
+<ul>
+<li>filebeat.yml<br><strong>enabled要改为true，filebeat默认为false</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">filebeat.prospectors:</div><div class="line">- type: log</div><div class="line">  enabled: true</div><div class="line">  paths:</div><div class="line">    - D:\workspace\baidu\baiyi\baidu\dsp\dsp-main-server\log\*.log</div><div class="line">output:</div><div class="line">    logstash:</div><div class="line">          hosts: [&quot;192.168.99.100:5044&quot;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>docker run -it –name filebeat -v /data/filebeat.yml::/usr/share/filebeat/filebeat.yml</p>
+</blockquote>
+<h3 id="logstash"><a href="#logstash" class="headerlink" title="logstash"></a>logstash</h3><p>改写/opt/logstash/logstash/config/logstash.yml文件</p>
+<ul>
+<li>logstash.yml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">input&#123;</div><div class="line">    beats &#123;</div><div class="line">        port =&gt; 5044</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">output&#123;</div><div class="line">    stdout&#123; codec =&gt; rubydebug &#125;</div><div class="line">    elasticsearch &#123;</div><div class="line">        hosts =&gt; &quot;192.168.99.100:9200&quot;</div><div class="line">        index =&gt;  &quot;t-server-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">        document_type =&gt; &quot;log4j_type&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> logstash </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[docker简单部署elk服务]]></title>
       <url>/2018/02/12/docker%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2elk%E6%9C%8D%E5%8A%A1/</url>
       <content type="html"><![CDATA[<h1 id="本文章记录自己通过docker搭建elk的过程"><a href="#本文章记录自己通过docker搭建elk的过程" class="headerlink" title="本文章记录自己通过docker搭建elk的过程"></a>本文章记录自己通过docker搭建elk的过程</h1><h2 id="docker下载镜像"><a href="#docker下载镜像" class="headerlink" title="docker下载镜像"></a>docker下载镜像</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull sebp/elk :latest</div></pre></td></tr></table></figure>
 <h2 id="docker-至少分配3g内存"><a href="#docker-至少分配3g内存" class="headerlink" title="docker 至少分配3g内存"></a>docker 至少分配3g内存</h2><p>elasticsearch 至少需要2g，logstash至少需要1g</p>
-<h2 id="设置最大运行线程数"><a href="#设置最大运行线程数" class="headerlink" title="设置最大运行线程数"></a>设置最大运行线程数</h2><pre><code>最大线程数要超过262144
-</code></pre><ul>
+<h2 id="设置最大运行线程数"><a href="#设置最大运行线程数" class="headerlink" title="设置最大运行线程数"></a>设置最大运行线程数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最大线程数要超过262144</div></pre></td></tr></table></figure>
+<ul>
 <li><p>使用docker toolbox方式 先进入虚拟机</p>
 <blockquote>
 <p>docker-machine ssh default</p>
@@ -16,7 +71,8 @@
 </li>
 <li><p>永久生效配置</p>
 <blockquote>
-<p>sudo vi /etc/sysctl.conf vm.max_map_count=262144</p>
+<p>sudo vi /etc/sysctl.conf</p>
+<p>vm.max_map_count=262144</p>
 <p>sudo sysctl -p //生效</p>
 </blockquote>
 </li>
@@ -2707,12 +2763,6 @@ mathJax    启用 Mathjax    false
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
@@ -2721,6 +2771,12 @@ mathJax    启用 Mathjax    false
     <entry>
       <title><![CDATA[timeline]]></title>
       <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
