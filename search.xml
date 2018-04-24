@@ -3,6 +3,112 @@
   
     
     <entry>
+      <title><![CDATA[Guava 1.1基本工具]]></title>
+      <url>/2018/04/19/Guava-1-1%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
+      <content type="html"><![CDATA[<h1 id="1-1-使用和避免null"><a href="#1-1-使用和避免null" class="headerlink" title="1.1-使用和避免null"></a>1.1-使用和避免null</h1><p>map允许null作为键，但只能有一个。<br>concurrentHashMap不允许null作为键。</p>
+<h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Optional&lt;Integer&gt; possible = Optional.of(<span class="number">5</span>);</div><div class="line">possible.isPresent(); <span class="comment">// returns true</span></div><div class="line">possible.get(); <span class="comment">// returns 5</span></div></pre></td></tr></table></figure>
+<h3 id="静态创建方法"><a href="#静态创建方法" class="headerlink" title="静态创建方法"></a>静态创建方法</h3><ul>
+<li>of</li>
+<li>ofNullable</li>
+<li>empty<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3></li>
+<li>isPresent</li>
+<li>get</li>
+<li>or (jdk中是orElse)</li>
+<li>orNull</li>
+<li>asSet</li>
+</ul>
+<blockquote>
+<p>意义：<br>    使用Optional除了赋予null语义，增加了可读性，最大的优点在于它是一种傻瓜式的防护。Optional迫使你积极思考引用缺失的情况，因为你必须显式地从Optional获取引用。直接使用null很容易让人忘掉某些情形，尽管FindBugs可以帮助查找null相关的问题，但是我们还是认为它并不能准确地定位问题根源。<br>    如同输入参数，方法的返回值也可能是null。和其他人一样，你绝对很可能会忘记别人写的方法method(a,b)会返回一个null，就好像当你实现method(a,b)时，也很可能忘记输入参数a可以为null。将方法的返回类型指定为Optional，也可以迫使调用者思考返回的引用缺失的情形。</p>
+</blockquote>
+<h3 id="使用方式："><a href="#使用方式：" class="headerlink" title="使用方式："></a>使用方式：</h3><ul>
+<li><p>错误的使用方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Optional&lt;User&gt; user = Optional.ofNullable(user);</div><div class="line"><span class="keyword">if</span> (user.isPresent()) &#123;</div><div class="line">  <span class="keyword">int</span> sex = user.getSex();</div><div class="line">  <span class="comment">// 链式调用，最容易出现空指针</span></div><div class="line">  <span class="keyword">int</span> age = user.getParent().getParent().getParent().getAge();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>正确的使用方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Optional&lt;User&gt; user = Optional.ofNullable(user);</div><div class="line"><span class="keyword">int</span> sex = user.map(User::getSex).orElse(<span class="number">0</span>);</div><div class="line"><span class="keyword">int</span> age = user.map(User::getParent).map(User::getParent).map(User::getParent).map(User::getAge).orElse(<span class="number">0</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="其他处理null的便利方法"><a href="#其他处理null的便利方法" class="headerlink" title="其他处理null的便利方法"></a>其他处理null的便利方法</h2><ul>
+<li>Objects.firstNonNull(T, T)</li>
+<li>Objects还有其它一些方法专门处理null或空字符串：emptyToNull(String)，nullToEmpty(String)，isNullOrEmpty(String)。</li>
+</ul>
+<h1 id="1-2-前置条件-Preconditions"><a href="#1-2-前置条件-Preconditions" class="headerlink" title="1.2-前置条件 Preconditions"></a>1.2-前置条件 Preconditions</h1><table>
+<thead>
+<tr>
+<th>–</th>
+<th>–</th>
+<th>–</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方法声明（不包括额外参数）</td>
+<td>描述</td>
+<td>检查失败时抛出的异常</td>
+</tr>
+<tr>
+<td>checkArgument(boolean)</td>
+<td>检查boolean是否为true，用来检查传递给方法的参数。</td>
+<td>IllegalArgumentException</td>
+</tr>
+<tr>
+<td>checkNotNull(T)</td>
+<td>检查value是否为null，该方法直接返回value，因此可以内嵌使用checkNotNull。</td>
+<td>NullPointerException</td>
+</tr>
+<tr>
+<td>checkState(boolean)</td>
+<td>用来检查对象的某些状态。</td>
+<td>IllegalStateException</td>
+</tr>
+<tr>
+<td>checkElementIndex(int index, int size)</td>
+<td>检查index作为索引值对某个列表、字符串或数组是否有效</td>
+<td>IndexOutOfBoundsException</td>
+</tr>
+<tr>
+<td>checkPositionIndex(int index, int size)</td>
+<td>检查index作为位置值对某个列表、字符串或数组是否有效。</td>
+<td>IndexOutOfBoundsException</td>
+</tr>
+<tr>
+<td>checkPositionIndexes(int start, int end, int size)</td>
+<td>检查[start, end]表示的位置范围对某个列表、字符串或数组是否有效*</td>
+<td>IndexOutOfBoundsException</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://ifeve.com/google-guava-using-and-avoiding-null/" target="_blank" rel="external">参考</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Guava </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JDK1.5-JDK1.8各个新特性]]></title>
+      <url>/2018/03/27/JDK1-5-JDK1-8%E5%90%84%E4%B8%AA%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+      <content type="html"><![CDATA[<p><a href="https://juejin.im/entry/5ab860ce5188255587238a36?utm_source=gold_browser_extension" target="_blank" rel="external">转载来源</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java内存模型]]></title>
+      <url>/2018/03/22/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
+      <content type="html"><![CDATA[<p><a href="http://ifeve.com/jmm-faq/" target="_blank" rel="external">参考</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[深爱不寿]]></title>
       <url>/2018/02/25/%E6%B7%B1%E7%88%B1%E4%B8%8D%E5%AF%BF/</url>
       <content type="html"><![CDATA[<p>如果我孑身一人是个赛车手<br>无牵无挂，无畏无惧<br>即使受伤、死亡<br>也会为我爱的事倾尽所有</p>
@@ -294,7 +400,7 @@
 <h4 id="findFirst"><a href="#findFirst" class="headerlink" title="findFirst"></a>findFirst</h4><p>返回第一个，返回的是Optional值</p>
 <h4 id="noneMatch"><a href="#noneMatch" class="headerlink" title="noneMatch"></a>noneMatch</h4><p>是否没有一个元素满足给定的条件</p>
 <h4 id="max和min"><a href="#max和min" class="headerlink" title="max和min"></a>max和min</h4><p>给定的比较条件，返回最大最小值</p>
-<p><a href="http://ifeve.com/stream/" target="_blank" rel="external">参考</a></p>
+<p><a href="http://ifeve.com/stream/" target="_blank" rel="external">参考</a><br><a href="https://blog.csdn.net/dm_vincent/article/category/2268127" target="_blank" rel="external">好文收藏</a></p>
 ]]></content>
       
         
@@ -2765,12 +2871,6 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
@@ -2785,6 +2885,12 @@ mathJax    启用 Mathjax    false
     <entry>
       <title><![CDATA[tags]]></title>
       <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
