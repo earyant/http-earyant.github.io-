@@ -3,6 +3,85 @@
   
     
     <entry>
+      <title><![CDATA[日志分析脚本]]></title>
+      <url>/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E8%84%9A%E6%9C%AC/</url>
+      <content type="html"><![CDATA[<h2 id="sed编辑器"><a href="#sed编辑器" class="headerlink" title="sed编辑器"></a>sed编辑器</h2><p>不修改原内容的行级别流编辑器</p>
+<ul>
+<li><p>sed ‘s/baidu /earyant/‘ access.log | head -10</p>
+<blockquote>
+<p>将日志文件中的baidu替换成earyant输出<br>s表示执行的事文本替换命令</p>
+</blockquote>
+</li>
+<li><p>sed -n ‘2,6p’ access.log</p>
+<blockquote>
+<p>-n表示只输出指定的行，’2,6p’表示选择的事第二行到第六行</p>
+</blockquote>
+</li>
+<li><p>sed ‘/earyant/d’ access.log</p>
+<blockquote>
+<p>d表示执行文本删除命令，将包含earyant的行删除</p>
+</blockquote>
+</li>
+<li><p>sed ‘=’ access.log</p>
+<blockquote>
+<p>显示文本行号</p>
+</blockquote>
+</li>
+<li><p>sed -e ‘i\head’ access.log | head -10</p>
+<blockquote>
+<p>在行首插入文本</p>
+</blockquote>
+</li>
+<li><p>sed -e ‘a\end’ access.log | head -10</p>
+<blockquote>
+<p> 在文末追加文本</p>
+</blockquote>
+</li>
+<li><p>sed -e ‘/baidu/c\hello’ access.log | head -10</p>
+<blockquote>
+<p>c命令对文本进行替换，查找/baidu/匹配的行，用hello对匹配的行进行替换，与s不同的是，这个替换行，s是替换单词</p>
+</blockquote>
+</li>
+<li>sed -n ‘1,5p;1,5=’ access.log<blockquote>
+<p>多条命令，分号隔开</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><ul>
+<li>awk ‘{print $1}’ access.log | head -10<blockquote>
+<p>打印指定的列</p>
+</blockquote>
+</li>
+<li>awk ‘/baidu/{print $5,%6}’ access.log | head -10<blockquote>
+<p>筛选指定的行，并且打印出其中一部分列</p>
+</blockquote>
+</li>
+<li><p>awk ‘length{$0} &gt; 40 {print $3}’ access.log | head  -10</p>
+<blockquote>
+<p>$0 表示当前的行，length($0)获取当前行的长度，print $3 打印出第三列</p>
+</blockquote>
+</li>
+<li><p>awk ‘{line = sprintf (“method:%s,response:%s”,$3,$7); print line}’ access.log | head -10</p>
+<blockquote>
+<p>定义line接收sprintf输出，sprintf用户格式化输出第三行的请求式和第七行的响应时间</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><ul>
+<li>系统load超过2或者磁盘李勇超过85%报警：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#earyantlee@gmail.com</span></div><div class="line"></div><div class="line"><span class="comment">#top取系统load值， -n 1 表示只刷新一次</span></div><div class="line"><span class="comment"># sed 过滤第一行</span></div><div class="line"><span class="comment"># top命令会输出1分钟、5分钟、15分钟load的平均值，awk筛选出1分钟内的平均load，赋值给load</span></div><div class="line">load = `top -n 1| sed -n <span class="string">'1p'</span> | awk <span class="string">'&#123;print $11&#125;'</span>`</div><div class="line"><span class="comment"># 从右边开始，过滤掉不需要的逗号</span></div><div class="line">load = <span class="variable">$&#123;load%\,*&#125;</span></div><div class="line"><span class="comment"># df取得磁盘利用率信息，用sed筛选磁盘总利用率第二行</span></div><div class="line">disk_usage = `df -h | sed -n <span class="string">'2p'</span> |awk <span class="string">'&#123;print $(NF - 1)&#125;'</span> `</div><div class="line"><span class="comment"># 过滤掉百分号</span></div><div class="line">disk_usage = <span class="variable">$&#123;disk_usage%\%*&#125;</span></div><div class="line">overhead = `expr <span class="variable">$load</span> \&gt; 2.00`</div><div class="line"><span class="keyword">if</span> [<span class="variable">$overhead</span> -eq 1];<span class="keyword">then</span></div><div class="line">  <span class="built_in">echo</span> <span class="string">"System load is overhead"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="keyword">if</span> [<span class="variable">$disk_usage</span> -gt 85 ]; <span class="keyword">then</span></div><div class="line">  <span class="built_in">echo</span> <span class="string">"disk is nearly full ,need more disk space"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">exit</span> 0</div></pre></td></tr></table></figure>
+<ul>
+<li>读取日志文件，对字段切割，插入到sql。<br>db:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">create table access_log(</div><div class="line">  ip varchar(20),# ip地址</div><div class="line">  rt bigint,# 响应时间</div><div class="line">  method varchar(10), #请求方式</div><div class="line">  url varchar (400), # 请求地址</div><div class="line">  refer varchar(400),# 请求来源</div><div class="line">  return_code int,# 返回码</div><div class="line">  response_size bigint # 响应大小</div><div class="line">  );</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#earyantlee@gmail.com</span></div><div class="line"><span class="comment"># 日志路径</span></div><div class="line">ACCESS_FILE=<span class="string">"D:\\0\\nginx-1.11.13\\logs\\access2.log"</span></div><div class="line"><span class="keyword">while</span> <span class="built_in">read</span> LINE</div><div class="line"><span class="keyword">do</span></div><div class="line">  <span class="comment"># 系统数组分隔符</span></div><div class="line">  OLD_IFS=<span class="string">"<span class="variable">$IFS</span>"</span></div><div class="line">  IFS=<span class="string">" "</span></div><div class="line">  <span class="comment"># 每行分割成数组</span></div><div class="line">  field_arr=(<span class="variable">$LINE</span>)</div><div class="line">  IFS=<span class="string">"<span class="variable">$OLD_IFS</span>"</span></div><div class="line">  <span class="comment"># 生成插入语句</span></div><div class="line">  STATEMENT=<span class="string">"insert into access_log values('<span class="variable">$&#123;field_arr[0]&#125;</span>' , '<span class="variable">$&#123;field_arr[1]&#125;</span>', '<span class="variable">$&#123;field_arr[2]&#125;</span>', '<span class="variable">$&#123;field_arr[3]&#125;</span>', '<span class="variable">$&#123;field_arr[4]&#125;</span>', '<span class="variable">$&#123;field_arr[5]&#125;</span>', '<span class="variable">$&#123;field_arr[6]&#125;</span>');"</span></div><div class="line">  <span class="built_in">echo</span> <span class="variable">$STATEMENT</span></div><div class="line">  mysql earyant -u root -p123456 -e <span class="string">"<span class="variable">$&#123;STATEMENT&#125;</span>"</span></div><div class="line"><span class="keyword">done</span> &lt; <span class="variable">$ACCESS_FILE</span></div><div class="line"><span class="built_in">exit</span> 0</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[日志分析常用命令]]></title>
       <url>/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h2 id="查看文件的内容"><a href="#查看文件的内容" class="headerlink" title="查看文件的内容"></a>查看文件的内容</h2><ul>

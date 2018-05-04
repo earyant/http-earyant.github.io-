@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2018-05-04T10:10:55.704Z</updated>
+  <updated>2018-05-04T16:29:35.538Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>日志分析脚本</title>
+    <link href="http://earyant.github.io/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E8%84%9A%E6%9C%AC/"/>
+    <id>http://earyant.github.io/2018/05/04/日志分析脚本/</id>
+    <published>2018-05-04T14:06:22.000Z</published>
+    <updated>2018-05-04T16:29:35.538Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;sed编辑器&quot;&gt;&lt;a href=&quot;#sed编辑器&quot; class=&quot;headerlink&quot; title=&quot;sed编辑器&quot;&gt;&lt;/a&gt;sed编辑器&lt;/h2&gt;&lt;p&gt;不修改原内容的行级别流编辑器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;sed ‘s/baidu /earyant/‘
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>日志分析常用命令</title>
@@ -356,22 +374,6 @@
     
     
       <category term="EffectJava" scheme="http://earyant.github.io/tags/EffectJava/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java单例的七种写法</title>
-    <link href="http://earyant.github.io/2017/09/27/java%E5%8D%95%E4%BE%8B%E7%9A%84%E4%B8%83%E7%A7%8D%E5%86%99%E6%B3%95/"/>
-    <id>http://earyant.github.io/2017/09/27/java单例的七种写法/</id>
-    <published>2017-09-27T06:06:24.000Z</published>
-    <updated>2017-09-27T06:16:49.316Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;懒汉&quot;&gt;&lt;a href=&quot;#懒汉&quot; class=&quot;headerlink&quot; title=&quot;懒汉&quot;&gt;&lt;/a&gt;懒汉&lt;/h1&gt;&lt;h2 id=&quot;线程不安全&quot;&gt;&lt;a href=&quot;#线程不安全&quot; class=&quot;headerlink&quot; title=&quot;线程不安全&quot;&gt;&lt;/a&gt;线程不安
-    
-    </summary>
-    
     
   </entry>
   
