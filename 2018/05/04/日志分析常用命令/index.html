@@ -45,7 +45,7 @@
     
     <title>
         
-            java类解析 | 
+            日志分析常用命令 | 
         
         Earyant的技术博客
     </title>
@@ -217,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Earyant的技术博客">
-    <meta name="msapplication-starturl" content="http://earyant.github.io/2017/10/26/java类解析/">
+    <meta name="msapplication-starturl" content="http://earyant.github.io/2018/05/04/日志分析常用命令/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Earyant的技术博客">
@@ -236,16 +236,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://earyant.github.io/2017/10/26/java类解析/">
+    <meta property="og:url" content="http://earyant.github.io/2018/05/04/日志分析常用命令/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="java类解析 | Earyant的技术博客">
+    <meta property="og:title" content="日志分析常用命令 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
-        <meta property="article:published_time" content="Thu Oct 26 2017 14:21:04 GMT+0800">
-        <meta property="article:modified_time" content="Thu Oct 26 2017 17:19:16 GMT+0800">
+        <meta property="article:published_time" content="Fri May 04 2018 16:06:10 GMT+0800">
+        <meta property="article:modified_time" content="Fri May 04 2018 18:04:11 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -253,7 +253,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/2017/10/26/java类解析/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2018/05/04/日志分析常用命令/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -265,10 +265,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://earyant.github.io/2017/10/26/java类解析/index.html",
-    "headline": "java类解析",
-    "datePublished": "Thu Oct 26 2017 14:21:04 GMT+0800",
-    "dateModified": "Thu Oct 26 2017 17:19:16 GMT+0800",
+    "mainEntityOfPage": "http://earyant.github.io/2018/05/04/日志分析常用命令/index.html",
+    "headline": "日志分析常用命令",
+    "datePublished": "Fri May 04 2018 16:06:10 GMT+0800",
+    "dateModified": "Fri May 04 2018 18:04:11 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Earyant",
@@ -352,7 +352,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Java对象头"><span class="post-toc-number">1.</span> <span class="post-toc-text">Java对象头</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看文件的内容"><span class="post-toc-number">1.</span> <span class="post-toc-text">查看文件的内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#显示文件尾"><span class="post-toc-number">2.</span> <span class="post-toc-text">显示文件尾</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#显示文件头"><span class="post-toc-number">3.</span> <span class="post-toc-text">显示文件头</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内容排序"><span class="post-toc-number">4.</span> <span class="post-toc-text">内容排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符统计"><span class="post-toc-number">5.</span> <span class="post-toc-text">字符统计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重复行"><span class="post-toc-number">6.</span> <span class="post-toc-text">重复行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符串查找"><span class="post-toc-number">7.</span> <span class="post-toc-text">字符串查找</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件查找"><span class="post-toc-number">8.</span> <span class="post-toc-text">文件查找</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#表达式求值"><span class="post-toc-number">9.</span> <span class="post-toc-text">表达式求值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#压缩"><span class="post-toc-number">10.</span> <span class="post-toc-text">压缩</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#url-访问工具"><span class="post-toc-number">11.</span> <span class="post-toc-text">url 访问工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看请求访问量"><span class="post-toc-number">12.</span> <span class="post-toc-text">查看请求访问量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看最耗时的页面"><span class="post-toc-number">13.</span> <span class="post-toc-text">查看最耗时的页面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#统计404请求的占比"><span class="post-toc-number">14.</span> <span class="post-toc-text">统计404请求的占比</span></a></li></ol>
     </ul>
     
 
@@ -384,7 +384,7 @@
         
     
             <p class="article-headline-p">
-                java类解析
+                日志分析常用命令
             </p>
         </div>
 
@@ -403,7 +403,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Earyant</strong>
-        <span>10月 26, 2017</span>
+        <span>5月 04, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -425,7 +425,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/10/26/java类解析/">
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2018/05/04/日志分析常用命令/">
     
 </ul>
 
@@ -458,7 +458,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=java类解析&url=http://earyant.github.io/2017/10/26/java类解析/index.html&pic=http://earyant.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=日志分析常用命令&url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html&pic=http://earyant.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -467,7 +467,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=java类解析&url=http://earyant.github.io/2017/10/26/java类解析/index.html&via=Earyant" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=日志分析常用命令&url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html&via=Earyant" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -476,7 +476,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/10/26/java类解析/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -485,7 +485,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/10/26/java类解析/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -494,7 +494,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/10/26/java类解析/index.html&title=java类解析" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html&title=日志分析常用命令" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -503,7 +503,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=java类解析&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/10/26/java类解析/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=日志分析常用命令&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -512,7 +512,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/10/26/java类解析/index.html&text=java类解析" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2018/05/04/日志分析常用命令/index.html&text=日志分析常用命令" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -528,22 +528,178 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>  一般占用两个机器码，在32位虚拟机中，一个机器码占用4个字节，就是32位，但是如果是数组，需要占用3个机器码，需要1位确认数组大小。</p>
+        <h2 id="查看文件的内容"><a href="#查看文件的内容" class="headerlink" title="查看文件的内容"></a>查看文件的内容</h2><ul>
+<li><p>cat：正序查看</p>
+<blockquote>
+<p>cat access.log</p>
+</blockquote>
+</li>
+<li><p>tac：倒序查看</p>
+<blockquote>
+<p>tac access.log</p>
+</blockquote>
+</li>
+</ul>
+<p>##分页显示文件</p>
 <ul>
-<li>标记字段<ul>
-<li>哈希码</li>
-<li>GC分代年龄</li>
-<li>锁状态标志</li>
-<li>线程持有的锁</li>
-<li>偏向线程ID</li>
-<li>偏向时间戳</li>
-</ul>
+<li><p>more</p>
+<blockquote>
+<p>more access.log</p>
+</blockquote>
+<p> Enter显示文件下一行<br> 空格显示下一页<br> F显示下一屏内容<br> B显示上一屏内容</p>
 </li>
-<li><p>类型指针</p>
-<p>| 25bit | 4bit | 1bit | 2bit |<br>| — | — | — | — |<br>| 对象的hashCode | 分代年龄  | 是否是偏向锁 | 锁标记位 |</p>
-<p><img src="img/java对象头.jpg" alt=""></p>
+<li><p>less</p>
+<blockquote>
+<p>/GET 查找GET字符串</p>
+</blockquote>
 </li>
 </ul>
+<h2 id="显示文件尾"><a href="#显示文件尾" class="headerlink" title="显示文件尾"></a>显示文件尾</h2><ul>
+<li><p>tail</p>
+<blockquote>
+<p>tail  -f -n 500 access.log</p>
+</blockquote>
+<p> -f  持续查看<br> -n 显示最后n行</p>
+</li>
+</ul>
+<h2 id="显示文件头"><a href="#显示文件头" class="headerlink" title="显示文件头"></a>显示文件头</h2><ul>
+<li>head<blockquote>
+<p>head -n2 access.log</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="内容排序"><a href="#内容排序" class="headerlink" title="内容排序"></a>内容排序</h2><ul>
+<li><p>sort</p>
+<blockquote>
+<p>sort -n -r access.log</p>
+</blockquote>
+<p> -n 按照数字排序<br> -r 逆序排序</p>
+<blockquote>
+<p>sort -k 2 -t “ “ -n access.log</p>
+</blockquote>
+<p> -k 指定排序的列<br> -t 指定列分隔符<br> -n 按照数字排序</p>
+</li>
+</ul>
+<h2 id="字符统计"><a href="#字符统计" class="headerlink" title="字符统计"></a>字符统计</h2><ul>
+<li><p>wc</p>
+<blockquote>
+<p>  wc -l access.log</p>
+</blockquote>
+<p>  -l 统计文件中的行数</p>
+<blockquote>
+<p>  wc -c access.log</p>
+</blockquote>
+<p>  -c 显示文件的字节数</p>
+<blockquote>
+<p>  wc -L access.log</p>
+</blockquote>
+<p>  -L得出最长的行长度</p>
+<blockquote>
+<p>  wc -w access.log</p>
+</blockquote>
+<p>  -w 查看文件包含多少单词</p>
+</li>
+</ul>
+<h2 id="重复行"><a href="#重复行" class="headerlink" title="重复行"></a>重复行</h2><ul>
+<li><p>uniq</p>
+<blockquote>
+<p> sort uniqfile| uniq -c</p>
+</blockquote>
+<p>  -c 用来在每一行前面加上该行出现的次数</p>
+<blockquote>
+<p>  sort uniqfile | uniq -c -u</p>
+</blockquote>
+<p>  -u 只会显示出现一次的行</p>
+<blockquote>
+<p>  sort uniqfile | uniq -c -d</p>
+</blockquote>
+<p>  -d 只会显示重复出现的行</p>
+</li>
+</ul>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><ul>
+<li><p>grep</p>
+<pre><code>&gt;   grep earyant access.log
+
+  earyant 为指定的查找串
+
+&gt; grep -c earyant access.log
+
+  -c 可以显示查找到的行数
+
+&gt;   grep &apos;G.\*T&apos; access.log
+
+  支持正则表达式
+</code></pre><h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2></li>
+<li><p>find</p>
+<blockquote>
+<p>find /home/earyant -name access.log</p>
+</blockquote>
+<p>   在/home/earyant 目录下查找文件名为access.log的文件</p>
+<blockquote>
+<p>find /home/earyant -name “*.txt”</p>
+<p>find . -print</p>
+</blockquote>
+<p>   打印当前目录所有文件</p>
+</li>
+<li><p>whereis</p>
+<blockquote>
+<p>whereis java</p>
+</blockquote>
+</li>
+<li>which<blockquote>
+<p>which java</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><ul>
+<li>expr<blockquote>
+<p>expr 10 * 3<br>expr 10 % 3<br>expr index “earyant.github.io” earyant</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><ul>
+<li><p>tar</p>
+<blockquote>
+<p>tar -cf aaa.tar tmp1 tmp2</p>
+</blockquote>
+<pre><code>将当前目录下的tmp1和tmp2目录打包成aaa.tar
+-c 表示生成新包
+-f 指定包名称
+</code></pre><blockquote>
+<p>tar -tf aaa.tar</p>
+</blockquote>
+<pre><code>-t 能够列出包中文件的名称
+</code></pre><blockquote>
+<p>tar -xf aaa.tar</p>
+</blockquote>
+<pre><code>-x 将打包文件解压
+</code></pre></li>
+</ul>
+<h2 id="url-访问工具"><a href="#url-访问工具" class="headerlink" title="url 访问工具"></a>url 访问工具</h2><ul>
+<li><p>curl</p>
+<blockquote>
+<p>curl www.baidu.com</p>
+<p>curl -i www.baidu.com</p>
+</blockquote>
+<p>-i 返回带header的文档</p>
+<blockquote>
+<p>curl -I www.baidu.com</p>
+</blockquote>
+<p>-I 只返回页面的header信息</p>
+<h2 id="查看请求访问量"><a href="#查看请求访问量" class="headerlink" title="查看请求访问量"></a>查看请求访问量</h2></li>
+</ul>
+<blockquote>
+<p>cat access.log | cut -f1 -d “ “ | sort | uniq -c | sort -k 1 -n -r | head -10</p>
+</blockquote>
+<p>访问量排名前10的ip地址</p>
+<blockquote>
+<p>cat  access.log | cut  -f4 -d “ “ | sort | uniq -c | sort -k 1 -n -r | head -10</p>
+</blockquote>
+<p>页面访问量排名前10的url</p>
+<h2 id="查看最耗时的页面"><a href="#查看最耗时的页面" class="headerlink" title="查看最耗时的页面"></a>查看最耗时的页面</h2><blockquote>
+<p>cat access.log | sort -k 2 -n -r |head -10</p>
+</blockquote>
+<h2 id="统计404请求的占比"><a href="#统计404请求的占比" class="headerlink" title="统计404请求的占比"></a>统计404请求的占比</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export total_line = `wc -l access.log | cut -f1 -d " "` &amp;&amp; export not_found_line = `awk '$6=='404'&#123;print $6&#125;' access.log | wc -l`  &amp;&amp; expr $ not_found_line \*100 / $total_line</div></pre></td></tr></table></figure>
 
         
     
@@ -564,21 +720,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/10/26/EffectiveJava读书笔记/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/10/24/求m的n次方/" id="post_nav-older" class="next-content">
+        <a href="/2018/04/19/Guava-1-1基本工具/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

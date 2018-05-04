@@ -3,6 +3,186 @@
   
     
     <entry>
+      <title><![CDATA[日志分析常用命令]]></title>
+      <url>/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<h2 id="查看文件的内容"><a href="#查看文件的内容" class="headerlink" title="查看文件的内容"></a>查看文件的内容</h2><ul>
+<li><p>cat：正序查看</p>
+<blockquote>
+<p>cat access.log</p>
+</blockquote>
+</li>
+<li><p>tac：倒序查看</p>
+<blockquote>
+<p>tac access.log</p>
+</blockquote>
+</li>
+</ul>
+<p>##分页显示文件</p>
+<ul>
+<li><p>more</p>
+<blockquote>
+<p>more access.log</p>
+</blockquote>
+<p> Enter显示文件下一行<br> 空格显示下一页<br> F显示下一屏内容<br> B显示上一屏内容</p>
+</li>
+<li><p>less</p>
+<blockquote>
+<p>/GET 查找GET字符串</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="显示文件尾"><a href="#显示文件尾" class="headerlink" title="显示文件尾"></a>显示文件尾</h2><ul>
+<li><p>tail</p>
+<blockquote>
+<p>tail  -f -n 500 access.log</p>
+</blockquote>
+<p> -f  持续查看<br> -n 显示最后n行</p>
+</li>
+</ul>
+<h2 id="显示文件头"><a href="#显示文件头" class="headerlink" title="显示文件头"></a>显示文件头</h2><ul>
+<li>head<blockquote>
+<p>head -n2 access.log</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="内容排序"><a href="#内容排序" class="headerlink" title="内容排序"></a>内容排序</h2><ul>
+<li><p>sort</p>
+<blockquote>
+<p>sort -n -r access.log</p>
+</blockquote>
+<p> -n 按照数字排序<br> -r 逆序排序</p>
+<blockquote>
+<p>sort -k 2 -t “ “ -n access.log</p>
+</blockquote>
+<p> -k 指定排序的列<br> -t 指定列分隔符<br> -n 按照数字排序</p>
+</li>
+</ul>
+<h2 id="字符统计"><a href="#字符统计" class="headerlink" title="字符统计"></a>字符统计</h2><ul>
+<li><p>wc</p>
+<blockquote>
+<p>  wc -l access.log</p>
+</blockquote>
+<p>  -l 统计文件中的行数</p>
+<blockquote>
+<p>  wc -c access.log</p>
+</blockquote>
+<p>  -c 显示文件的字节数</p>
+<blockquote>
+<p>  wc -L access.log</p>
+</blockquote>
+<p>  -L得出最长的行长度</p>
+<blockquote>
+<p>  wc -w access.log</p>
+</blockquote>
+<p>  -w 查看文件包含多少单词</p>
+</li>
+</ul>
+<h2 id="重复行"><a href="#重复行" class="headerlink" title="重复行"></a>重复行</h2><ul>
+<li><p>uniq</p>
+<blockquote>
+<p> sort uniqfile| uniq -c</p>
+</blockquote>
+<p>  -c 用来在每一行前面加上该行出现的次数</p>
+<blockquote>
+<p>  sort uniqfile | uniq -c -u</p>
+</blockquote>
+<p>  -u 只会显示出现一次的行</p>
+<blockquote>
+<p>  sort uniqfile | uniq -c -d</p>
+</blockquote>
+<p>  -d 只会显示重复出现的行</p>
+</li>
+</ul>
+<h2 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h2><ul>
+<li><p>grep</p>
+<pre><code>&gt;   grep earyant access.log
+
+  earyant 为指定的查找串
+
+&gt; grep -c earyant access.log
+
+  -c 可以显示查找到的行数
+
+&gt;   grep &apos;G.\*T&apos; access.log
+
+  支持正则表达式
+</code></pre><h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2></li>
+<li><p>find</p>
+<blockquote>
+<p>find /home/earyant -name access.log</p>
+</blockquote>
+<p>   在/home/earyant 目录下查找文件名为access.log的文件</p>
+<blockquote>
+<p>find /home/earyant -name “*.txt”</p>
+<p>find . -print</p>
+</blockquote>
+<p>   打印当前目录所有文件</p>
+</li>
+<li><p>whereis</p>
+<blockquote>
+<p>whereis java</p>
+</blockquote>
+</li>
+<li>which<blockquote>
+<p>which java</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><ul>
+<li>expr<blockquote>
+<p>expr 10 * 3<br>expr 10 % 3<br>expr index “earyant.github.io” earyant</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><ul>
+<li><p>tar</p>
+<blockquote>
+<p>tar -cf aaa.tar tmp1 tmp2</p>
+</blockquote>
+<pre><code>将当前目录下的tmp1和tmp2目录打包成aaa.tar
+-c 表示生成新包
+-f 指定包名称
+</code></pre><blockquote>
+<p>tar -tf aaa.tar</p>
+</blockquote>
+<pre><code>-t 能够列出包中文件的名称
+</code></pre><blockquote>
+<p>tar -xf aaa.tar</p>
+</blockquote>
+<pre><code>-x 将打包文件解压
+</code></pre></li>
+</ul>
+<h2 id="url-访问工具"><a href="#url-访问工具" class="headerlink" title="url 访问工具"></a>url 访问工具</h2><ul>
+<li><p>curl</p>
+<blockquote>
+<p>curl www.baidu.com</p>
+<p>curl -i www.baidu.com</p>
+</blockquote>
+<p>-i 返回带header的文档</p>
+<blockquote>
+<p>curl -I www.baidu.com</p>
+</blockquote>
+<p>-I 只返回页面的header信息</p>
+<h2 id="查看请求访问量"><a href="#查看请求访问量" class="headerlink" title="查看请求访问量"></a>查看请求访问量</h2></li>
+</ul>
+<blockquote>
+<p>cat access.log | cut -f1 -d “ “ | sort | uniq -c | sort -k 1 -n -r | head -10</p>
+</blockquote>
+<p>访问量排名前10的ip地址</p>
+<blockquote>
+<p>cat  access.log | cut  -f4 -d “ “ | sort | uniq -c | sort -k 1 -n -r | head -10</p>
+</blockquote>
+<p>页面访问量排名前10的url</p>
+<h2 id="查看最耗时的页面"><a href="#查看最耗时的页面" class="headerlink" title="查看最耗时的页面"></a>查看最耗时的页面</h2><blockquote>
+<p>cat access.log | sort -k 2 -n -r |head -10</p>
+</blockquote>
+<h2 id="统计404请求的占比"><a href="#统计404请求的占比" class="headerlink" title="统计404请求的占比"></a>统计404请求的占比</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export total_line = `wc -l access.log | cut -f1 -d " "` &amp;&amp; export not_found_line = `awk '$6=='404'&#123;print $6&#125;' access.log | wc -l`  &amp;&amp; expr $ not_found_line \*100 / $total_line</div></pre></td></tr></table></figure>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Guava 1.1基本工具]]></title>
       <url>/2018/04/19/Guava-1-1%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
       <content type="html"><![CDATA[<h1 id="1-1-使用和避免null"><a href="#1-1-使用和避免null" class="headerlink" title="1.1-使用和避免null"></a>1.1-使用和避免null</h1><p>map允许null作为键，但只能有一个。<br>concurrentHashMap不允许null作为键。</p>
@@ -2871,12 +3051,6 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
@@ -2885,6 +3059,12 @@ mathJax    启用 Mathjax    false
     <entry>
       <title><![CDATA[timeline]]></title>
       <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
