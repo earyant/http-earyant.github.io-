@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2018-05-04T16:33:05.311Z</updated>
+  <updated>2018-07-19T02:22:28.786Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谷歌jib工具试用</title>
+    <link href="http://earyant.github.io/2018/07/18/%E8%B0%B7%E6%AD%8Cjib%E5%B7%A5%E5%85%B7%E8%AF%95%E7%94%A8/"/>
+    <id>http://earyant.github.io/2018/07/18/谷歌jib工具试用/</id>
+    <published>2018-07-18T13:13:21.000Z</published>
+    <updated>2018-07-19T02:22:28.786Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Jib&quot;&gt;&lt;a href=&quot;#Jib&quot; class=&quot;headerlink&quot; title=&quot;Jib&quot;&gt;&lt;/a&gt;Jib&lt;/h1&gt;&lt;p&gt;好久没写blog了，最近看到google新开源的工具心痒痒，试着玩下~&lt;br&gt;首先什么是Jib，：&lt;/p&gt;
+&lt;blockquote&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>持续实战</title>
+    <link href="http://earyant.github.io/2018/06/01/%E6%8C%81%E7%BB%AD%E5%AE%9E%E6%88%98/"/>
+    <id>http://earyant.github.io/2018/06/01/持续实战/</id>
+    <published>2018-06-01T02:29:09.000Z</published>
+    <updated>2018-06-01T07:27:42.966Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;[ ] mysql主从配置&lt;/li&gt;
+&lt;li&gt;[ ] mybatis自动生成代码&lt;/li&gt;
+&lt;li&gt;[ ] 读写分离，与主从配置相关联&lt;/li&gt;
+&lt;li&gt;[ ] 分布式redis缓存&lt;/li&gt;
+&lt;li&gt;[ ] tomcat session共享、session绑定
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>jvm系列</title>
+    <link href="http://earyant.github.io/2018/05/12/jvm%E7%B3%BB%E5%88%97/"/>
+    <id>http://earyant.github.io/2018/05/12/jvm系列/</id>
+    <published>2018-05-12T07:42:13.000Z</published>
+    <updated>2018-05-13T13:33:20.795Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;jvm系列-一-java类的加载机制&quot;&gt;&lt;a href=&quot;#jvm系列-一-java类的加载机制&quot; class=&quot;headerlink&quot; title=&quot;jvm系列(一):java类的加载机制&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://mp.weixin.qq.c
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>日志分析脚本</title>
@@ -238,6 +292,25 @@
   </entry>
   
   <entry>
+    <title>索引</title>
+    <link href="http://earyant.github.io/2017/11/09/%E7%B4%A2%E5%BC%95/"/>
+    <id>http://earyant.github.io/2017/11/09/索引/</id>
+    <published>2017-11-09T09:27:04.000Z</published>
+    <updated>2018-07-19T02:22:28.779Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;索引介绍&quot;&gt;&lt;a href=&quot;#索引介绍&quot; class=&quot;headerlink&quot; title=&quot;索引介绍&quot;&gt;&lt;/a&gt;索引介绍&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;索引对查询的速度有至关重要的影响。考虑如下情况，假设数据库中一个表有10^6^条记录，DBMS的页
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://earyant.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>线程间通信</title>
     <link href="http://earyant.github.io/2017/11/09/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
     <id>http://earyant.github.io/2017/11/09/线程间通信/</id>
@@ -304,76 +377,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>java学习路线</title>
-    <link href="http://earyant.github.io/2017/10/24/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
-    <id>http://earyant.github.io/2017/10/24/java学习路线/</id>
-    <published>2017-10-24T06:21:01.000Z</published>
-    <updated>2017-10-24T08:47:29.100Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;本文作为收藏用&quot;&gt;&lt;a href=&quot;#本文作为收藏用&quot; class=&quot;headerlink&quot; title=&quot;本文作为收藏用&quot;&gt;&lt;/a&gt;本文作为收藏用&lt;/h1&gt;&lt;p&gt;##&lt;/p&gt;
-&lt;p&gt;作者：匿名用户&lt;br&gt;链接：&lt;a href=&quot;https://www.zhihu
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>数据库架构设计（转发）</title>
-    <link href="http://earyant.github.io/2017/10/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88%E8%BD%AC%E5%8F%91%EF%BC%89/"/>
-    <id>http://earyant.github.io/2017/10/12/数据库架构设计（转发）/</id>
-    <published>2017-10-12T10:20:17.000Z</published>
-    <updated>2017-10-12T10:20:37.862Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;http://gitbook.cn/books/59be67b577cac00b9c2362fa/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;链接地址&lt;/a&gt;&lt;/p&gt;
-
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>数据库跨库分页实践（转发）</title>
-    <link href="http://earyant.github.io/2017/10/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B7%A8%E5%BA%93%E5%88%86%E9%A1%B5%E5%AE%9E%E8%B7%B5%EF%BC%88%E8%BD%AC%E5%8F%91%EF%BC%89/"/>
-    <id>http://earyant.github.io/2017/10/12/数据库跨库分页实践（转发）/</id>
-    <published>2017-10-12T10:18:07.000Z</published>
-    <updated>2017-10-12T10:19:08.348Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;http://gitbook.cn/books/58a98f512bd83c246b6b8866/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;转载链接&lt;/a&gt;&lt;/p&gt;
-
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>基本类型和包装类型差别</title>
-    <link href="http://earyant.github.io/2017/10/03/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%E5%B7%AE%E5%88%AB/"/>
-    <id>http://earyant.github.io/2017/10/03/基本类型和包装类型差别/</id>
-    <published>2017-10-03T06:39:22.000Z</published>
-    <updated>2017-10-03T07:46:08.554Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;基本类型以及包装类型&quot;&gt;&lt;a href=&quot;#基本类型以及包装类型&quot; class=&quot;headerlink&quot; title=&quot;基本类型以及包装类型&quot;&gt;&lt;/a&gt;基本类型以及包装类型&lt;/h2&gt;&lt;p&gt;   java中定义了基本类型： &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;* 整形：
-    
-    </summary>
-    
-    
-      <category term="EffectJava" scheme="http://earyant.github.io/tags/EffectJava/"/>
     
   </entry>
   

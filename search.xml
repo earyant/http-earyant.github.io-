@@ -3,6 +3,218 @@
   
     
     <entry>
+      <title><![CDATA[谷歌jib工具试用]]></title>
+      <url>/2018/07/18/%E8%B0%B7%E6%AD%8Cjib%E5%B7%A5%E5%85%B7%E8%AF%95%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h1 id="Jib"><a href="#Jib" class="headerlink" title="Jib"></a>Jib</h1><p>好久没写blog了，最近看到google新开源的工具心痒痒，试着玩下~<br>首先什么是Jib，：</p>
+<blockquote>
+<p>Jib 是 Google 开发的可以直接构建 Java 应用的 Docker 和 OCI 镜像的类库，以 Maven 和 Gradle 插件形式提供。<br>通过 Jib，Java 开发者可以使用他们熟悉的 Java 工具来构建容器。Jib 是一个快速而简单的容器镜像构建工具，它负责处理将应用程序打包到容器镜像中所需的所有步骤。它不需要你编写 Dockerfile 或安装 Docker，而且可以直接集成到 Maven 和 Gradle中 —— 只需要将插件添加到构建中，就可以立即将 Java 应用程序容器化。</p>
+</blockquote>
+<h2 id="构建流程"><a href="#构建流程" class="headerlink" title="构建流程"></a>构建流程</h2><ul>
+<li><p>Docker构建的复杂流程<br><img src="https://static.oschina.net/uploads/space/2018/0710/155927_vHQt_2720166.png" alt=""></p>
+</li>
+<li><p>Jib构建流程<br><img src="https://static.oschina.net/uploads/space/2018/0710/155918_xYRX_2720166.png" alt=""></p>
+</li>
+</ul>
+<p>从此可以告别繁琐的Dockerfile啦~~</p>
+<h2 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h2><ol>
+<li><p>首先配置jib插件<br> maven:</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.cloud.tools<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jib-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">from</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">image</span>&gt;</span></div><div class="line">                        registry.hub.docker.com/adoptopenjdk/openjdk8</div><div class="line">          <span class="tag">&lt;/<span class="name">image</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">from</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">to</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">image</span>&gt;</span>registry.hub.docker.com/earyant/earyant<span class="tag">&lt;/<span class="name">image</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">to</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+<p> gradle</p>
+ <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">plugins &#123;</div><div class="line">  id <span class="string">'com.google.cloud.tools.jib'</span> version <span class="string">'0.9.6'</span></div><div class="line">&#125;</div><div class="line">jib.to.image = <span class="string">'registry.hub.docker.com/earyant/earyant'</span></div><div class="line">jib.<span class="keyword">from</span>.image = <span class="string">'registry.hub.docker.com/adoptopenjdk/openjdk8'</span></div></pre></td></tr></table></figure>
+<hr>
+<p>需要注意的是image不加域名的话，默认是gcr.io,google Cloud下的镜像，<strong>需要梯子</strong>，所以没有梯子的话，请使用 registry.hub.docker.com,阿里云加速同理</p>
+</li>
+</ol>
+<p>如果不加from标签，也是默认访问grc.io去下载jdk镜像，emmmm，同样需要梯子，报错如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Build to Docker daemon failed: Connect to gcr.io/108.177.97.82:443 timed out</div></pre></td></tr></table></figure></p>
+<p>所以记得加上from镜像标签哦~~</p>
+<p>如果报错信息如下，请先登录docker login -name=earyant registry.hub.docker.com  ，如果没有注册过，请到docker官网注册~<br>Retrieving registry credentials for registry.hub.docker.com</p>
+<ol>
+<li>Build</li>
+</ol>
+<ul>
+<li><p>build到远程仓库</p>
+<ul>
+<li>gradle jib</li>
+<li>mvn compile jib:build</li>
+</ul>
+</li>
+<li><p>本地运行（确保本地docker已运行 ）</p>
+<ul>
+<li>mvn compile jib:dockerBuild</li>
+<li>gradle jibDockerBuild</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>运行<br>本地镜像查看如下：<br>docker images<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">earyant/earyant       latest              e34b4cad637b        48 years ago        367MB</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>docker run -p 8880:8880  -it –rm –name earyant registry.hub.docker.com/earyant/earyant</p>
+<p>访问 <a href="http://localhost:8880" target="_blank" rel="external">http://localhost:8880</a> 即可纵享丝滑，开心~~~</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[持续实战]]></title>
+      <url>/2018/06/01/%E6%8C%81%E7%BB%AD%E5%AE%9E%E6%88%98/</url>
+      <content type="html"><![CDATA[<ul>
+<li>[ ] mysql主从配置</li>
+<li>[ ] mybatis自动生成代码</li>
+<li>[ ] 读写分离，与主从配置相关联</li>
+<li>[ ] 分布式redis缓存</li>
+<li>[ ] tomcat session共享、session绑定</li>
+<li>[ ] 分布式锁：redis、mysql</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jvm系列]]></title>
+      <url>/2018/05/12/jvm%E7%B3%BB%E5%88%97/</url>
+      <content type="html"><![CDATA[<h2 id="jvm系列-一-java类的加载机制"><a href="#jvm系列-一-java类的加载机制" class="headerlink" title="jvm系列(一):java类的加载机制"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247483934&amp;idx=1&amp;sn=41c46eceb2add54b7cde9eeb01412a90&amp;chksm=ebf6da61dc81537721d36aadb5d20613b0449762842f9128753e716ce5fefe2b659d8654c4e8&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(一):java类的加载机制</a></h2><ul>
+<li><p>什么是类的加载</p>
+<blockquote>
+<p>类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构。类的加载的最终产品是位于堆区中的Class对象，Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。</p>
+</blockquote>
+</li>
+<li><p>类的生命周期</p>
+<ul>
+<li>加载，查找并加载类的二进制数据，在Java堆中也创建一个java.lang.Class类的对象</li>
+<li>连接，连接又包含三块内容：验证、准备、初始化。1）验证，文件格式、元数据、字节码、符号引用验证；2）准备，为类的静态变量分配内存，并将其初始化为默认值；3）解析，把类中的符号引用转换为直接引用</li>
+<li>初始化，为类的静态变量赋予正确的初始值</li>
+<li>使用，new出对象程序中使用</li>
+<li>卸载，执行垃圾回收</li>
+</ul>
+</li>
+<li><p>类加载器</p>
+<ul>
+<li><p>启动类加载器：Bootstrap ClassLoader，负责加载存放在JDK\jre\lib(JDK代表JDK的安装目录，下同)下，或被-Xbootclasspath参数指定的路径中的，并且能被虚拟机识别的类库</p>
+</li>
+<li><p>扩展类加载器：Extension ClassLoader，该加载器由sun.misc.Launcher$ExtClassLoader实现，它负责加载DK\jre\lib\ext目录中，或者由java.ext.dirs系统变量指定的路径中的所有类库（如javax.*开头的类），开发者可以直接使用扩展类加载器。</p>
+</li>
+<li><p>应用程序类加载器：Application ClassLoader，该类加载器由sun.misc.Launcher$AppClassLoader来实现，它负责加载用户类路径（ClassPath）所指定的类，开发者可以直接使用该类加载器</p>
+</li>
+</ul>
+</li>
+<li><p>双亲委派模型</p>
+<pre><code>\-  全盘负责，当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入
+
+- 父类委托，先让父类加载器试图加载该类，只有在父类加载器无法加载该类时才尝试从自己的类路径中加载该类
+
+- 缓存机制，缓存机制将会保证所有加载过的Class都会被缓存，当程序中需要使用某个Class时，类加载器先从缓存区寻找该Class，只有缓存区不存在，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存入缓存区。这就是为什么修改了Class后，必须重启JVM，程序的修改才会生效
+</code></pre><h2 id="jvm系列-二-JVM内存结构"><a href="#jvm系列-二-JVM内存结构" class="headerlink" title="jvm系列(二):JVM内存结构"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247483949&amp;idx=1&amp;sn=8b69d833bbc805e63d5b2fa7c73655f5&amp;chksm=ebf6da52dc815344add64af6fb78fee439c8c27b539b3c0e87d8f6861c8422144d516ae0a837&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(二):JVM内存结构</a></h2><p><img src="http://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnprm5p8TE8Ogn2WfVM3YUA5R55vvKcRJC1UXBVrjuEJuLOxD6woyWpicufMicSZbZTpLrGrNrr0cmAQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt=""></p>
+</li>
+</ul>
+<blockquote>
+<p>方法区和堆是所有线程共享的内存区域；而java栈、本地方法栈和程序计数器是运行是线程私有的内存区域。</p>
+</blockquote>
+<ul>
+<li><p>Java堆（Heap）,是Java虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。</p>
+</li>
+<li><p>方法区（Method Area）,方法区（Method Area）与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+</li>
+<li><p>程序计数器（Program Counter Register）,程序计数器（Program Counter Register）是一块较小的内存空间，它的作用可以看做是当前线程所执行的字节码的行号指示器。</p>
+</li>
+<li><p>JVM栈（JVM Stacks）,与程序计数器一样，Java虚拟机栈（Java Virtual Machine Stacks）也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+</li>
+<li><p>本地方法栈（Native Method Stacks）,本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native方法服务。</p>
+</li>
+</ul>
+<h3 id="对象分配规则"><a href="#对象分配规则" class="headerlink" title="对象分配规则"></a>对象分配规则</h3><ul>
+<li><p>对象优先分配在Eden区，如果Eden区没有足够的空间时，虚拟机执行一次Minor GC。</p>
+</li>
+<li><p>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
+</li>
+<li><p>长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄计数器，如果对象经过了1次Minor GC那么对象会进入Survivor区，之后每经过一次Minor GC那么对象的年龄加1，知道达到阀值对象进入老年区。</p>
+</li>
+<li><p>动态判断对象的年龄。如果Survivor区中相同年龄的所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象可以直接进入老年代。</p>
+</li>
+<li><p>空间分配担保。每次进行Minor GC时，JVM会计算Survivor区移至老年区的对象的平均大小，如果这个值大于老年区的剩余值大小则进行一次Full GC，如果小于检查HandlePromotionFailure设置，如果true则只进行Monitor GC,如果false则进行Full GC。</p>
+</li>
+</ul>
+<h2 id="jvm系列-三-GC算法-垃圾收集器"><a href="#jvm系列-三-GC算法-垃圾收集器" class="headerlink" title="jvm系列(三):GC算法 垃圾收集器"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247483952&amp;idx=1&amp;sn=ea12792a9b7c67baddfaf425d8272d33&amp;chksm=ebf6da4fdc815359869107a4acd15538b3596ba006b4005b216688b69372650dbd18c0184643&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(三):GC算法 垃圾收集器</a></h2><h3 id="对象存活判断"><a href="#对象存活判断" class="headerlink" title="对象存活判断"></a>对象存活判断</h3><blockquote>
+<p>判断对象是否存活一般有两种方式：</p>
+</blockquote>
+<ul>
+<li><p>引用计数：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</p>
+</li>
+<li><p>可达性分析（Reachability Analysis）：从GC Roots开始向下搜索，搜索所走过的路径称为引用链。当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的，不可达对象。</p>
+</li>
+</ul>
+<h3 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h3><ul>
+<li><p>GC最基础的算法有三种：标记 -清除算法、复制算法、标记-压缩算法，我们常用的垃圾回收器一般都采用分代收集算法。</p>
+</li>
+<li><p>标记 -清除算法，“标记-清除”（Mark-Sweep）算法，如它的名字一样，算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收掉所有被标记的对象。</p>
+</li>
+<li><p>复制算法，“复制”（Copying）的收集算法，它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。</p>
+</li>
+<li><p>标记-压缩算法，标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存</p>
+</li>
+<li><p>分代收集算法，“分代收集”（Generational Collection）算法，把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法。</p>
+</li>
+</ul>
+<h3 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h3><ul>
+<li><p>Serial收集器，串行收集器是最古老，最稳定以及效率高的收集器，可能会产生较长的停顿，只使用一个线程去回收。</p>
+</li>
+<li><p>ParNew收集器，ParNew收集器其实就是Serial收集器的多线程版本。</p>
+</li>
+<li><p>Parallel收集器，Parallel Scavenge收集器类似ParNew收集器，Parallel收集器更关注系统的吞吐量。</p>
+</li>
+<li><p>Parallel Old 收集器，Parallel Old是Parallel Scavenge收集器的老年代版本，使用多线程和“标记－整理”算法</p>
+</li>
+<li><p>CMS收集器，CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。</p>
+</li>
+<li><p>G1收集器，G1 (Garbage-First)是一款面向服务器的垃圾收集器,主要针对配备多颗处理器及大容量内存的机器. 以极高概率满足GC停顿时间要求的同时,还具备高吞吐量性能特征</p>
+</li>
+</ul>
+<p>在Java语言中，GC Roots包括：</p>
+<ul>
+<li>虚拟机栈中引用的对象。</li>
+<li>方法区中类静态属性实体引用的对象。</li>
+<li>方法区中常量引用的对象。</li>
+<li>本地方法栈中JNI引用的对象。</li>
+</ul>
+<h2 id="jvm系列-四-jvm调优-命令篇"><a href="#jvm系列-四-jvm调优-命令篇" class="headerlink" title="jvm系列(四):jvm调优-命令篇"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247483966&amp;idx=1&amp;sn=dfa3375d36aa2c0c25a775522e381e62&amp;chksm=ebf6da41dc815357e0d53c73865a23f41219e75bac5a4d510bfa31cc51594b59a20e2e4f6cb8&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(四):jvm调优-命令篇</a></h2><h3 id="调优命令"><a href="#调优命令" class="headerlink" title="调优命令"></a>调优命令</h3><blockquote>
+<p>  Sun JDK监控和故障处理命令有jps jstat jmap jhat jstack jinfo</p>
+</blockquote>
+<ul>
+<li>jps，JVM Process Status Tool,显示指定系统内所有的HotSpot虚拟机进程。</li>
+<li>jstat，JVM statistics Monitoring是用于监视虚拟机运行时状态信息的命令，它可以显示出虚拟机进程中的类装载、内存、垃圾收集、JIT编译等运行数据。</li>
+<li>jmap，JVM Memory Map命令用于生成heap dump文件</li>
+<li>jhat，JVM Heap Analysis Tool命令是与jmap搭配使用，用来分析jmap生成的dump，jhat内置了一个微型的HTTP/HTML服务器，生成dump的分析结果后，可以在浏览器中查看</li>
+<li>jstack，用于生成java虚拟机当前时刻的线程快照。</li>
+<li>jinfo，JVM Configuration info 这个命令作用是实时查看和调整虚拟机运行参数。</li>
+</ul>
+<h2 id="jvm系列-五-Java-GC-分析"><a href="#jvm系列-五-Java-GC-分析" class="headerlink" title="jvm系列(五):Java GC 分析"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247483986&amp;idx=1&amp;sn=a2d7c9f2e73dfcc938a3ec934b3ad3a4&amp;chksm=ebf6da2ddc81533beb5e6fb54c872b5f79524d0780c484718a57ca0712916cd67bda7dee4073&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(五):Java GC 分析</a></h2><h3 id="主要关注点："><a href="#主要关注点：" class="headerlink" title="主要关注点："></a>主要关注点：</h3><ul>
+<li><p>GC日志分析</p>
+</li>
+<li><p>调优命令</p>
+</li>
+<li>调优工具</li>
+</ul>
+<p><a href="https://earyant.github.io/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E8%84%9A%E6%9C%AC/">参考</a><br><a href="https://earyant.github.io/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">参考</a></p>
+<h2 id="jvm系列-六-Java服务GC参数调优案例"><a href="#jvm系列-六-Java服务GC参数调优案例" class="headerlink" title="jvm系列(六):Java服务GC参数调优案例"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484007&amp;idx=1&amp;sn=e8d150bb760d0a92aad594152fc47a9d&amp;chksm=ebf6da18dc81530eedeaff89d746cf48e7b2bdec602239faaeb4e8e490e0a4387e2a8890c327&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(六):Java服务GC参数调优案例</a></h2><p>##<a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484023&amp;idx=1&amp;sn=39be119fdf3132240adc84a85bf8a054&amp;chksm=ebf6da08dc81531e3719389555150f2d0237554b6b6c07a123efdea7c78c0ae2f064cc577bd4&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(七):jvm调优-工具篇</a></p>
+<blockquote>
+<p>调优工具</p>
+</blockquote>
+<ul>
+<li>常用调优工具分为两类,jdk自带监控工具：jconsole和jvisualvm，第三方有：MAT(Memory Analyzer Tool)、GChisto。</li>
+<li>jconsole，Java Monitoring and Management Console是从java5开始，在JDK中自带的java监控和管理控制台，用于对JVM中内存，线程和类等的监控</li>
+<li>jvisualvm，jdk自带全能工具，可以分析内存快照、线程快照；监控内存变化、GC变化等。</li>
+<li>MAT，Memory Analyzer Tool，一个基于Eclipse的内存分析工具，是一个快速、功能丰富的Java heap分析工具，它可以帮助我们查找内存泄漏和减少内存消耗</li>
+<li>GChisto，一款专业分析gc日志的工具</li>
+</ul>
+<h2 id="jvm系列-八-jvm知识点总览"><a href="#jvm系列-八-jvm知识点总览" class="headerlink" title="jvm系列(八):jvm知识点总览"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484038&amp;idx=1&amp;sn=e083cc8b248461c8916a819119b059c3&amp;chksm=ebf6daf9dc8153ef27ecd857e6cc85372735e84042679c133892d0993074371a46dd2c28b8b3&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(八):jvm知识点总览</a></h2><h2 id="jvm系列-九-如何优化Java-GC「译」"><a href="#jvm系列-九-如何优化Java-GC「译」" class="headerlink" title="jvm系列(九):如何优化Java GC「译」"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484042&amp;idx=1&amp;sn=51d2ed451151be872b601007597dd47f&amp;chksm=ebf6daf5dc8153e3a7cb88ca97621cfae5aeaaeec0a1ff63e16278fbea6a43457e50a7fc9f0b&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(九):如何优化Java GC「译」</a></h2><h2 id="jvm系列-十-教你如何成为Java的OOM-Killer"><a href="#jvm系列-十-教你如何成为Java的OOM-Killer" class="headerlink" title="jvm系列(十):教你如何成为Java的OOM Killer"></a><a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484071&amp;idx=1&amp;sn=84604a51fd18b91f73c46507c182540a&amp;chksm=ebf6dad8dc8153cebb029372c0745a3c6570e527e1f95cee2fb9fb33c50d46c64f20722a3d96&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(十):教你如何成为Java的OOM Killer</a></h2><p>##<a href="https://mp.weixin.qq.com/s?__biz=MzI4NDY5Mjc1Mg==&amp;mid=2247484074&amp;idx=1&amp;sn=826318867783afaf99f62b38b2f5c268&amp;chksm=ebf6dad5dc8153c32a6ce0201afe310b47135b07c8bb028a8fd9df7ecaf6e60950a7847c7df5&amp;scene=21#wechat_redirect" target="_blank" rel="external">jvm系列(十一):Java 8-从持久代到metaspace</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[日志分析脚本]]></title>
       <url>/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E8%84%9A%E6%9C%AC/</url>
       <content type="html"><![CDATA[<h2 id="sed编辑器"><a href="#sed编辑器" class="headerlink" title="sed编辑器"></a>sed编辑器</h2><p>不修改原内容的行级别流编辑器</p>
@@ -736,6 +948,84 @@ Eureka Server会定时（间隔值是eureka.server.eviction-interval-timer-in-ms
 <h2 id="2-8-配置demo"><a href="#2-8-配置demo" class="headerlink" title="2.8 配置demo"></a>2.8 配置demo</h2><p>以下配置的demo如下：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="attr">server:</span></div><div class="line"><span class="attr">  port:</span> <span class="number">10761</span></div><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  application:</span></div><div class="line"><span class="attr">    name:</span> <span class="string">cloud-registration-center</span></div><div class="line"><span class="comment">## eureka ： 主要配置属性在EurekaInstanceConfigBean和EurekaClientConfigBean中</span></div><div class="line"><span class="attr">eureka:</span></div><div class="line"><span class="attr">  instance:</span></div><div class="line">    <span class="comment"># hostname: 127.0.0.1</span></div><div class="line">    <span class="comment"># 使用IP注册</span></div><div class="line"><span class="attr">    preferIpAddress:</span> <span class="literal">true</span></div><div class="line">    <span class="comment"># 心跳间隔</span></div><div class="line"><span class="attr">    lease-renewal-interval-in-seconds:</span> <span class="number">3</span></div><div class="line">    <span class="comment"># 服务失效时间： 如果多久没有收到请求，则可以删除服务</span></div><div class="line"><span class="attr">    lease-expiration-duration-in-seconds:</span> <span class="number">7</span></div><div class="line"><span class="attr">  client:</span></div><div class="line">    <span class="comment"># 关闭eureka client</span></div><div class="line">    <span class="comment"># enabled: false</span></div><div class="line">    <span class="comment"># 注册自身到eureka服务器</span></div><div class="line"><span class="attr">    registerWithEureka:</span> <span class="literal">true</span></div><div class="line">    <span class="comment"># 表示是否从eureka服务器获取注册信息</span></div><div class="line"><span class="attr">    fetchRegistry:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># 客户端从Eureka Server集群里更新Eureka Server信息的频率</span></div><div class="line"><span class="attr">    eureka-service-url-poll-interval-seconds:</span> <span class="number">60</span></div><div class="line">    <span class="comment"># 定义从注册中心获取注册服务的信息</span></div><div class="line"><span class="attr">    registry-fetch-interval-seconds:</span> <span class="number">5</span></div><div class="line">    <span class="comment"># 设置eureka服务器所在的地址，查询服务和注册服务都需要依赖这个地址</span></div><div class="line"><span class="attr">    serviceUrl:</span></div><div class="line"><span class="attr">      defaultZone:</span> <span class="attr">http://127.0.0.1:10761/eureka/</span></div><div class="line">       <span class="comment"># 设置eureka服务器所在的地址，可以同时向多个服务注册服务</span></div><div class="line">       <span class="comment"># defaultZone: http://192.168.21.3:10761/eureka/,http://192.168.21.4:10761/eureka/</span></div><div class="line"><span class="attr">  server:</span></div><div class="line">     <span class="comment"># renewal-percent-threshold: 0.1</span></div><div class="line">     <span class="comment"># 关闭自我保护模式</span></div><div class="line"><span class="attr">     enable-self-preservation:</span> <span class="literal">false</span></div><div class="line">     <span class="comment"># Eureka Server 自我保护系数，当enable-self-preservation=true时，启作用</span></div><div class="line">     <span class="comment"># renewal-percent-threshold:</span></div><div class="line">     <span class="comment"># 设置清理间隔,单位为毫秒,默认为0</span></div><div class="line"><span class="attr">     eviction-interval-timer-in-ms:</span> <span class="number">3000</span></div><div class="line">     <span class="comment"># 设置如果Eureka Server启动时无法从临近Eureka Server节点获取注册信息，它多久不对外提供注册服务</span></div><div class="line"><span class="attr">     wait-time-in-ms-when-sync-empty:</span> <span class="number">6000000</span></div><div class="line">     <span class="comment"># 集群之间相互更新节点信息的时间频率</span></div><div class="line"><span class="attr">     peer-eureka-nodes-update-interval-ms:</span> <span class="number">60000</span></div></pre></td></tr></table></figure></p>
 ]]></content>
       
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[索引]]></title>
+      <url>/2017/11/09/%E7%B4%A2%E5%BC%95/</url>
+      <content type="html"><![CDATA[<h2 id="索引介绍"><a href="#索引介绍" class="headerlink" title="索引介绍"></a>索引介绍</h2><blockquote>
+<p>索引对查询的速度有至关重要的影响。考虑如下情况，假设数据库中一个表有10^6^条记录，DBMS的页面大小为4K，并存储100条记录。如果没有索引，查询将对整个表进行扫描，最坏的情况下，如果所有数据页都不在内存，需要读取10^4^个页面，如果这10^4^个页面在磁盘上随机分布，需要进行10^4^次I/O，假设磁盘每次I/O时间为10ms(忽略数据传输时间)，则总共需要100s(但实际上要好很多很多)。如果对之建立B-Tree索引，则只需要进行log100(10^6^)=3次页面读取，最坏情况下耗时30ms。这就是索引带来的效果，很多时候，当你的应用程序进行SQL查询速度很慢时，应该想想是否可以建索引</p>
+</blockquote>
+<h2 id="索引与优化"><a href="#索引与优化" class="headerlink" title="索引与优化"></a>索引与优化</h2><h3 id="索引的数据类型"><a href="#索引的数据类型" class="headerlink" title="索引的数据类型"></a>索引的数据类型</h3><pre><code>选择索引类型原则：
+</code></pre><ol>
+<li>数据整形： 越小的整形在磁盘、内存、和CPU之间都需要更少的空间，处理起来更快。<ol>
+<li>简单的数据类型更好： 整形数据比起字符型，处理开销更小，因为字符串的比较更复杂，在Mysql中，应该用内置的日期和时间数据类型，而不是字符串来存储时间，以及用整形数据类型存储ip地址。</li>
+<li>尽量避免NULL： 应该指定列为NOT NULL ，除非想存储NULL。在mysql中，含有空值的列很难进行查询优化，以为他使得索引、索引的统计信息以及比较运算符更加复杂。应该用0、一个特殊值、或者一个空串代替空值。</li>
+</ol>
+</li>
+</ol>
+<h4 id="选择标识符"><a href="#选择标识符" class="headerlink" title="选择标识符"></a>选择标识符</h4><p>  选择合适的标识符是非常重要的，选择是不仅应该考虑存储类型，而且应该考虑mysql是怎么进行运算和比较的，一旦选定数据类型，应该保证所有的表都使用相同的数据类型。</p>
+<pre><code>1. 整形： 通常是作为标识符最好的选择，因为更苦阿爹处理，因为可以更快的处理，而且可以设置为AUTO_INCREMENT。
+2. 字符串：尽量避免使用字符串作为标识符，它们消耗更好的空间，处理起来也较慢。而且，通常来说，字符串都是随机的，所以它们在索引中的位置也是随机的，这会导致页面分裂、随机访问磁盘，聚簇索引分裂（对于使用聚簇索引的存储引擎）。
+</code></pre><h3 id="索引入门"><a href="#索引入门" class="headerlink" title="索引入门"></a>索引入门</h3><pre><code>对于任何DBMS，索引都是进行优化的最主要的因素。对于少量的数据，没有合适的索引影响不是很大，但是，当随着数据量的增加，性能会急剧下降。
+如果对多列进行索引(组合索引)，**列的顺序**非常重要，MySQL仅能对索引最左边的前缀进行有效的查找。例如：
+</code></pre><p>假设存在组合索引 表t1 建立 c1c2(c1,c2)联合索引，查询语句select <em> from t1 where c1=1 and c2=2能够使用该索引。查询语句select </em> from t1 where c1=1也能够使用该索引。但是，查询语句select * from t1 where c2=2不能够使用该索引，因为没有组合索引的引导列，即，要想使用c2列进行查找，必需出现c1等于某值。</p>
+<h4 id="索引的类型"><a href="#索引的类型" class="headerlink" title="索引的类型"></a>索引的类型</h4><p>索引是在存储引擎中实现的，而不是在服务器层中实现的。所以，每种存储引擎的索引都不一定完全相同，并不是所有的存储引擎都支持所有的索引类型。</p>
+<h5 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE People (</div><div class="line"></div><div class="line"> last_name varchar(50)    not null,</div><div class="line"></div><div class="line"> first_name varchar(50)    not null,</div><div class="line"></div><div class="line"> dob        date           not null,</div><div class="line"></div><div class="line"> gender     enum(&apos;m&apos;, &apos;f&apos;) not null,</div><div class="line"></div><div class="line"> key(last_name, first_name, dob)</div><div class="line"></div><div class="line">);</div></pre></td></tr></table></figure>
+<p>其索引包含表中每一行的last_name、first_name和dob列。其结构大致如下：<br><img src="img/mysql索引关系.jpg" alt=""><br>索引存储的值按索引列中的顺序排列。可以利用B-Tree索引进行全关键字、关键字范围和关键字前缀查询，当然，如果想使用索引，你必须保证按索引的最左边前缀(leftmost prefix of the index)来进行查询。</p>
+<ol>
+<li>匹配全值(Match the full value)：对索引中的所有列都指定具体的值。例如，上图中索引可以帮助你查找出生于1960-01-01的Cuba Allen。</li>
+<li>匹配最左前缀(Match a leftmost prefix)：你可以利用索引查找last name为Allen的人，仅仅使用索引中的第1列。</li>
+<li>匹配列前缀(Match a column prefix)：例如，你可以利用索引查找last name以J开始的人，这仅仅使用索引中的第1列。</li>
+<li>匹配值的范围查询(Match a range of values)：可以利用索引查找last name在Allen和Barrymore之间的人，仅仅使用索引中第1列。</li>
+<li>匹配部分精确而其它部分进行范围匹配(Match one part exactly and match a range on another part)：可以利用索引查找last name为Allen，而first name以字母K开始的人。</li>
+<li>仅对索引进行查询(Index-only queries)：如果查询的列都位于索引中，则不需要读取元组的值。</li>
+</ol>
+<p>由于B-树中的节点都是<strong>顺序存储</strong>的，所以可以利用索引进行查找(找某些值)，也可以对查询结果进行ORDER BY。当然，使用B-tree索引有以下一些限制：</p>
+<ol>
+<li>查询必须从索引的最左边的列开始。关于这点已经提了很多遍了。例如你不能利用索引查找在某一天出生的人。</li>
+<li>不能跳过某一索引列。例如，你不能利用索引查找last name为Smith且出生于某一天的人。</li>
+<li><p>存储引擎不能使用索引中范围条件右边的列。例如，如果你的查询语句为WHERE last_name=”Smith” AND first_name LIKE ‘J%’ AND dob=’1976-12-23’，则该查询只会使用索引中的前两列，因为LIKE是范围查询。</p>
+<h5 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h5><blockquote>
+<p>MySQL中，只有Memory存储引擎显示支持hash索引，是Memory表的默认索引类型，尽管Memory表也可以使用B-Tree索引。Memory存储引擎支持非唯一hash索引，这在数据库领域是罕见的，如果多个值有相同的hash code，索引把它们的行指针用链表保存到同一个hash表项中。</p>
+</blockquote>
+<p>假设创建如下一个表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE testhash (</div><div class="line">   fname VARCHAR(50) NOT NULL,</div><div class="line">   lname VARCHAR(50) NOT NULL,</div><div class="line">   KEY USING HASH(fname)</div><div class="line">) ENGINE=MEMORY;</div></pre></td></tr></table></figure>
+<p>假设索引使用hash函数f( )，如下：</p>
+<blockquote>
+<p>  f(‘Arjen’) = 2323<br>f(‘Baron’) = 7437<br>f(‘Peter’) = 8784<br>f(‘Vadim’) = 2458<br>此时，索引的结构大概如下：<br><img src="img/mysqlHash索引图.jpg" alt=""></p>
+</blockquote>
+</li>
+</ol>
+<p>Slots是有序的，但是记录不是有序的。当你执行<br>mysql&gt; SELECT lname FROM testhash WHERE fname=’Peter’;<br>MySQL会计算’Peter’的hash值，然后通过它来查询索引的行指针。因为f(‘Peter’) = 8784，MySQL会在索引中查找8784，得到指向记录3的指针。<br>因为索引自己仅仅存储很短的值，所以，索引非常紧凑。Hash值不取决于列的数据类型，一个TINYINT列的索引与一个长字符串列的索引一样大。<br>Hash索引有以下一些<strong>限制</strong>：</p>
+<ol>
+<li>由于索引仅包含hash code和记录指针，所以，MySQL不能通过使用索引避免读取记录。但是访问内存中的记录是非常迅速的，不会对性造成太大的影响。</li>
+<li>不能使用hash索引排序。</li>
+<li>Hash索引不支持键的部分匹配，因为是通过整个索引值来计算hash值的。</li>
+<li>Hash索引只支持等值比较，例如使用=，IN( )和&lt;=&gt;。对于WHERE price&gt;100并不能加速查询。</li>
+</ol>
+<h5 id="空间-R-Tree-索引"><a href="#空间-R-Tree-索引" class="headerlink" title="空间(R-Tree)索引"></a>空间(R-Tree)索引</h5><pre><code>MyISAM支持空间索引，主要用于地理空间数据类型，例如GEOMETRY。
+</code></pre><h5 id="全文-Full-text-索引"><a href="#全文-Full-text-索引" class="headerlink" title="全文(Full-text)索引"></a>全文(Full-text)索引</h5><pre><code>全文索引是MyISAM的一个特殊索引类型，主要用于全文检索。
+</code></pre><h2 id="高性能的索引策略"><a href="#高性能的索引策略" class="headerlink" title="高性能的索引策略"></a>高性能的索引策略</h2><h3 id="聚簇索引-Clustered-Indexes"><a href="#聚簇索引-Clustered-Indexes" class="headerlink" title="聚簇索引(Clustered Indexes)"></a>聚簇索引(Clustered Indexes)</h3><blockquote>
+<p>mysql聚簇索引保证关键字的值相近的元组存储的物理位置也相同（所以字符串类型不宜建立聚簇索引，特别是随机字符串，会使得系统进行大量的移动操作），且一个表只能有一个聚簇索引。因为由存储引擎实现索引，所以，并不是所有的引擎都支持聚簇索引。目前，只有solidDB和InnoDB支持。<br> 结构如下：<br> <img src="img/mysql聚簇索引.jpg" alt=""><br>注：叶子页面包含完整的元组，而内节点页面仅包含索引的列(索引的列为整型)。一些DBMS允许用户指定聚簇索引，但是MySQL的存储引擎到目前为止都不支持。InnoDB对主键建立聚簇索引。如果你不指定主键，InnoDB会用一个具有唯一且非空值的索引来代替。如果不存在这样的索引，InnoDB会定义一个隐藏的主键，然后对其建立聚簇索引。一般来说，DBMS都会以聚簇索引的形式来存储实际的数据，它是其它二级索引的基础。</p>
+</blockquote>
+<h4 id="InnoDB和MyISAM的数据布局的比较"><a href="#InnoDB和MyISAM的数据布局的比较" class="headerlink" title="InnoDB和MyISAM的数据布局的比较"></a>InnoDB和MyISAM的数据布局的比较</h4><blockquote>
+<p>为了更加理解聚簇索引和非聚簇索引，或者primary索引和second索引(MyISAM不支持聚簇索引)，来比较一下InnoDB和MyISAM的数据布局，对于如下表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE layout_test (</div><div class="line"></div><div class="line">col1 int NOT NULL,</div><div class="line"></div><div class="line">col2 int NOT NULL,</div><div class="line"></div><div class="line">PRIMARY KEY(col1),</div><div class="line"></div><div class="line">KEY(col2)</div><div class="line"></div><div class="line">);</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>假设主键的值位于1—10,000之间，且按随机顺序插入，然后用OPTIMIZE TABLE进行优化。col2随机赋予1—100之间的值，所以会存在许多重复的值。</p>
+<ol>
+<li>MyISAM的数据布局<br>其布局十分简单，MyISAM按照插入的顺序在磁盘上存储数据，如下：<br><img src="img/mysqlMyisam索引.jpg" alt=""></li>
+</ol>
+<p><a href="http://www.cnblogs.com/hustcat/archive/2009/10/28/1591648.html" target="_blank" rel="external">参考</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
         
     </entry>
     
@@ -1774,8 +2064,9 @@ PSPermGen       total 4096K, used 3039K
 <li>AVL树</li>
 <li>Hash树</li>
 <li>tire树</li>
-<li>b-树</li>
+<li>b-树（读b树，也叫balance树，不读b减树 “-”代表横杠）</li>
 <li>b+树</li>
+<li>LSM（Log-Structured Merge-Trees）树</li>
 <li>Trie 字典树，基数树或者前缀树，能够存储键为字符串的动态集合或者关联数组的搜索树，树中节点没有存储键值，而是在该节点在树中的挂载位置决定了其关联键值，某个节点的所有子节点都拥有相同的前缀，整树根节点则是空字符串</li>
 <li>Fenwick Tree：树状数组，又称为 Binary Indexed Tree，其表现形式为树，不过本质上是以数组实现，数组的下标代表着树中的顶点，每个顶点的父节点或者子节点的下标能够通过位运算获得，数组中的每个元素包含了预计算的区间值之和，在整颗数更新的过程中同样会更新这些预计算的值。<ul>
 <li>时间复杂度：<ul>
@@ -1808,60 +2099,77 @@ PSPermGen       total 4096K, used 3039K
 </li>
 </ul>
 </li>
-<li>Graph<br> 图是一种数据元素间为多对多关系的数据结构，加上一组基本操作构成的抽象数据类型<ul>
-<li>无向图：<br> 无向图具有对称的邻接矩阵，因此如果存在某条从节点u到节点v的边，反之从v到u的边也存在。</li>
-<li>有向图：<br> 有向图的邻接矩阵是非对称的，即如果存在从u到v的表并不意味着存在v到u的边。<h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h3></li>
-</ul>
-</li>
-<li>查找：<ul>
+<li>Graph<pre><code>图是一种数据元素间为多对多关系的数据结构，加上一组基本操作构成的抽象数据类型
+\- 无向图：
+   无向图具有对称的邻接矩阵，因此如果存在某条从节点u到节点v的边，反之从v到u的边也存在。
+\- 有向图：
+   有向图的邻接矩阵是非对称的，即如果存在从u到v的表并不意味着存在v到u的边。
+</code></pre><h3 id="算法："><a href="#算法：" class="headerlink" title="算法："></a><a href="https://blog.csdn.net/gane-cheng/article/details/52652705" target="_blank" rel="external">算法</a>：</h3></li>
+<li><p>查找：</p>
+<ul>
 <li>二分查找，以及变种二分查找。</li>
+<li><a href="https://www.cnblogs.com/0kk470/p/7555033.html" target="_blank" rel="external">深度优先、广度优先</a></li>
+<li><a href="https://www.cnblogs.com/MrSaver/p/8641971.html" target="_blank" rel="external">贪心算法</a><ul>
+<li><a href="https://blog.csdn.net/a345017062/article/details/52443781" target="_blank" rel="external">参考二</a></li>
 </ul>
 </li>
-<li>排序：<ul>
-<li>7种排序<ul>
-<li>快速排序<ul>
-<li>稳定： 否</li>
-<li>时间复杂度：<ul>
-<li>最优时间：O(nlog(n))</li>
-<li>最坏时间: O(n^2)</li>
-<li>平均时间：O(nlog(n))</li>
+<li><a href="https://blog.csdn.net/qfikh/article/details/51960331" target="_blank" rel="external">回溯算法</a></li>
+<li><a href="https://blog.csdn.net/luningcsdn/article/details/50930276" target="_blank" rel="external">剪枝算法</a></li>
+<li><a href="https://www.cnblogs.com/little-YTMM/p/5372680.html" target="_blank" rel="external">动态规划</a><ul>
+<li><a href="https://blog.csdn.net/yao_zi_jie/article/details/54580283" target="_blank" rel="external">参考二</a></li>
 </ul>
 </li>
+<li><a href="https://blog.csdn.net/amds123/article/details/70173402" target="_blank" rel="external">朴素贝叶斯</a><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_one.html" target="_blank" rel="external">参考二</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2011/08/bayesian_inference_part_two.html" target="_blank" rel="external">参考三</a></li>
 </ul>
 </li>
-<li>归并排序：<ul>
-<li>分治算法，不断将某个数组分为两个部分，分别对左子数组与右子数组进行排序，然后将两个数组合并为新的有序数组</li>
-<li>稳定：是</li>
-<li>时间复杂度<ul>
-<li>最优时间： O(nlog(n))</li>
-<li>最坏时间： O(nlog(n))</li>
-<li>平均时间： O(nlog(n))</li>
+<li><a href="http://www.infoq.com/cn/articles/recommendation-algorithm-overview-part01" target="_blank" rel="external">推荐算法</a></li>
+<li><a href="https://www.oschina.net/news/51297/top-10-open-source-recommendation-systems" target="_blank" rel="external">参考二</a></li>
+<li><a href="https://blog.csdn.net/luoshixian099/article/details/51908175" target="_blank" rel="external">最小生成树算法</a></li>
+<li><a href="https://blog.csdn.net/qq_35644234/article/details/60870719" target="_blank" rel="external">最短路径算法</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li>桶排序：<ul>
-<li>桶排序将数组分到有限数量的筒子里，每个桶子再个别排序，有可能在使用别的排序算法或者以地柜方式继续使用桶排序。</li>
-<li>时间复杂度：<ul>
-<li>最优时间： O(n+k)</li>
-<li>最坏时间： O(n^2)</li>
-<li>平均时间： O(n+k)<br>//TODO <a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">参考</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>时间、空间复杂度（理解并分析）</li>
-<li>动态规划、贪心算法</li>
-<li>图<h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3></li>
+<li><p>排序：</p>
+<ul>
+<li>7种排序<pre><code>\- [选择排序](https://www.cnblogs.com/shen-hua/p/5424059.html)
+  &gt; 每一趟从待排序的记录中选出最小的元素，顺序放在已排好序的序列最后，直到全部记录排序完毕。
+- [冒泡排序](https://blog.csdn.net/shuaizai88/article/details/73250615)
+    &gt; 相邻元素前后交换、把最大的排到最后。
+    &gt; 时间复杂度 O(n²)
+- [插入排序](https://www.cnblogs.com/hapjin/p/5517667.html)
+-   [快速排序](http://developer.51cto.com/art/201403/430986.htm)
+    -   稳定： 否
+    -   时间复杂度：
+        -   最优时间：O(nlog(n))
+        -   最坏时间: O(n^2)
+        -   平均时间：O(nlog(n))
+-   [归并排序：](http://www.cnblogs.com/chengxiao/p/6194356.html)
+    -   分治算法，不断将某个数组分为两个部分，分别对左子数组与右子数组进行排序，然后将两个数组合并为新的有序数组
+    -   稳定：是
+    -   时间复杂度
+        -   最优时间： O(nlog(n))
+        -   最坏时间： O(nlog(n))
+        -   平均时间： O(nlog(n))
+-   [桶排序：](http://blog.51cto.com/ahalei/1362789)
+    - [参考二](https://blog.csdn.net/sunjinshengli/article/details/70738527)
+    -   桶排序将数组分到有限数量的筒子里，每个桶子再个别排序，有可能在使用别的排序算法或者以地柜方式继续使用桶排序。
+    -   时间复杂度：
+        -   最优时间： O(n+k)
+        -   最坏时间： O(n^2)
+        -   平均时间： O(n+k)
+            [参考](https://github.com/kdn251/interviews/blob/master/README-zh-cn.md)
+-  [计数排序](https://www.cnblogs.com/suvllian/p/5495780.html)
+-   时间、空间复杂度（理解并分析）
+-   动态规划、贪心算法
+</code></pre><h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3></li>
 </ul>
 </li>
 <li>OSI7层协议（TCP四层）<ul>
 <li>URL到页面的过程</li>
 </ul>
 </li>
-<li>http:<ul>
+<li>http&#x3A;<ul>
 <li>http/https 1.0、1.1、2.0</li>
 <li>get/post 以及幂等性</li>
 <li>http相关头协议</li>
@@ -1879,9 +2187,11 @@ PSPermGen       total 4096K, used 3039K
 <li>BIO、IO、NIO、AIO<ul>
 <li>原理</li>
 <li>Netty</li>
-<li>linux内核的select poll epoll<h3 id="数据库-mysql"><a href="#数据库-mysql" class="headerlink" title="数据库(mysql)"></a>数据库(mysql)</h3></li>
+<li>linux内核的select poll epoll</li>
 </ul>
 </li>
+</ul>
+<h3 id="数据库-mysql"><a href="#数据库-mysql" class="headerlink" title="数据库(mysql)"></a>数据库(mysql)</h3><ul>
 <li>索引<ul>
 <li>分类<ul>
 <li>全文索引</li>
@@ -1931,12 +2241,73 @@ PSPermGen       total 4096K, used 3039K
 <li>数据库的范式</li>
 <li>分库分表</li>
 <li>主从复制</li>
-<li>读写分离<h3 id="NoSql"><a href="#NoSql" class="headerlink" title="NoSql"></a>NoSql</h3></li>
+<li>读写分离</li>
 </ul>
 </li>
+</ul>
+<h3 id="NoSql"><a href="#NoSql" class="headerlink" title="NoSql"></a>NoSql</h3><ul>
 <li>redis</li>
 <li>memcached</li>
 <li>mongdb</li>
+<li><a href="http://www.runoob.com/Memcached/Memcached-tutorial.html" target="_blank" rel="external">《Memcached 教程》</a></li>
+<li><a href="https://blog.csdn.net/chenleixing/article/details/47035453" target="_blank" rel="external">《深入理解Memcached原理》</a></li>
+<li><a href="https://www.jianshu.com/p/36e5cd400580" target="_blank" rel="external">《Memcached软件工作原理》</a></li>
+<li><a href="http://zhihuzeye.com/archives/2361" target="_blank" rel="external">《Memcache技术分享：介绍、使用、存储、算法、优化、命中率》</a></li>
+<li><a href="https://blog.csdn.net/liu251890347/article/details/37690045" target="_blank" rel="external">《memcache 中 add 、 set 、replace 的区别》</a></li>
+<li><a href="https://pan.baidu.com/s/1qX00Lti?errno=0&amp;errmsg=Auth%20Login%20Sucess&amp;&amp;bduss=&amp;ssnerror=0&amp;traceid=" target="_blank" rel="external">《memcached全面剖析》</a></li>
+</ul>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><ul>
+<li><a href="https://blog.csdn.net/q291611265/article/details/48465113" target="_blank" rel="external">设计模式的六大原则</a><ul>
+<li>开闭原则：对扩展开放,对修改关闭，多使用抽象类和接口。</li>
+<li>里氏替换原则：基类可以被子类替换，使用抽象类继承,不使用具体类继承。</li>
+<li>依赖倒转原则：要依赖于抽象,不要依赖于具体，针对接口编程,不针对实现编程。</li>
+<li>接口隔离原则：使用多个隔离的接口,比使用单个接口好，建立最小的接口。</li>
+<li>迪米特法则：一个软件实体应当尽可能少地与其他实体发生相互作用，通过中间类建立联系。</li>
+<li>合成复用原则：尽量使用合成/聚合,而不是使用继承。</li>
+</ul>
+</li>
+<li><a href="http://www.runoob.com/design-pattern/design-pattern-tutorial.html" target="_blank" rel="external">23种常见设计模式</a><ul>
+<li><a href="https://www.cnblogs.com/susanws/p/5510229.html" target="_blank" rel="external">参考二</a></li>
+</ul>
+</li>
+<li><p><a href="http://blog.jobbole.com/62314/" target="_blank" rel="external">《细数JDK里的设计模式》</a></p>
+<ul>
+<li><p>结构型模式：</p>
+<ul>
+<li>适配器：用来把一个接口转化成另一个接口，如 java.util.Arrays#asList()。</li>
+<li>桥接模式：这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化，如JDBC；</li>
+<li>组合模式：使得客户端看来单个对象和对象的组合是同等的。换句话说，某个类型的方法同时也接受自身类型作为参数，如 Map.putAll，List.addAll、Set.addAll。</li>
+<li>装饰者模式：动态的给一个对象附加额外的功能，这也是子类的一种替代方式，如 java.util.Collections#checkedList|Map|Set|SortedSet|SortedMap。</li>
+<li>享元模式：使用缓存来加速大量小对象的访问时间，如 valueOf(int)。</li>
+<li>代理模式：代理模式是用一个简单的对象来代替一个复杂的或者创建耗时的对象，如 java.lang.reflect.Proxy</li>
+</ul>
+</li>
+<li><p>创建模式:</p>
+<ul>
+<li>抽象工厂模式：抽象工厂模式提供了一个协议来生成一系列的相关或者独立的对象，而不用指定具体对象的类型，如 java.util.Calendar#getInstance()。</li>
+<li>建造模式(Builder)：定义了一个新的类来构建另一个类的实例，以简化复杂对象的创建，如：java.lang.StringBuilder#append()。</li>
+<li>工厂方法：就是 一个返* 回具体对象的方法，而不是多个，如 java.lang.Object#toString()、java.lang.Class#newInstance()。</li>
+<li>原型模式：使得类的实例能够生成自身的拷贝、如：java.lang.Object#clone()。</li>
+<li>单例模式：全局只有一个实例，如 java.lang.Runtime#getRuntime()。</li>
+</ul>
+</li>
+<li><p>行为模式：</p>
+<ul>
+<li>责任链模式：通过把请求从一个对象传递到链条中下一个对象的方式，直到请求被处理完毕，以实现对象间的解耦。如 javax.servlet.Filter#doFilter()。</li>
+<li>命令模式：将操作封装到对象内，以便存储，传递和返回，如：java.lang.Runnable。</li>
+<li>解释器模式：定义了一个语言的语法，然后解析相应语法的语句，如，java.text.Format，java.text.Normalizer。</li>
+<li>迭代器模式：提供一个一致的方法来顺序访问集合中的对象，如 java.util.Iterator。</li>
+<li>中介者模式：通过使用一个中间对象来进行消息分发以及减少类之间的直接依赖，java.lang.reflect.Method#invoke()。</li>
+<li>空对象模式：如 java.util.Collections#emptyList()。</li>
+<li>观察者模式：它使得一个对象可以灵活的将消息发送给感兴趣的对象，如 java.util.EventListener。</li>
+<li>模板方法模式：让子类可以重写方法的一部分，而不是整个重写，如 java.util.Collections#sort()。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a href="https://www.cnblogs.com/hwaggLee/p/4510687.html" target="_blank" rel="external">《Spring-涉及到的设计模式汇总》</a></p>
+</li>
+<li><a href="https://blog.csdn.net/u012387062/article/details/54719114" target="_blank" rel="external">《Mybatis使用的设计模式》</a></li>
 </ul>
 <h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><ul>
 <li>进程通信IPC，与线程区别</li>
@@ -2002,7 +2373,7 @@ PSPermGen       total 4096K, used 3039K
 <li><p>Queues/Deques</p>
 <ul>
 <li>ArrayDeQue ： Deque是基于有首尾指针的数组（环形缓冲区）实现的。和LinkedList不同，这个类没有实现List接口，因此，如果没有收尾元素的话，就不能去除任何元素。比LinkedList好一点，产生的垃圾数量较少。</li>
-<li>Queue<ul>
+<li><a href="https://www.cnblogs.com/lemon-flm/p/7877898.html" target="_blank" rel="external">Queue</a><ul>
 <li>enqueue： 插入到队列中</li>
 <li>dequeue： 将队头移除</li>
 <li>时间复杂度：<ul>
@@ -2026,9 +2397,10 @@ PSPermGen       total 4096K, used 3039K
 </ul>
 </li>
 </ul>
-<p>– 并发 –</p>
+<p>-- 并发 –</p>
 </li>
-<li>ArrayBlockingQueue： 基于书实现的一个有界阻塞对，大小不能重新定义，试图向一个满的队列添加元素的时候，就会受到阻塞，知道另一个方法从队列中取出元素。</li>
+<li><p>ArrayBlockingQueue： 基于书实现的一个有界阻塞对，大小不能重新定义，试图向一个满的队列添加元素的时候，就会受到阻塞，知道另一个方法从队列中取出元素。</p>
+</li>
 <li>ConcurrentLinkedDeque、ConcurrentLinkedQueue：基于链表实现的无解队列，添加元素不阻塞。要求消费者的速度至少要比生产一样快，不然内存就会耗尽，严重依赖于CAS操作。</li>
 <li>DelayQueue ： 无界的保存Delayed元素的集合，元素只有在延时已经过期的时候才能被取出。队列的第一个元素延期最小(包含负值，延时已经过期)，要实现一个延期任务的队列的时候使用(不要自己手动实现–使用ScheduledThreadPoolExecutor)</li>
 <li>LinkedBlockingDeque/LinkedBlockingQueue： 可选择有界或者无界基于链表的实现。在队列为空或者满的情况下使用ReentrantLock</li>
@@ -2037,7 +2409,8 @@ PSPermGen       total 4096K, used 3039K
 <li>SynchronousQueue：一个有界队列，其中没有任何内存容量。这就意味着任何插入操作必须等到响应的取出操作才能执行，反之亦反。如果不需要Queue接口的话，通过Exchanger类也能完成响应的功能。</li>
 </ul>
 </li>
-<li>Lists类<ul>
+<li><p>Lists类</p>
+<ul>
 <li>CopyOnWriteArrayList ： list的实现每一次都会产生一个新的隐含数组副本，所以这个操作成本很高，适合遍历操作比更新操作多的集合，例如listeners/observers集合</li>
 </ul>
 </li>
@@ -2113,23 +2486,144 @@ PSPermGen       total 4096K, used 3039K
 </li>
 </ul>
 <ul>
-<li>并发和多线程<ul>
-<li>线程池</li>
-<li>SYNC</li>
-<li>Lock机制</li>
-<li>线程通信</li>
-<li>volatile</li>
-<li>ThreadLocal</li>
-<li>CyclicBarrier</li>
-<li>Atomic包</li>
-<li>concurrent包</li>
-<li>CountDownlatch</li>
-<li>AQS</li>
-<li>CAS</li>
+<li><p>并发和多线程</p>
+<ul>
+<li>参考：<ul>
+<li><a href="https://github.com/CL0610/Java-concurrency" target="_blank" rel="external">Java 并发知识合集</a></li>
+<li><a href="https://github.com/CL0610/Java-concurrency/blob/master/Java%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.png" target="_blank" rel="external">JAVA并发知识图谱</a></li>
+<li>java并发编程网</li>
+<li><a href="http://www.importnew.com/18459.html" target="_blank" rel="external">《40个Java多线程问题总结》</a></li>
+<li><a href="https://www.cnblogs.com/zhanht/p/5450325.html" target="_blank" rel="external">《Java并发编程——线程安全及解决机制简介》</a></li>
 </ul>
 </li>
-<li>JVM<ul>
+<li>锁<ul>
+<li>ReetrantLock</li>
+<li>ReetranReadWriteLock</li>
+<li>Condition</li>
+</ul>
+</li>
+<li><p>开发工具类</p>
+<ul>
+<li>CyclicBarrier</li>
+<li>CountDownLatch</li>
+<li>Semphere</li>
+</ul>
+</li>
+<li><p>并发集合</p>
+<ul>
+<li>ConcurrentHashMap</li>
+<li>ConcurrentLinkedQueue</li>
+</ul>
+</li>
+<li>线程池<ul>
+<li>Excutor</li>
+<li>ThreadPoolExcutor</li>
+<li>Callable和Future</li>
+<li>ScheduledExecutorService</li>
+</ul>
+</li>
+<li>原子操作<ul>
+<li>基本类型<ul>
+<li>AtomicBoolean</li>
+<li>AtomicInteger</li>
+<li>AtomicLong</li>
+</ul>
+</li>
+<li>引用类型<ul>
+<li>AtomicReference</li>
+<li>AtomicReferenceArrayFieldUpdater</li>
+</ul>
+</li>
+<li>数组<ul>
+<li>AtomicIntegerArray</li>
+<li>AtomicLongArray</li>
+<li>AtomicReferenceArray</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>synchronized<ul>
+<li>同步、重量级锁，synchronized原理</li>
+<li>锁优化<ul>
+<li>自旋锁</li>
+<li>轻量级锁</li>
+<li>重量级锁</li>
+<li>偏向锁</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Lock机制</li>
+<li>线程通信</li>
+<li>volatile<ul>
+<li>实现机制</li>
+<li>内存语义</li>
 <li>内存模型</li>
+</ul>
+</li>
+<li>ThreadLocal</li>
+<li>Fork\Join</li>
+<li>concurrent包</li>
+<li>AQS<ul>
+<li>AbstractqueuedSynchronized同步器</li>
+<li>CLH同步队列</li>
+<li>同步状态的获取及释放</li>
+<li>线程阻塞和唤醒</li>
+</ul>
+</li>
+<li>CAS<ul>
+<li>Compare And Swap缺陷</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>优化调优</p>
+<ul>
+<li>工具<ul>
+<li>MAT</li>
+<li>Jmeter</li>
+</ul>
+</li>
+<li>理解性能优化<ul>
+<li>性能基准</li>
+<li>性能优化到底是什么</li>
+<li>衡量维度</li>
+</ul>
+</li>
+<li>JVM调优<ul>
+<li>什么是JVM内存模型JMM</li>
+<li>各垃圾回收气使用场景</li>
+<li>理解GC日志</li>
+<li>实战MAT分析DUMP文件</li>
+</ul>
+</li>
+<li>Tomcat调优<ul>
+<li>tomcat运行机制</li>
+<li>线程模型</li>
+<li>系统参数认识及调优</li>
+<li>基准测试</li>
+</ul>
+</li>
+<li>MySQL调优<ul>
+<li>理解MySQL底层B+树</li>
+<li>SQL执行计划详解索引优化详解</li>
+<li>SQL语句优化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>JVM</p>
+<blockquote>
+<p>《深入理解Java虚拟机：JVM高级特性与最佳实践》</p>
+</blockquote>
+<ul>
+<li>内存模型<ul>
+<li>重排序</li>
+<li>顺序一致性</li>
+<li>happens-hefore</li>
+<li>as-if-serial</li>
+</ul>
+</li>
 <li>GC垃圾回收机制</li>
 <li>分代算法，GC算法</li>
 <li>收集器</li>
@@ -2141,10 +2635,20 @@ PSPermGen       total 4096K, used 3039K
 <li>内存泄露和内存溢出</li>
 </ul>
 </li>
-<li>IO和NIO</li>
+<li><p>IO和NIO</p>
+</li>
 <li>反射和代理、异常、java8、序列化</li>
 <li>设计模式：<ul>
-<li>24中常用的设计模式</li>
+<li>24中常用的设计模式<ul>
+<li>proxy代理模式</li>
+<li>Factory工厂模式</li>
+<li>Singleton单例模式</li>
+<li>Delegate委派模式</li>
+<li>Strategy策略模式</li>
+<li>prototype原型模式</li>
+<li>Adapter适配器模式</li>
+</ul>
+</li>
 <li>java源码中或者spring中用到哪些</li>
 </ul>
 </li>
@@ -2152,28 +2656,168 @@ PSPermGen       total 4096K, used 3039K
 <li>servlet</li>
 <li>cookie、session</li>
 <li>spring<ul>
-<li>aop</li>
-<li>ioc</li>
+<li>aop<ul>
+<li>AOP设计原理</li>
+</ul>
+</li>
+<li>ioc<ul>
+<li>IOC容器设计原理及高级特性</li>
+</ul>
+</li>
+<li>FactoryBean与BeanFactory</li>
 <li>mvc</li>
-<li>事务</li>
+<li><a href="https://earyant.github.io/2017/09/17/Spring%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/">事务</a></li>
+<li>基于SpringJDBC手写ORM框架</li>
+<li>SpringMVC九大组件</li>
+<li>手写实现SpringMVC框架</li>
+<li>SpringMVC与Struts2对比分析</li>
+<li>Spring5新特性</li>
 <li>动态代理</li>
 </ul>
 </li>
-<li>mybatis</li>
+<li>mybatis<ul>
+<li>代码自动生成器</li>
+<li>关联查询、嵌套 查询</li>
+<li>缓存使用场景及选择策略</li>
+<li>Spring集成下的SqlSession与Mapper</li>
+<li>事务</li>
+<li>分析MyBatis的动态代理</li>
+<li>手写实现Mini版的MyBatis</li>
+</ul>
+</li>
 <li>tomcat<ul>
+<li>参考<ul>
+<li><a href="https://www.cnblogs.com/hggen/p/6264475.html" target="_blank" rel="external">《TOMCAT原理详解及请求过程》</a></li>
+<li><a href="https://www.cnblogs.com/crazylqy/p/4706223.html" target="_blank" rel="external">《Tomcat服务器原理详解》</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-tomcat1/" target="_blank" rel="external">《Tomcat 系统架构与设计模式,第 1 部分: 工作原理》</a></li>
+<li><a href="https://blog.csdn.net/xlgen157387/article/details/79006434" target="_blank" rel="external">《四张图带你了解Tomcat系统架构》</a></li>
+<li><a href="https://www.futurehosting.com/blog/jboss-vs-tomcat-choosing-a-java-application-server/" target="_blank" rel="external">《JBoss vs. Tomcat: Choosing A Java Application Server》</a><ul>
+<li>Tomcat 是轻量级的 Serverlet 容器，没有实现全部 JEE 特性（比如持久化和事务处理），但可以通过其他组件代替，比如Srping。</li>
+<li>Jboss 实现全部了JEE特性，软件开源免费、文档收费。</li>
+<li><a href="https://www.cnblogs.com/sunfenqing/p/7339058.html" target="_blank" rel="external">《Tomcat 调优方案》</a></li>
+<li>启动NIO模式（或者APR）；调整线程池；禁用AJP连接器（Nginx+tomcat的架构，不需要AJP）；</li>
+<li><a href="http://blog.chinaunix.net/uid-20662363-id-3012760.html" target="_blank" rel="external">《tomcat http协议与ajp协议》</a></li>
+<li><a href="http://dmouse.iteye.com/blog/1354527" target="_blank" rel="external">《AJP与HTTP比较和分析》</a><ul>
+<li>AJP 协议（8009端口）用于降低和前端Server（如Apache，而且需要支持AJP协议）的连接数(前端)，通过长连接提高性能。</li>
+<li>并发高时，AJP协议优于HTTP协议。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>类加载机制</li>
+</ul>
+</li>
+<li>Jetty<ul>
+<li>参考<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jetty/" target="_blank" rel="external">《Jetty 的工作原理以及与 Tomcat 的比较》</a></li>
+<li><a href="https://blog.csdn.net/doutao6677/article/details/51957288" target="_blank" rel="external">《jetty和tomcat优势比较》</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>hibernate</li>
 </ul>
 </li>
 <li>源码</li>
-<li>Guava<h3 id="脚本语言"><a href="#脚本语言" class="headerlink" title="脚本语言"></a>脚本语言</h3></li>
+<li>Guava</li>
+</ul>
+<h3 id="脚本语言"><a href="#脚本语言" class="headerlink" title="脚本语言"></a>脚本语言</h3><ul>
 <li>python</li>
 <li>shell</li>
 </ul>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h3><ul>
+<li>微框架<ul>
+<li>与微服务之间的关系</li>
+<li>热部署实战</li>
+<li>核心组件Starter\Actuator\AutoConfiguration\Cli</li>
+<li>集成Mybatis实现多数据源路由实战</li>
+<li>集成Dubbo实战</li>
+<li>集成Redis缓存实战</li>
+<li>集成Swagger2实战</li>
+<li>API管理及测试体系</li>
+<li>实现多环境配置动态解析</li>
+</ul>
+</li>
+<li>SpringCloud<ul>
+<li>注册中心<ul>
+<li>Eureka</li>
+<li>Zookeeper</li>
+</ul>
+</li>
+<li>Ribbon集成REST实现负载均衡</li>
+<li>Fegion生命是服务调用</li>
+<li>Hystrix服务熔断降级方式</li>
+<li>Zuul实现微服务网管</li>
+<li>Config分布式统一配置中心（与disconf作对比）</li>
+<li>Sleuth调用链路跟踪</li>
+<li>BUS消息总线</li>
+<li>基于Hystrix实现接口降级实战</li>
+<li>集成SpringCloud实现统一整合方案</li>
+</ul>
+</li>
+<li><p>Docker虚拟化</p>
+<ul>
+<li>Docker的镜像、仓库、容器</li>
+<li>Docker File文件</li>
+<li>Docker Compose</li>
+<li>Swarm K8s</li>
+</ul>
+</li>
+<li><p>漫谈微服务架构</p>
+<pre><code>\-  SOA架构和微服务架构之间的区别和联系
+\- 如何设计微服务及设计原则
+\- 全局分析Spring Cloud各个组件所能解决的问题
+</code></pre><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3></li>
+<li><p>分布式架构原理</p>
+<ul>
+<li>分布式架构严谨过程</li>
+<li>如何把应用从单机扩展到分布式</li>
+<li>CDN加速静态文件访问</li>
+<li>系统监控、容灾、存储动态扩容</li>
+<li>架构设计及业务驱动划分</li>
 <li>CAP原理和BASE理论</li>
+</ul>
+</li>
+<li>分布式架构策略<ul>
+<li>分布式架构网络通信原理剖析</li>
+<li>通信协议中的序列化和反序列化</li>
+<li>基于框架的RPC技术<ul>
+<li>WebService、RMI、Hession</li>
+</ul>
+</li>
+<li>深入分析Zookeeper在disconf配置中心的应用</li>
+<li>基于Zookeeper实现分布式服务器动态上下线感知</li>
+<li>深入分析Zookeeper Zab协议及选举机制源码解读</li>
+<li>Dubbo管理中心及监控平台安装部署</li>
+<li>基于Dubbo的分布式系统架构实战</li>
+<li>Dubbo容错机制及高扩展性分析</li>
+</ul>
+</li>
+<li>分布式架构中间件<ul>
+<li>分布式消息通信</li>
+<li>ActiveMq\Kafka\RabbitMQ</li>
+<li>Redis主从复制原理及无磁盘复制分析</li>
+<li>图解Redis中AOF和RDB持久化策略的原理</li>
+<li>MongoDb企业级集群解决方案</li>
+<li>MongoDb数据分片、转存及恢复策略</li>
+<li>基于OpenResty部署应用层Nginx以及Nginx+lua实践</li>
+<li>Nginx反向代理服务器及负载均衡服务配置实战</li>
+<li>基于Netty实现高性能IM聊天</li>
+<li>基于Netty实现Dubbo多协议通信支持</li>
+<li>Netty无锁化串行设计及高并发处理机制</li>
+</ul>
+</li>
+<li>分布式架构实战<ul>
+<li>分布式全局ID生成方案</li>
+<li>Session跨域共享及企业级单点登录解决方案实战</li>
+<li>分布式事务解决方案实战</li>
+<li>高并发下的服务降级、限流实战</li>
+<li>基于分布式架构下的分布式锁的解决方案实战</li>
+<li>分布式架构下实现分布式定时调度</li>
+</ul>
+</li>
 <li>NoSql和KV存储(redis,hbase,mongodb,etcd,springcloud)</li>
 <li>负载均衡(原理，cdn，一致性hash)</li>
 <li>RPC框架<ul>
@@ -2205,7 +2849,8 @@ PSPermGen       total 4096K, used 3039K
 </li>
 <li><p>分布式锁</p>
 <h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h3></li>
-<li>hadoop生态圈<ul>
+<li><p>hadoop生态圈</p>
+<ul>
 <li>hive</li>
 <li>hbase</li>
 <li>hdfs</li>
@@ -2218,6 +2863,99 @@ PSPermGen       total 4096K, used 3039K
 <li>搜索引擎与技术</li>
 <li>机器学习与技术</li>
 <li>人工智能</li>
+</ul>
+<h3 id="运维-amp-统计-amp-技术支持"><a href="#运维-amp-统计-amp-技术支持" class="headerlink" title="运维 &amp; 统计 &amp; 技术支持"></a>运维 &amp; 统计 &amp; 技术支持</h3><ul>
+<li><p>常规监控</p>
+<ul>
+<li><a href="https://blog.csdn.net/enweitech/article/details/77849205" target="_blank" rel="external">《腾讯业务系统监控的修炼之路》</a><ul>
+<li>监控的方式：主动、被动、旁路(比如舆情监控)</li>
+<li>监控类型： 基础监控、服务端监控、客户端监控、 监控、用户端监控</li>
+<li>监控的目标：全、块、准</li>
+<li>核心指标：请求量、成功率、耗时</li>
+</ul>
+</li>
+<li><p><a href="https://www.oschina.net/news/67525/monitoring-tools" target="_blank" rel="external">《开源还是商用？十大云运维监控工具横评》</a></p>
+<blockquote>
+<p>Zabbix、Nagios、Ganglia、Zenoss、Open-falcon、监控宝、 360网站服务监控、阿里云监控、百度云观测、小蜜蜂网站监测等。</p>
+</blockquote>
+</li>
+<li><p><a href="http://developer.51cto.com/art/201612/525373.htm" target="_blank" rel="external">《监控报警系统搭建及二次开发经验》</a></p>
+</li>
+</ul>
+</li>
+<li><p>命令行监控工具</p>
+<ul>
+<li><a href="https://coderxing.gitbooks.io/architecture-evolution/di-er-pian-ff1a-feng-kuang-yuan-shi-ren/44-an-quan-yu-yun-wei/445-fu-wu-qi-zhuang-tai-jian-ce/4451-ming-ling-xing-gong-ju.html" target="_blank" rel="external">《常用命令行监控工具》</a></li>
+<li><a href="http://blog.jobbole.com/96846/" target="_blank" rel="external">《20个命令行工具监控 Linux 系统性能》</a></li>
+<li><a href="https://my.oschina.net/feichexia/blog/196575" target="_blank" rel="external">《JVM性能调优监控工具jps、jstack、jmap、jhat、jstat、hprof使用详解》</a></li>
+<li><a href="https://earyant.github.io/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">日志分析常用命令</a></li>
+<li><a href="https://earyant.github.io/2018/05/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E8%84%9A%E6%9C%AC/">日志分析脚本</a></li>
+</ul>
+</li>
+<li><p>统计分析</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/25195217" target="_blank" rel="external">《流量统计的基础：埋点》</a><blockquote>
+<p>常用指标：访问与访客、停留时长、跳出率、退出率、转化率、参与度</p>
+</blockquote>
+</li>
+<li><a href="http://www.25xt.com/company/17066.html" target="_blank" rel="external">《APP埋点常用的统计工具、埋点目标和埋点内容》</a><blockquote>
+<p>第三方统计：友盟、百度移动、魔方、App Annie、talking data、神策数据等。</p>
+</blockquote>
+</li>
+<li><a href="https://tech.meituan.com/mt-mobile-analytics-practice.html" target="_blank" rel="external">《美团点评前端无痕埋点实践》</a><blockquote>
+<p>所谓无痕、即通过可视化工具配置采集节点，在前端自动解析配置并上报埋点数据，而非硬编码。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>持续集成(CI/CD)</p>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html" target="_blank" rel="external">《持续集成是什么？》</a></li>
+<li><a href="https://www.testwo.com/article/1170" target="_blank" rel="external">《8个流行的持续集成工具》</a></li>
+<li><a href="https://www.liaoxuefeng.com/article/001463233913442cdb2d1bd1b1b42e3b0b29eb1ba736c5e000" target="_blank" rel="external">《使用Jenkins进行持续集成》</a></li>
+</ul>
+</li>
+<li>环境分离<ul>
+<li><a href="https://my.oschina.net/sancuo/blog/214904" target="_blank" rel="external">《开发环境、生产环境、测试环境的基本理解和区》</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li>TDD 理论<ul>
+<li>-<a href="https://www.jianshu.com/p/62f16cd4fef3" target="_blank" rel="external">《深度解读 - TDD（测试驱动开发）》</a><ul>
+<li>基于测试用例编码功能代码，XP（Extreme Programming）的核心实践.</li>
+<li>好处：一次关注一个点，降低思维负担；迎接需求变化或改善代码的设计；提前澄清需求；快速反馈；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>单元测试<ul>
+<li><a href="https://www.cnblogs.com/happyzm/p/6482886.html" target="_blank" rel="external">《Java单元测试之JUnit篇》</a></li>
+<li><a href="TestNG 覆盖 JUnit 功能，适用于更复杂的场景。">《JUnit 4 与 TestNG 对比》</a></li>
+<li><a href="模块接口测试、局部数据结构测试、路径测试 、错误处理测试、边界条件测试 。">《单元测试主要的测试功能点》</a></li>
+</ul>
+</li>
+<li>压力测试<ul>
+<li><a href="https://blog.csdn.net/blueheart20/article/details/52170790" target="_blank" rel="external">《Apache ab 测试使用指南》</a></li>
+<li><a href="https://www.cnblogs.com/binyue/p/6141088.html" target="_blank" rel="external">《大型网站压力测试及优化方案》</a></li>
+<li><a href="http://news.chinabyte.com/466/14126966.shtml" target="_blank" rel="external">《10大主流压力/负载/性能测试工具推荐》</a></li>
+<li><a href="http://quentinxxz.iteye.com/blog/2249799" target="_blank" rel="external">《真实流量压测工具 tcpcopy应用浅析》</a></li>
+<li><a href="https://www.cnblogs.com/jwentest/p/7136727.html" target="_blank" rel="external">《nGrinder 简易使用教程》</a></li>
+</ul>
+</li>
+<li>全链路压测<ul>
+<li><a href="http://www.infoq.com/cn/articles/jd-618-upgrade-full-link-voltage-test-program-forcebot" target="_blank" rel="external">《京东618：升级全链路压测方案，打造军演机器人ForceBot》</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/30306892" target="_blank" rel="external">《饿了么全链路压测的探索与实践》</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/28355759" target="_blank" rel="external">《四大语言，八大框架｜滴滴全链路压测解决之道》</a></li>
+<li><a href="https://www.jianshu.com/p/27060fd61f72" target="_blank" rel="external">《全链路压测经验》</a></li>
+</ul>
+</li>
+<li>A/B 、灰度、蓝绿测试<ul>
+<li><a href="https://testerhome.com/topics/11165" target="_blank" rel="external">《技术干货 | AB 测试和灰度发布探索及实践》</a></li>
+<li><a href="http://blog.51cto.com/purplegrape/1403123" target="_blank" rel="external">《nginx 根据IP 进行灰度发布》</a></li>
+<li><a href="https://www.v2ex.com/t/344341" target="_blank" rel="external">《蓝绿部署、A/B 测试以及灰度发布》</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="书单"><a href="#书单" class="headerlink" title="书单"></a>书单</h2><ul>
 <li>算法与数据结构<ul>
@@ -2290,7 +3028,48 @@ PSPermGen       total 4096K, used 3039K
 <li>docker</li>
 <li>springcloud</li>
 </ul>
-<p>感谢：<br><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">这可能不只是一篇面经</a><br><a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">java整理</a></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="实践一个双十一电商项目"><a href="#实践一个双十一电商项目" class="headerlink" title="实践一个双十一电商项目"></a>实践一个双十一电商项目</h3><ul>
+<li>用户认证<ul>
+<li>用户注册</li>
+<li>SSO单点登录</li>
+<li>第三方登陆</li>
+<li>UI界面拦截</li>
+<li>业务拦截</li>
+</ul>
+</li>
+<li>店铺、商品<ul>
+<li>聚合检索</li>
+<li>动静分离</li>
+<li>店铺管理</li>
+<li>商品管理</li>
+</ul>
+</li>
+<li>订单、支付<ul>
+<li>订单号统一生成规则</li>
+<li>下单流程管理</li>
+<li>库存管理</li>
+<li>购物车</li>
+<li>优惠券支付</li>
+<li>积分支付</li>
+<li>第三方支付</li>
+</ul>
+</li>
+<li>数据统计分析<ul>
+<li>用户行为分析</li>
+<li>行业分析</li>
+<li>区域分析</li>
+</ul>
+</li>
+<li>通知推送<ul>
+<li>融云推送</li>
+<li>消息中间件</li>
+<li>用户群聊</li>
+<li>点对点聊天</li>
+<li>文件断点续传</li>
+</ul>
+</li>
+</ul>
+<p>感谢：<br><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm-medium=toutiao.io&amp;utm-source=toutiao.io" target="_blank" rel="external">这可能不只是一篇面经</a><br><a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">java整理</a></p>
 ]]></content>
       
         
@@ -3131,26 +3910,26 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[gallery]]></title>
       <url>/gallery/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[timeline]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[timeline]]></title>
-      <url>/timeline/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
