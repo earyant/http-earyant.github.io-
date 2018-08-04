@@ -45,7 +45,7 @@
     
     <title>
         
-            SpringCloud学习5路由网关(zuul) | 
+            String.intern方法理解 | 
         
         Earyant的技术博客
     </title>
@@ -217,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Earyant的技术博客">
-    <meta name="msapplication-starturl" content="http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/">
+    <meta name="msapplication-starturl" content="http://earyant.github.io/2018/07/27/String-intern方法理解/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Earyant的技术博客">
@@ -236,16 +236,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/">
+    <meta property="og:url" content="http://earyant.github.io/2018/07/27/String-intern方法理解/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="SpringCloud学习5路由网关(zuul) | Earyant的技术博客">
+    <meta property="og:title" content="String.intern方法理解 | Earyant的技术博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。">
     
 
     
-        <meta property="article:published_time" content="Fri Jul 21 2017 14:53:52 GMT+0800">
-        <meta property="article:modified_time" content="Fri Jul 21 2017 15:01:48 GMT+0800">
+        <meta property="article:published_time" content="Fri Jul 27 2018 14:50:23 GMT+0800">
+        <meta property="article:modified_time" content="Sat Aug 04 2018 21:13:45 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -253,7 +253,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html" />
+        <link rel="canonical" href="http://earyant.github.io/2018/07/27/String-intern方法理解/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -265,10 +265,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html",
-    "headline": "SpringCloud学习5路由网关(zuul)",
-    "datePublished": "Fri Jul 21 2017 14:53:52 GMT+0800",
-    "dateModified": "Fri Jul 21 2017 15:01:48 GMT+0800",
+    "mainEntityOfPage": "http://earyant.github.io/2018/07/27/String-intern方法理解/index.html",
+    "headline": "String.intern方法理解",
+    "datePublished": "Fri Jul 27 2018 14:50:23 GMT+0800",
+    "dateModified": "Sat Aug 04 2018 21:13:45 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Earyant",
@@ -346,6 +346,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#intern作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">intern作用</span></a></li></ol>
+    </ul>
+    
 
 
 
@@ -375,7 +384,7 @@
         
     
             <p class="article-headline-p">
-                SpringCloud学习5路由网关(zuul)
+                String.intern方法理解
             </p>
         </div>
 
@@ -394,7 +403,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Earyant</strong>
-        <span>7月 21, 2017</span>
+        <span>7月 27, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -416,7 +425,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/">
+        <img src="https://pan.baidu.com/share/qrcode?w=246&h=246&url=http://earyant.github.io/2018/07/27/String-intern方法理解/">
     
 </ul>
 
@@ -449,7 +458,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=SpringCloud学习5路由网关(zuul)&url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html&pic=http://earyant.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=String.intern方法理解&url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html&pic=http://earyant.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -458,7 +467,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=SpringCloud学习5路由网关(zuul)&url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html&via=Earyant" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=String.intern方法理解&url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html&via=Earyant" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -467,7 +476,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -476,7 +485,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -485,7 +494,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html&title=SpringCloud学习5路由网关(zuul)" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html&title=String.intern方法理解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -494,7 +503,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=SpringCloud学习5路由网关(zuul)&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Earyant的技术博客&title=String.intern方法理解&summary=个人技术博客，分享开发中遇到的问题，以及想学的新技术，会持续更新，可以订阅rss。&pics=http://earyant.github.io/img/favicon.png&url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -503,7 +512,7 @@
 
     <!-- Share Telegram -->
     
-        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2017/07/21/SpringCloud学习5路由网关-zuul/index.html&text=SpringCloud学习5路由网关(zuul)" target="_blank">
+        <a class="post_share-link" href="https://telegram.me/share/url?url=http://earyant.github.io/2018/07/27/String-intern方法理解/index.html&text=String.intern方法理解" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Telegram
             </li>
@@ -519,37 +528,24 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>在微服务架构中，需要几个关键的组件，服务注册与发现、服务消费、负载均衡、断路器、智能路由、配置管理等，由这几个组件可以组建一个简单的微服务架构，如下图：</p>
-<p><img src="img/路由网关.png" alt="image"></p>
-<p>注意：A 服务和 B 服务是可以相互调用的，作图的时候忘记了。并且配置服务也是注册到服务注册中心的。</p>
-<p>客户端的请求首先经过负载均衡（zuul、Ngnix），再到达服务网关（zuul 集群），然后再到具体的服务，服务统一注册到高可用的服务注册中心集群，服务的所有的配置文件由配置服务管理（下一篇文章讲述），配置服务的配置文件放在 Git 仓库，方便开发人员随时改配置。</p>
-<p>一、Zuul 简介</p>
-<p>Zuul 的主要功能是路由和过滤器。路由功能是微服务的一部分，比如／api/user 映射到 user 服务，/api/shop 映射到 shop 服务。zuul 实现了负载均衡。</p>
-<p>zuul 有以下功能：</p>
-<p>Authentication<br>Insights<br>Stress Testing<br>Canary Testing<br>Dynamic Routing<br>Service Migration<br>Load Shedding<br>Security<br>Static Response handling<br>Active/Active traffic management</p>
-<p>二、准备工作</p>
-<p>继续使用上一节的工程。在原有的工程上，创建一个新的工程。</p>
-<p>三、创建 service-zuul 工程</p>
-<pre><code>&lt;dependency&gt;
-       &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-       &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
-   &lt;/dependency&gt;
-   &lt;dependency&gt;
-       &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-       &lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;
-   &lt;/dependency&gt;
-   &lt;dependency&gt;
-       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-   &lt;/dependency&gt;
-
-   &lt;dependency&gt;
-       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-       &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-       &lt;scope&gt;test&lt;/scope&gt;
-   &lt;/dependency&gt;
-</code></pre><p>在其入口 applicaton 类加上注解 @EnableZuulProxy，开启 zuul：</p>
-<p>filterType：返回一个字符串代表过滤器的类型，在 zuul 中定义了四种不同生命周期的过滤器类型，具体如下：<br>pre：路由之前<br>routing：路由之时<br>post： 路由之后<br>error：发送错误调用<br>filterOrder：过滤的顺序<br>shouldFilter：这里可以写逻辑判断，是否要过滤，本文 true, 永远过滤。<br>run：过滤器的具体逻辑。可用很复杂，包括查 sql，nosql 去判断该请求到底有没有权限访问。        </p>
+        <h2 id="intern作用"><a href="#intern作用" class="headerlink" title="intern作用"></a>intern作用</h2><blockquote>
+<p>如果常量池中存在当前字符串, 就会直接返回当前字符串. 如果常量池中没有此字符串, 会将此字符串放入常量池中后, 再返回</p>
+</blockquote>
+<p>先明白含义是什么，再看一道题，copy美团的文章，详见参考一<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    s.intern();</div><div class="line">    String s2 = <span class="string">"1"</span>;</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    s3.intern();</div><div class="line">    String s4 = <span class="string">"11"</span>;</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>jdk7,8下false true<br>jdk6以下false false</p>
+</blockquote>
+<p>接下来把intern下移一行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    String s2 = <span class="string">"1"</span>;</div><div class="line">    s.intern();</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    String s4 = <span class="string">"11"</span>;</div><div class="line">    s3.intern();</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>jdk7,8下false false<br>jdk6以下false false</p>
+</blockquote>
+<p>看完答案后，我是很懵逼的，我有看了美团文章的解释，瞬间，更懵逼了。美团文章解释的其实挺好的，但是没有抓住重点。<br>详细论证两篇文章都有，基本都能看明白（看不明白可以找我交流），重点在两点：</p>
+<ul>
+<li>jdk7、8和6有什么不同： 7以上将常量池从perm区移到了heap中</li>
+<li>jdk7、8第一个程序中为什么一个是false，一个是true，<strong>jdk7以后常量去不仅仅可以保存对象，也可以保存对象的引用</strong>，所以s3的引用被保存到常量区中，s4直接在常量区找到了对象的引用，所以为true。</li>
+</ul>
+<p>有兴趣研究的同学，可以联系我，微信 ryry89，邮箱earyantLee@gmail.com</p>
+<p><a href="https://tech.meituan.com/in_depth_understanding_string_intern.html" target="_blank" rel="external">参考一</a><br><a href="https://www.cnblogs.com/Kidezyq/p/8040338.html" target="_blank" rel="external">参考二</a></p>
 
         
     
@@ -570,21 +566,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/07/26/100块钱可以兑换50块、10块、5块、1块的算法/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2017/07/21/SpringCloud学习4断路器（Hystrix）/" id="post_nav-older" class="next-content">
+        <a href="/2018/07/18/谷歌jib工具试用/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

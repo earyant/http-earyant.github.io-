@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2018-07-19T02:22:28.786Z</updated>
+  <updated>2018-08-04T13:13:45.040Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>String.intern方法理解</title>
+    <link href="http://earyant.github.io/2018/07/27/String-intern%E6%96%B9%E6%B3%95%E7%90%86%E8%A7%A3/"/>
+    <id>http://earyant.github.io/2018/07/27/String-intern方法理解/</id>
+    <published>2018-07-27T06:50:23.000Z</published>
+    <updated>2018-08-04T13:13:45.040Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;intern作用&quot;&gt;&lt;a href=&quot;#intern作用&quot; class=&quot;headerlink&quot; title=&quot;intern作用&quot;&gt;&lt;/a&gt;intern作用&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;如果常量池中存在当前字符串, 就会直接返回当前字符串. 如果常量池
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>谷歌jib工具试用</title>
@@ -358,22 +375,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;Java对象头&quot;&gt;&lt;a href=&quot;#Java对象头&quot; class=&quot;headerlink&quot; title=&quot;Java对象头&quot;&gt;&lt;/a&gt;Java对象头&lt;/h2&gt;&lt;p&gt;  一般占用两个机器码，在32位虚拟机中，一个机器码占用4个字节，就是32位，但是如果是数组，需要占
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>求m的n次方</title>
-    <link href="http://earyant.github.io/2017/10/24/%E6%B1%82m%E7%9A%84n%E6%AC%A1%E6%96%B9/"/>
-    <id>http://earyant.github.io/2017/10/24/求m的n次方/</id>
-    <published>2017-10-24T08:45:47.000Z</published>
-    <updated>2017-10-26T06:24:49.456Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;初步设想&quot;&gt;&lt;a href=&quot;#初步设想&quot; class=&quot;headerlink&quot; title=&quot;初步设想&quot;&gt;&lt;/a&gt;初步设想&lt;/h2&gt;&lt;p&gt;  最简单的方法，就是for循环一下。&lt;br&gt;  &lt;figure class=&quot;highlight java&quot;&gt;&lt;table
     
     </summary>
     

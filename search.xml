@@ -3,6 +3,32 @@
   
     
     <entry>
+      <title><![CDATA[String.intern方法理解]]></title>
+      <url>/2018/07/27/String-intern%E6%96%B9%E6%B3%95%E7%90%86%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<h2 id="intern作用"><a href="#intern作用" class="headerlink" title="intern作用"></a>intern作用</h2><blockquote>
+<p>如果常量池中存在当前字符串, 就会直接返回当前字符串. 如果常量池中没有此字符串, 会将此字符串放入常量池中后, 再返回</p>
+</blockquote>
+<p>先明白含义是什么，再看一道题，copy美团的文章，详见参考一<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    s.intern();</div><div class="line">    String s2 = <span class="string">"1"</span>;</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    s3.intern();</div><div class="line">    String s4 = <span class="string">"11"</span>;</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>jdk7,8下false true<br>jdk6以下false false</p>
+</blockquote>
+<p>接下来把intern下移一行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    String s2 = <span class="string">"1"</span>;</div><div class="line">    s.intern();</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>);</div><div class="line">    String s4 = <span class="string">"11"</span>;</div><div class="line">    s3.intern();</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>jdk7,8下false false<br>jdk6以下false false</p>
+</blockquote>
+<p>看完答案后，我是很懵逼的，我有看了美团文章的解释，瞬间，更懵逼了。美团文章解释的其实挺好的，但是没有抓住重点。<br>详细论证两篇文章都有，基本都能看明白（看不明白可以找我交流），重点在两点：</p>
+<ul>
+<li>jdk7、8和6有什么不同： 7以上将常量池从perm区移到了heap中</li>
+<li>jdk7、8第一个程序中为什么一个是false，一个是true，<strong>jdk7以后常量去不仅仅可以保存对象，也可以保存对象的引用</strong>，所以s3的引用被保存到常量区中，s4直接在常量区找到了对象的引用，所以为true。</li>
+</ul>
+<p>有兴趣研究的同学，可以联系我，微信 ryry89，邮箱earyantLee@gmail.com</p>
+<p><a href="https://tech.meituan.com/in_depth_understanding_string_intern.html" target="_blank" rel="external">参考一</a><br><a href="https://www.cnblogs.com/Kidezyq/p/8040338.html" target="_blank" rel="external">参考二</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[谷歌jib工具试用]]></title>
       <url>/2018/07/18/%E8%B0%B7%E6%AD%8Cjib%E5%B7%A5%E5%85%B7%E8%AF%95%E7%94%A8/</url>
       <content type="html"><![CDATA[<h1 id="Jib"><a href="#Jib" class="headerlink" title="Jib"></a>Jib</h1><p>好久没写blog了，最近看到google新开源的工具心痒痒，试着玩下~<br>首先什么是Jib，：</p>
@@ -3910,26 +3936,26 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[gallery]]></title>
-      <url>/gallery/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[timeline]]></title>
-      <url>/timeline/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[links]]></title>
       <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
+      <title><![CDATA[gallery]]></title>
+      <url>/gallery/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[tags]]></title>
       <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[timeline]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     
