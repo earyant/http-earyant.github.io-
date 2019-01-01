@@ -245,7 +245,7 @@
 
     
         <meta property="article:published_time" content="Tue Jan 01 2019 17:12:09 GMT+0800">
-        <meta property="article:modified_time" content="Tue Jan 01 2019 20:32:12 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jan 01 2019 21:28:56 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -268,7 +268,7 @@
     "mainEntityOfPage": "http://earyant.github.io/2019/01/01/自己写一个数据库/index.html",
     "headline": "自己写一个数据库",
     "datePublished": "Tue Jan 01 2019 17:12:09 GMT+0800",
-    "dateModified": "Tue Jan 01 2019 20:32:12 GMT+0800",
+    "dateModified": "Tue Jan 01 2019 21:28:56 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Earyant",
@@ -345,15 +345,6 @@
 
     <!-- Left aligned menu below button -->
     
-    
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#godb"><span class="post-toc-number">1.</span> <span class="post-toc-text">godb</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计逻辑"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">设计逻辑</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#建库"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">建库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#建表"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">建表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插入数据"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">插入数据</span></a></li></ol></li></ol>
-    </ul>
     
 
 
@@ -528,38 +519,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="godb"><a href="#godb" class="headerlink" title="godb"></a>godb</h1><blockquote>
-<p>本项目中，数据库就是本地一个文件夹，表也是数据库下的目录，里面的数据就是表文件夹下的文件，<br>表目录下的scheme.json保存着表结构<br>表目录下data0.json data1.json分别存储着数据，每个文件里的数据不超过1000行。</p>
-</blockquote>
-<h2 id="设计逻辑"><a href="#设计逻辑" class="headerlink" title="设计逻辑"></a>设计逻辑</h2><ul>
-<li>代码分为client端和server端</li>
-<li>server端开启端口，接收指令，并执行指令</li>
-<li>client端连接端口，发送指令</li>
-<li>server端分层执行<ul>
-<li>解析语句，判断类型，建库、建表、插入数据等等</li>
-<li>不同类型语句进入不同service执行，互不干扰</li>
-<li>验证语句，返回数据</li>
-</ul>
-</li>
-</ul>
-<h2 id="建库"><a href="#建库" class="headerlink" title="建库"></a>建库</h2><blockquote>
-<p>暂时建表只支持这种格式，实际实现是在项目tmp目录下新建一个db1的文件夹</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> db1</div></pre></td></tr></table></figure>
-<h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h2><blockquote>
-<p>暂时只支持  ‘id’ 列名， varchar（255） 类型长度，以及默认值<br>以及主键<br>实际实现是在数据库目录下新建一个表名的文件夹，并有一个scheme.json文件记录各列属性</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span>  table1 (<span class="string">`id`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</div><div class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">  );</div></pre></td></tr></table></figure>
-<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><blockquote>
-<p>支持语句格式,value 只支持一个括号，values支持多个括号多行数据插入<br>实际实现是在表文件夹下，新建data(i).json文件，里面存储具体数据，i是预留数据量大的情况下的分文件存储，每个文件暂时最多支持存储1000行。</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> feature_conf <span class="keyword">values</span>(<span class="number">1</span>)</div></pre></td></tr></table></figure>
-<p>// TODO</p>
-<ul>
-<li>[ ] 增加索引文件，指向data(i).json并指明多少列</li>
-<li>[ ] 索引文件分层，类似B+树存储</li>
-</ul>
-
+        
         
     
 
