@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2019-01-01T13:28:56.563Z</updated>
+  <updated>2019-01-01T13:29:49.873Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -20,9 +20,12 @@
     <link href="http://earyant.github.io/2019/01/01/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     <id>http://earyant.github.io/2019/01/01/自己写一个数据库/</id>
     <published>2019-01-01T09:12:09.000Z</published>
-    <updated>2019-01-01T13:28:56.563Z</updated>
+    <updated>2019-01-01T13:29:49.873Z</updated>
     
     <summary type="html">
+    
+      &lt;h1 id=&quot;godb&quot;&gt;&lt;a href=&quot;#godb&quot; class=&quot;headerlink&quot; title=&quot;godb&quot;&gt;&lt;/a&gt;godb&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;本项目中，数据库就是本地一个文件夹，表也是数据库下的目录，里面的数据就是表文件夹下的文件，&lt;br&gt;
     
     </summary>
     
