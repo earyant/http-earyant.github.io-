@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://earyant.github.io/"/>
-  <updated>2018-08-04T13:13:45.040Z</updated>
+  <updated>2019-01-01T12:32:12.159Z</updated>
   <id>http://earyant.github.io/</id>
   
   <author>
@@ -14,6 +14,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自己写一个数据库</title>
+    <link href="http://earyant.github.io/2019/01/01/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://earyant.github.io/2019/01/01/自己写一个数据库/</id>
+    <published>2019-01-01T09:12:09.000Z</published>
+    <updated>2019-01-01T12:32:12.159Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;godb&quot;&gt;&lt;a href=&quot;#godb&quot; class=&quot;headerlink&quot; title=&quot;godb&quot;&gt;&lt;/a&gt;godb&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;本项目中，数据库就是本地一个文件夹，表也是数据库下的目录，里面的数据就是表文件夹下的文件，&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>String.intern方法理解</title>
@@ -359,22 +376,6 @@
 &lt;p&gt;本文于2017年10月26日再读一遍，对书中的内容进行整理提取，方便以后查阅&lt;/p&gt;
 &lt;p&gt;[TOC]&lt;/p&gt;
 &lt;h2 id=&quot;第一章：创建和销毁对象&quot;&gt;&lt;a href=&quot;#第一章：创建和销毁对象&quot; class=&quot;hea
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>java类解析</title>
-    <link href="http://earyant.github.io/2017/10/26/java%E7%B1%BB%E8%A7%A3%E6%9E%90/"/>
-    <id>http://earyant.github.io/2017/10/26/java类解析/</id>
-    <published>2017-10-26T06:21:04.000Z</published>
-    <updated>2017-10-26T09:19:16.236Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Java对象头&quot;&gt;&lt;a href=&quot;#Java对象头&quot; class=&quot;headerlink&quot; title=&quot;Java对象头&quot;&gt;&lt;/a&gt;Java对象头&lt;/h2&gt;&lt;p&gt;  一般占用两个机器码，在32位虚拟机中，一个机器码占用4个字节，就是32位，但是如果是数组，需要占
     
     </summary>
     

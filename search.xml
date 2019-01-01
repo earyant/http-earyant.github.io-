@@ -3,6 +3,45 @@
   
     
     <entry>
+      <title><![CDATA[自己写一个数据库]]></title>
+      <url>/2019/01/01/%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+      <content type="html"><![CDATA[<h1 id="godb"><a href="#godb" class="headerlink" title="godb"></a>godb</h1><blockquote>
+<p>本项目中，数据库就是本地一个文件夹，表也是数据库下的目录，里面的数据就是表文件夹下的文件，<br>表目录下的scheme.json保存着表结构<br>表目录下data0.json data1.json分别存储着数据，每个文件里的数据不超过1000行。</p>
+</blockquote>
+<h2 id="设计逻辑"><a href="#设计逻辑" class="headerlink" title="设计逻辑"></a>设计逻辑</h2><ul>
+<li>代码分为client端和server端</li>
+<li>server端开启端口，接收指令，并执行指令</li>
+<li>client端连接端口，发送指令</li>
+<li>server端分层执行<ul>
+<li>解析语句，判断类型，建库、建表、插入数据等等</li>
+<li>不同类型语句进入不同service执行，互不干扰</li>
+<li>验证语句，返回数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="建库"><a href="#建库" class="headerlink" title="建库"></a>建库</h2><blockquote>
+<p>暂时建表只支持这种格式，实际实现是在项目tmp目录下新建一个db1的文件夹</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> db1</div></pre></td></tr></table></figure>
+<h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h2><blockquote>
+<p>暂时只支持  ‘id’ 列名， varchar（255） 类型长度，以及默认值<br>以及主键<br>实际实现是在数据库目录下新建一个表名的文件夹，并有一个scheme.json文件记录各列属性</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span>  table1 (<span class="string">`id`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</div><div class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">  );</div></pre></td></tr></table></figure>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><blockquote>
+<p>支持语句格式,value 只支持一个括号，values支持多个括号多行数据插入<br>实际实现是在表文件夹下，新建data(i).json文件，里面存储具体数据，i是预留数据量大的情况下的分文件存储，每个文件暂时最多支持存储1000行。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> feature_conf <span class="keyword">values</span>(<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>// TODO</p>
+<ul>
+<li>[ ] 增加索引文件，指向data(i).json并指明多少列</li>
+<li>[ ] 索引文件分层，类似B+树存储</li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[String.intern方法理解]]></title>
       <url>/2018/07/27/String-intern%E6%96%B9%E6%B3%95%E7%90%86%E8%A7%A3/</url>
       <content type="html"><![CDATA[<h2 id="intern作用"><a href="#intern作用" class="headerlink" title="intern作用"></a>intern作用</h2><blockquote>
@@ -3095,7 +3134,7 @@ PSPermGen       total 4096K, used 3039K
 </ul>
 </li>
 </ul>
-<p>感谢：<br><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm-medium=toutiao.io&amp;utm-source=toutiao.io" target="_blank" rel="external">这可能不只是一篇面经</a><br><a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">java整理</a></p>
+<p>感谢：<br><a href="https://www.nowcoder.com/discuss/29890?hmsr=toutiao.io&amp;source=rss&amp;utm-medium=toutiao.io&amp;utm-source=toutiao.io" target="_blank" rel="external">这可能不只是一篇面经</a><br><a href="https://github.com/kdn251/interviews/blob/master/README-zh-cn.md" target="_blank" rel="external">java整理</a><br><a href="https://github.com/xingshaocheng/architect-awesome/blob/master/README.md#%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98" target="_blank" rel="external">后端架构师技术图谱</a></p>
 ]]></content>
       
         
@@ -3936,8 +3975,8 @@ mathJax    启用 Mathjax    false
   
     
     <entry>
-      <title><![CDATA[links]]></title>
-      <url>/links/index.html</url>
+      <title><![CDATA[timeline]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     
@@ -3948,14 +3987,14 @@ mathJax    启用 Mathjax    false
     </entry>
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[links]]></title>
+      <url>/links/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[timeline]]></title>
-      <url>/timeline/index.html</url>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
